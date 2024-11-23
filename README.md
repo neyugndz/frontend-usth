@@ -1,28 +1,4 @@
-USTHConnect is a platform which is planned to support USTH student with there university life.....
-## Install
-* Create virtual environment
-```
-conda create -n .venv python=3.8
-```
-* Activate virtual environment
+USTHConnect FrontEnd
 
-```
-conda activate .venv
-```
-
-* Install require package
-```
-conda install --yes --file requirements.txt
-```
-
-* To run the Datapreprocessing.ipynb, you need to install 'ipykernel' into the Python environment
-```
-conda install -n .venv ipykernel --update-deps --force-reinstall
-```
-
-## Run for model results
-
-```
-python paper_v2.py
-```
-
+- UI for: Profile, Dashboard in Home and Timetable in Schedule and Login (Logout in progress)
+- Chưa sử dụng RecyclerView và khoảng cách vẫn sẽ có sai sót (Suggest Device: Medium Phone)
