@@ -39,6 +39,8 @@ public class Building_Fragment extends Fragment {
 
         navigator_drawer_function(v);
 
+        setup_function(v);
+
         return v;
     }
 
@@ -89,4 +91,14 @@ public class Building_Fragment extends Fragment {
         });
     }
 
+    private void setup_function(View v){
+        LinearLayout building_logic = v.findViewById(R.id.building_logic);
+        building_logic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Campus.Detail.Detail_Building_Activity.class);
+                startActivity(i);
+            }
+        });
+    }
 }

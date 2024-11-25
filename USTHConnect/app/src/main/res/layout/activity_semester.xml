@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/program_page"
+    android:id="@+id/semester_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Schedule.Course.Program_Activity">
+    android:background="@color/background"
+    tools:context=".Resource.First_Year.Semester_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Programme"
+                android:text="First Year"
                 android:textColor="@color/white"
                 android:textSize="30sp"/>
 
@@ -45,110 +46,91 @@
             android:orientation="vertical"
             android:background="@color/background">
 
+            <!--- Semester1 -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Information and Communication Technology"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:padding="10dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
+                android:id="@+id/semester_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#d9d9d9d9">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Select year"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:padding="10dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/second_year_logic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="13dp">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Second Year"
+                            android:text="Semester 1"
                             android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
 
-                        <ImageButton
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/white_more"/>
-
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="3px"
-                        android:background="#ccc"/>
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/white_more"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:background="#ccc"/>
+
+            </LinearLayout>
+
+            <!--- Semester2 -->
+            <LinearLayout
+                android:id="@+id/semester_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="13dp">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Third Year"
+                            android:text="Semester 2"
                             android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
 
-                        <ImageButton
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/white_more"/>
-
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="3px"
-                        android:background="#ccc"/>
+                    <ImageButton
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/white_more"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3px"
+                    android:background="#ccc"/>
 
             </LinearLayout>
 

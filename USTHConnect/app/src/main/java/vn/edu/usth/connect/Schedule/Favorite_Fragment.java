@@ -39,6 +39,8 @@ public class Favorite_Fragment extends Fragment {
 
         navigator_drawer_function(v);
 
+        setup_function(v);
+
         return v;
     }
 
@@ -84,6 +86,17 @@ public class Favorite_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(requireContext(), vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void setup_function(View v){
+        LinearLayout timetable_course = v.findViewById(R.id.logic_test_fav_course);
+        timetable_course.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Schedule.Course.List_Class_in_Course_Activity.class);
                 startActivity(i);
             }
         });

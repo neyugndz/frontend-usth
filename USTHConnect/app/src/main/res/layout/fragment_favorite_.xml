@@ -56,6 +56,7 @@
 
                     <!--- Course1 -->
                     <LinearLayout
+                        android:id="@+id/logic_test_fav_course"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

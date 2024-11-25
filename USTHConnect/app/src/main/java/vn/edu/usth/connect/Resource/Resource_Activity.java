@@ -36,6 +36,8 @@ public class Resource_Activity extends AppCompatActivity {
         });
         
         navigator_drawer_function();
+
+        setup_function();
     }
 
     private void navigator_drawer_function(){
@@ -80,6 +82,26 @@ public class Resource_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Resource_Activity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void setup_function(){
+        LinearLayout first_year = findViewById(R.id.first_year);
+        first_year.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.Resource.Resource_Activity.this, vn.edu.usth.connect.Resource.First_Year.Semester_Activity.class);
+                startActivity(i);
+            }
+        });
+
+        LinearLayout second_year = findViewById(R.id.second_year_programme);
+        second_year.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.Resource.Resource_Activity.this, vn.edu.usth.connect.Resource.Second_Third_Year.Year_Activity.class);
                 startActivity(i);
             }
         });

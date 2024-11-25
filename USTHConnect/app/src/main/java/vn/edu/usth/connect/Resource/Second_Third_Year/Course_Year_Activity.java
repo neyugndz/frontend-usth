@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Schedule.Course;
+package vn.edu.usth.connect.Resource.Second_Third_Year;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +14,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import vn.edu.usth.connect.R;
 
-public class Course_Activity extends AppCompatActivity {
+public class Course_Year_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.activity_course_year);
 
         setup_function();
     }
@@ -31,11 +31,11 @@ public class Course_Activity extends AppCompatActivity {
             onBackPressed();
         });
 
-        LinearLayout course_timetable = findViewById(R.id.logic_course_to_timatable);
-        course_timetable.setOnClickListener(new View.OnClickListener() {
+        LinearLayout course_in_year = findViewById(R.id.course_1_logic_test);
+        course_in_year.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Schedule.Course.Course_Activity.this, vn.edu.usth.connect.Schedule.Course.List_Class_in_Course_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.Second_Third_Year.Course_Year_Activity.this, vn.edu.usth.connect.Resource.Second_Third_Year.Year_Course_Resource_Activity.class);
                 startActivity(i);
             }
         });

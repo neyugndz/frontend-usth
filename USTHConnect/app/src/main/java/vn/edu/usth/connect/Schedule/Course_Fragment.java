@@ -39,6 +39,8 @@ public class Course_Fragment extends Fragment {
 
         navigator_drawer_function(v);
 
+        setup_function(v);
+
         return v;
     }
 
@@ -89,4 +91,14 @@ public class Course_Fragment extends Fragment {
         });
     }
 
+    private void setup_function(View v){
+        LinearLayout ict = v.findViewById(R.id.logic_course);
+        ict.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Schedule.Course.Program_Activity.class);
+                startActivity(i);
+            }
+        });
+    }
 }

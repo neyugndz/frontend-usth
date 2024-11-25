@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Schedule.Course;
+package vn.edu.usth.connect.Resource.First_Year;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,15 +14,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import vn.edu.usth.connect.R;
 
-public class Course_Activity extends AppCompatActivity {
+public class Semester_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_course);
+        setContentView(R.layout.activity_semester);
 
         setup_function();
+
     }
 
     private void setup_function(){
@@ -31,11 +32,20 @@ public class Course_Activity extends AppCompatActivity {
             onBackPressed();
         });
 
-        LinearLayout course_timetable = findViewById(R.id.logic_course_to_timatable);
-        course_timetable.setOnClickListener(new View.OnClickListener() {
+        LinearLayout semester_1 = findViewById(R.id.semester_1);
+        semester_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Schedule.Course.Course_Activity.this, vn.edu.usth.connect.Schedule.Course.List_Class_in_Course_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, vn.edu.usth.connect.Resource.First_Year.Course_Semester_Activity.class);
+                startActivity(i);
+            }
+        });
+
+        LinearLayout semester_2 = findViewById(R.id.semester_2);
+        semester_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, vn.edu.usth.connect.Resource.First_Year.Course_Semester_Activity.class);
                 startActivity(i);
             }
         });

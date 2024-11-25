@@ -1,6 +1,7 @@
 package vn.edu.usth.connect.Schedule.Course;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,20 @@ public class List_Class_in_Course_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_list_class_in_course);
 
-
+        setup_function();
 
     }
+
+    private void setup_function(){
+        ImageButton back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(view -> {
+            onBackPressed();
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
 }

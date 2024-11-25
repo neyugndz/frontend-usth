@@ -88,6 +88,7 @@
 
                     <!--- Program1 -->
                     <LinearLayout
+                        android:id="@+id/first_year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -124,6 +125,7 @@
 
                     <!--- Program2 -->
                     <LinearLayout
+                        android:id="@+id/second_year_programme"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

@@ -1,13 +1,10 @@
 package vn.edu.usth.connect.Campus.Detail;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -25,6 +22,8 @@ public class Detail_Building_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_building);
 
         date_tablayout();
+
+        setup_function();
     }
 
     private void date_tablayout(){
@@ -62,5 +61,17 @@ public class Detail_Building_Activity extends AppCompatActivity {
                 }
             }
         }).attach();
+    }
+
+    private void setup_function(){
+        ImageButton back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(view -> {
+            onBackPressed();
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
