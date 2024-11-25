@@ -1,14 +1,13 @@
 USTHConnect FrontEnd
 
-- UI for: Profile, Dashboard in Home and Timetable in Schedule and Login (Logout in progress)
+- UI for: Home(except Notification), Schedule, Campus, Resource, StudyBuddy(except StudyBuddy and Message) Login (Logout in progress, wait for Navigator_Drawer)
+- Improve UI: lenght, width, color
+
 - Chưa sử dụng RecyclerView và khoảng cách vẫn sẽ có sai sót (Suggest Device: Medium Phone)
+- RecyclerView (?), ScrollView
 
-- Chưa có UI của Notification trong Home
+- Navigator_Drawer: Đổi vào khung của Activity, chưa có trong StudyBuddy
 
-- RecyclerView (?)
+- Set vào cái đầu tiên có id để test logic => thay thế = click in RecyclerView
 
-- Navigator_Drawer: Chưa có close, có trong HomeActivity, ScheduleActivity, ResourceActivity
-
-- Function: Favorite Course, Course, Building, Resource, 
-
-- Continue: StudyBuddy UI and Function
+- Continue: StudyBuddy UI 
