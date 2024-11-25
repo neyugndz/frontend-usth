@@ -17,7 +17,7 @@ public class Fragment_Study_Buddy_changeing extends FragmentStateAdapter {
             case 0:
                 return new Study_Buddy_Fragment();
             case 1:
-                return new Chat_Fragment();
+                return new Message_Fragment();
             case 2:
                 return new Study_Buddy_Profile_Fragment();
             default:

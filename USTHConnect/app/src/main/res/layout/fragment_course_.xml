@@ -44,6 +44,772 @@
             android:background="@color/background"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:iconifiedByDefault="false"
+                    android:background="@drawable/search_box"
+                    android:backgroundTint="@android:color/white"
+                    android:layout_margin="10dp"
+                    android:queryHint="Search Course"
+                    app:searchIcon="@drawable/search"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d9d9d9d9">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Select degree programme"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:padding="10dp"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!--- Program1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="First Year - Sciences (three-years program)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Information and Communication Technology (ICT)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program3 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Cyber Security (CS)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program4 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Data Sciences (DS)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program5 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Double degree program in ICT"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program6 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Biotechnology – Drug Discovery (BIT)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program7 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Food Science and Technology (FST)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program8 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Medical Science and Technology (MST)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program9 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Pharmacy"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program10 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Advanced Materials Science and Nanotechnology (AMS)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program11 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Applied Environmental Sciences (AES)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program12 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Space Science and Satellite Technology (SST)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program13 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Electrical Engineering and Renewable Energy (EER)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program14 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Semiconductor and IC Technology (SIC)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program15 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Chemistry (CH)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program16 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Applied Mathematics (MAT)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program17 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Mechatronics Engineering Technology (MET)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program18 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Automotive Engineering (ATE)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program19 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Program in Aeronautical Engineering (AE)"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                    <!--- Program20 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="13dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Double degree program in Chemistry"
+                                android:textColor="@color/white"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
+
+                            <ImageButton
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/white_more"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="3px"
+                            android:background="#ccc"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -44,6 +44,89 @@
             android:background="@color/background"
             android:orientation="vertical">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <!--- RoadMap -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Road Map"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"/>
+
+                            <ImageButton
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/road_map_icon"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="380dp"
+                            android:layout_height="380dp"
+                            android:background="@drawable/road_map"/>
+
+                    </LinearLayout>
+
+                    <!--- Campus -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Campus"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="380dp"
+                            android:layout_height="380dp"
+                            android:background="@drawable/campus_map"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>
