@@ -17,7 +17,7 @@ import vn.edu.usth.connect.R;
 
 public class DashboardFragment extends Fragment {
 
-    private DrawerLayout mDrawerLayout;
+//    private DrawerLayout mDrawerLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,29 +25,29 @@ public class DashboardFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        ImageButton mImageView = v.findViewById(R.id.menu_button);
+//        ImageButton mImageView = v.findViewById(R.id.menu_button);
 
-        mDrawerLayout = v.findViewById(R.id.dashboard_page);
+//        mDrawerLayout = v.findViewById(R.id.dashboard_page);
+//
+//        mImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (mDrawerLayout != null && !mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+//                    mDrawerLayout.openDrawer(GravityCompat.START);
+//                }
+//            }
+//        });
 
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mDrawerLayout != null && !mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
-                }
-            }
-        });
-
-        navigator_drawer_function(v);
+//        navigator_drawer_function(v);
 
         return v;
     }
-
-    public void closeDrawer() {
-        if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
+//
+//    public void closeDrawer() {
+//        if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            mDrawerLayout.closeDrawer(GravityCompat.START);
+//        }
+//    }
 
     private void navigator_drawer_function(View v){
         LinearLayout to_home_activity = v.findViewById(R.id.to_home_page);
