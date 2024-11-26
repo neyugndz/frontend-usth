@@ -11,3 +11,5 @@ USTHConnect FrontEnd
 - Set vào cái đầu tiên có id để test logic => thay thế = click in RecyclerView
 
 - Continue: StudyBuddy UI 
+
+- Test after reset
