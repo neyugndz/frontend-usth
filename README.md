@@ -6,7 +6,7 @@ USTHConnect FrontEnd
 - Chưa sử dụng RecyclerView và khoảng cách vẫn sẽ có sai sót (Suggest Device: Medium Phone)
 - RecyclerView (?), ScrollView
 
-- Navigator_Drawer: Đổi vào khung của Activity, chưa có trong StudyBuddy
+- Navigator_Drawer: Đổi vào khung của Activity => record test, chưa có trong StudyBuddy
 
 - Set vào cái đầu tiên có id để test logic => thay thế = click in RecyclerView
 
