@@ -12,4 +12,4 @@ USTHConnect FrontEnd
 
 - Continue: StudyBuddy UI 
 
-- Test gitbash
+- Test gitbash2
