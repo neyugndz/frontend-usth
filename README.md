@@ -1,15 +1,23 @@
 USTHConnect FrontEnd
+### Complete:
+- UI for: Home(except Notification), Schedule, Campus, Resource, StudyBuddy(except StudyBuddy and Message) Login
+- RecyclerView & SearchView: Campus, Schedule, Resource
 
-- UI for: Home(except Notification), Schedule, Campus, Resource, StudyBuddy(except StudyBuddy and Message) Login (Logout in progress, wait for Navigator_Drawer)
-- Improve UI: lenght, width, color
+### In Progress:
+- Improve UI: lenght (padding), width, ui, color (rename color: Primary, ....), UI have backbutton => Linear to Frame, chỉnh lại height của header
 
-- Chưa sử dụng RecyclerView và khoảng cách vẫn sẽ có sai sót (Suggest Device: Medium Phone)
-- RecyclerView (?), ScrollView
+- Continue: StudyBuddy UI, cần dùng 1 component: bấm vào để sang trái phải,áp dụng cho lịch, bulding
 
-- Navigator_Drawer: Đổi vào khung của Activity => record test, chưa có trong StudyBuddy
+- Update edit profile and profile StudyBuddy: fetch url image
 
-- Set vào cái đầu tiên có id để test logic => thay thế = click in RecyclerView
+- Notification: PushNotification: Tincoder
 
-- Continue: StudyBuddy UI 
+- Click to add course to Favorite
 
-- Test gitbash2
+### Note:
++ Chưa đổi đc tên các môn học trong từng Program: do Layout cứng 
+
++ Set cho nhiều đối tượng: 
+    TextView building_name = findViewById(R.id.detail_building_name);
+    String name = getIntent().getStringExtra("Building Name");
+    building_name.setText(name);
