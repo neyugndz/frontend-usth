@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/semester1_course_page"
+    android:id="@+id/semester_course_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -30,12 +30,13 @@
                 android:background="@drawable/back"/>
 
             <TextView
+                android:id="@+id/program_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Semester 1"
+                android:text="Semester"
                 android:textColor="@color/white"
-                android:textSize="30sp"/>
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -46,106 +47,49 @@
             android:orientation="vertical"
             android:background="@color/background">
 
-            <!--- Course1 -->
-            <LinearLayout
-                android:id="@+id/semester_course_logic"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="20dp">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <SearchView
+                            android:id="@+id/course_semester_searchView"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Introduction to Informatics"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dr."
-                            android:textColor="@color/white"
-                            android:textSize="13sp"/>
+                            android:iconifiedByDefault="false"
+                            android:background="@drawable/search_box"
+                            android:backgroundTint="@android:color/white"
+                            android:layout_margin="10dp"
+                            android:queryHint="Search Course"
+                            app:searchIcon="@drawable/search"/>
 
                     </LinearLayout>
 
-                    <ImageButton
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/white_more"/>
+                    <!-- RecyclerView -->
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/course_semester_recyclerview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false" />
+
+                    </androidx.core.widget.NestedScrollView>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="3px"
-                    android:background="#ccc"/>
-
-            </LinearLayout>
-
-            <!--- Course2 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fundamental Physics"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Dr."
-                            android:textColor="@color/white"
-                            android:textSize="13sp"/>
-
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/white_more"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="3px"
-                    android:background="#ccc"/>
-
-            </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
 

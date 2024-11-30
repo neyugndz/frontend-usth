@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import vn.edu.usth.connect.R;
 
@@ -22,6 +19,8 @@ public class Program_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_program);
 
+        setup_recyclerview();
+
         setup_function();
    }
 
@@ -31,14 +30,33 @@ public class Program_Activity extends AppCompatActivity {
            onBackPressed();
        });
 
-       LinearLayout second_year = findViewById(R.id.second_year_logic);
+       LinearLayout second_year = findViewById(R.id.second_year);
        second_year.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent i = new Intent(vn.edu.usth.connect.Schedule.Course.Program_Activity.this, vn.edu.usth.connect.Schedule.Course.Course_Activity.class);
+               Intent i = new Intent(Program_Activity.this, Second_Course_Activity.class);
+               i.putExtra("Program Name", getIntent().getStringExtra("Program Name"));
                startActivity(i);
            }
        });
+
+       LinearLayout third_year = findViewById(R.id.third_year);
+       third_year.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent i = new Intent(Program_Activity.this, Third_Course_Activity.class);
+               i.putExtra("Program Name", getIntent().getStringExtra("Program Name"));
+               startActivity(i);
+           }
+       });
+   }
+
+   private void setup_recyclerview(){
+       TextView program_name = findViewById(R.id.program_name);
+
+       String name = getIntent().getStringExtra("Program Name");
+
+      program_name.setText(name);
    }
 
     @Override

@@ -1,105 +1,51 @@
 package vn.edu.usth.connect.Schedule;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.Schedule.Favorite_RecyclerView.Favorite_course_Adapter;
+import vn.edu.usth.connect.Schedule.Favorite_RecyclerView.Favorite_course_Item;
 
 public class Favorite_Fragment extends Fragment {
-
-    private DrawerLayout mDrawerLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_favorite_, container, false);
 
-        ImageButton mImageView = v.findViewById(R.id.menu_button);
-
-        mDrawerLayout = v.findViewById(R.id.favorite_page);
-
-        mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mDrawerLayout != null && !mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
-                }
-            }
-        });
-
-        navigator_drawer_function(v);
+        setup_recyclerview_function(v);
 
         setup_function(v);
 
         return v;
     }
 
-    private void navigator_drawer_function(View v){
-        LinearLayout to_home_activity = v.findViewById(R.id.to_home_page);
-        to_home_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.MainActivity.class);
-                startActivity(i);
-            }
-        });
+    private void setup_function(View v){
 
-        LinearLayout to_schedule_activity = v.findViewById(R.id.to_schedule_page);
-        to_schedule_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Schedule.Schedule_Activity.class);
-                startActivity(i);
-            }
-        });
-
-        LinearLayout to_campus_activity = v.findViewById(R.id.to_map_page);
-        to_campus_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Campus.Campus_Activity.class);
-                startActivity(i);
-            }
-        });
-
-        LinearLayout to_resource_activity = v.findViewById(R.id.to_resource_page);
-        to_resource_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Resource.Resource_Activity.class);
-                startActivity(i);
-            }
-        });
-
-        LinearLayout to_study_activity = v.findViewById(R.id.to_study_page);
-        to_study_activity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
-                startActivity(i);
-            }
-        });
     }
 
-    private void setup_function(View v){
-        LinearLayout timetable_course = v.findViewById(R.id.logic_test_fav_course);
-        timetable_course.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Schedule.Course.List_Class_in_Course_Activity.class);
-                startActivity(i);
-            }
-        });
+    private void setup_recyclerview_function(View v){
+        RecyclerView recyclerView = v.findViewById(R.id.favorite_course_recyclerview);
+
+        List<Favorite_course_Item> items = new ArrayList<Favorite_course_Item>();
+
+        items.add(new Favorite_course_Item("Web Application Development", "Msc. Kieu Quoc Viet & Msc. Huynh Vinh Nam"));
+        items.add(new Favorite_course_Item("Object-oriented system analysis and design", "Dr. Do Trung Dung"));
+        items.add(new Favorite_course_Item("Mobile Application Development", "Dr. Tran Giang Son & Msc. Kieu Quoc Viet"));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(new Favorite_course_Adapter(requireContext(), items));
     }
 
 }

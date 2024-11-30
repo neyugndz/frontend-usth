@@ -1,11 +1,19 @@
 package vn.edu.usth.connect.StudyBuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,6 +27,8 @@ public class Study_Buddy_Activity extends AppCompatActivity {
     private ViewPager2 mviewPager;
 
     private BottomNavigationView bottomNavigationView;
+
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +92,82 @@ public class Study_Buddy_Activity extends AppCompatActivity {
             }
         });
 
+        mDrawerLayout= findViewById(R.id.sb_activity);
+
+        ImageButton mImageView = findViewById(R.id.menu_button);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDrawerLayout != null && !mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+
+        navigator_drawer_function();
+    }
+
+    private void navigator_drawer_function(){
+        LinearLayout to_home_activity = findViewById(R.id.to_home_page);
+        to_home_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, vn.edu.usth.connect.MainActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout to_schedule_activity = findViewById(R.id.to_schedule_page);
+        to_schedule_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, vn.edu.usth.connect.Schedule.Schedule_Activity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout to_campus_activity = findViewById(R.id.to_map_page);
+        to_campus_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, vn.edu.usth.connect.Campus.Campus_Activity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout to_resource_activity = findViewById(R.id.to_resource_page);
+        to_resource_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, vn.edu.usth.connect.Resource.Resource_Activity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout to_study_activity = findViewById(R.id.to_study_page);
+        to_study_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        LinearLayout logout = findViewById(R.id.to_log_out);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(android.R.id.content, loginFragment);
+                transaction.commit();
+            }
+        });
 
     }
 }

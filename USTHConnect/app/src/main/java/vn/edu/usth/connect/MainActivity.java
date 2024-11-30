@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -96,12 +98,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mDrawerLayout= findViewById(R.id.home_activity);
+        mDrawerLayout = findViewById(R.id.home_activity);
+
+        ImageButton mImageView = findViewById(R.id.menu_button);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDrawerLayout != null && !mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
 
         navigator_drawer_function();
-
-
-
 
     }
 
@@ -110,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         to_home_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.MainActivity.class);
+                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.MainActivity.class);
                 startActivity(i);
                 finish();
             }
@@ -120,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         to_schedule_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Schedule.Schedule_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.Schedule.Schedule_Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -130,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         to_campus_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Campus.Campus_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.Campus.Campus_Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -140,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         to_resource_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Resource.Resource_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.Resource.Resource_Activity.class);
                 startActivity(i);
                 finish();
             }
@@ -150,18 +159,26 @@ public class MainActivity extends AppCompatActivity {
         to_study_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
                 startActivity(i);
                 finish();
             }
         });
 
         LinearLayout logout = findViewById(R.id.to_log_out);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(android.R.id.content, loginFragment);
+                transaction.commit();
+            }
+        });
 
     }
 
     private void navigateToLoginFragment() {
-
         Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(android.R.id.content, loginFragment);

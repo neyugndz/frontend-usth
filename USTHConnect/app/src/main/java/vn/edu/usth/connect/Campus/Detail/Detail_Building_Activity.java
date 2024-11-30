@@ -2,6 +2,7 @@ package vn.edu.usth.connect.Campus.Detail;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,8 @@ public class Detail_Building_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_detail_building);
+
+        setup_recyclerview();
 
         date_tablayout();
 
@@ -68,6 +71,17 @@ public class Detail_Building_Activity extends AppCompatActivity {
         back_button.setOnClickListener(view -> {
             onBackPressed();
         });
+    }
+
+    private void setup_recyclerview(){
+        TextView building_name = findViewById(R.id.detail_building_name);
+        TextView building_locate = findViewById(R.id.detail_building_locate);
+
+        String name = getIntent().getStringExtra("Building Name");
+        String locate = getIntent().getStringExtra("Building Locate");
+
+        building_name.setText(name);
+        building_locate.setText(locate);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +23,9 @@ public class Semester_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_semester);
 
-        setup_function();
+        setup_recyclerview();
 
+        setup_function();
     }
 
     private void setup_function(){
@@ -36,7 +38,8 @@ public class Semester_Activity extends AppCompatActivity {
         semester_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, vn.edu.usth.connect.Resource.First_Year.Course_Semester_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, Course_Semester_Activity.class);
+                i.putExtra("Semester", "Semester 1");
                 startActivity(i);
             }
         });
@@ -45,10 +48,16 @@ public class Semester_Activity extends AppCompatActivity {
         semester_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, vn.edu.usth.connect.Resource.First_Year.Course_Semester_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, Course_Semester_Activity.class);
+                i.putExtra("Semester", "Semester 2");
                 startActivity(i);
             }
         });
+    }
+
+    private void setup_recyclerview(){
+        TextView course_name = findViewById(R.id.program_name);
+        course_name.setText("First Year");
     }
 
     @Override

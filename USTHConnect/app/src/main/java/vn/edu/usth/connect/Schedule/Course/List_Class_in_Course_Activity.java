@@ -2,6 +2,7 @@ package vn.edu.usth.connect.Schedule.Course;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,8 @@ public class List_Class_in_Course_Activity extends AppCompatActivity {
 
         setup_function();
 
+        setup_recycler();
+
     }
 
     private void setup_function(){
@@ -28,6 +31,17 @@ public class List_Class_in_Course_Activity extends AppCompatActivity {
         back_button.setOnClickListener(view -> {
             onBackPressed();
         });
+    }
+
+    private void setup_recycler(){
+        TextView course_name = findViewById(R.id.course_name_timetable);
+        TextView course_lecturer = findViewById(R.id.course_lecturer_timetable);
+
+        String name = getIntent().getStringExtra("Course Name");
+        String locate = getIntent().getStringExtra("Course Lecturer");
+
+        course_name.setText(name);
+        course_lecturer.setText(locate);
     }
 
     @Override

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dashboard_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/dashboard_page"
     tools:context=".Home.DashboardFragment">
 
     <LinearLayout
@@ -14,28 +14,14 @@
         android:orientation="vertical">
 
         <!-- Header -->
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:orientation="horizontal">
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/menu_button"-->
-<!--                android:layout_width="25dp"-->
-<!--                android:layout_height="25dp"-->
-<!--                android:layout_gravity="center_vertical"-->
-<!--                android:layout_marginLeft="20dp"-->
-<!--                android:background="@drawable/white_menu"/>-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Home"
-                android:textColor="@color/white"
-                android:textSize="30sp"/>
-
-        </LinearLayout>
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="Home"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
 
         <!-- Body -->
         <LinearLayout
@@ -79,21 +65,21 @@
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
+                                        android:background="#FF80FD"
+                                        android:gravity="center"
+                                        android:padding="8dp"
                                         android:text="Today's Class"
                                         android:textColor="@color/white"
-                                        android:textStyle="bold"
                                         android:textSize="20sp"
-                                        android:background="#FF80FD"
-                                        android:padding="8dp"
-                                        android:gravity="center"/>
+                                        android:textStyle="bold" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"
                                     android:background="@color/white"
+                                    android:orientation="vertical"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -105,32 +91,32 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="18sp"
-                                            android:textStyle="bold"
                                             android:text="Scientific Writing"
-                                            android:textColor="@color/black"/>
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:textStyle="bold"
+                                            android:textColor="@color/black"
                                             android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
                                             android:text="7:30 - 9:15"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="13sp"
                                             android:text="Dr.Doan Nhat Quang"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="13sp"
                                             android:text="A21 - Auditorium"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
 
                                     </LinearLayout>
 
@@ -143,32 +129,32 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="18sp"
-                                            android:textStyle="bold"
                                             android:text="Scientific Writing"
-                                            android:textColor="@color/black"/>
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:textStyle="bold"
+                                            android:textColor="@color/black"
                                             android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
                                             android:text="7:30 - 9:15"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="13sp"
                                             android:text="Dr.Doan Nhat Quang"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="13sp"
                                             android:text="A21 - Auditorium"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
 
                                     </LinearLayout>
 
@@ -181,32 +167,32 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="18sp"
-                                            android:textStyle="bold"
                                             android:text="Scientific Writing"
-                                            android:textColor="@color/black"/>
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:textStyle="bold"
+                                            android:textColor="@color/black"
                                             android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
                                             android:text="7:30 - 9:15"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="13sp"
                                             android:text="Dr.Doan Nhat Quang"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
 
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:textSize="13sp"
                                             android:text="A21 - Auditorium"
-                                            android:textColor="@color/black"/>
+                                            android:textColor="@color/black"
+                                            android:textSize="13sp" />
 
                                     </LinearLayout>
 
@@ -243,21 +229,21 @@
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
+                                        android:background="#FF80FD"
+                                        android:gravity="center"
+                                        android:padding="8dp"
                                         android:text="Last Visited Course"
                                         android:textColor="@color/white"
-                                        android:textStyle="bold"
                                         android:textSize="20sp"
-                                        android:background="#FF80FD"
-                                        android:padding="8dp"
-                                        android:gravity="center"/>
+                                        android:textStyle="bold" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"
                                     android:background="@color/white"
+                                    android:orientation="vertical"
                                     android:padding="10dp">
 
                                     <LinearLayout
@@ -279,7 +265,7 @@
                                         <ImageButton
                                             android:layout_width="20dp"
                                             android:layout_height="20dp"
-                                            android:background="@drawable/more"/>
+                                            android:background="@drawable/more" />
 
                                     </LinearLayout>
 
@@ -302,7 +288,7 @@
                                         <ImageButton
                                             android:layout_width="20dp"
                                             android:layout_height="20dp"
-                                            android:background="@drawable/more"/>
+                                            android:background="@drawable/more" />
 
                                     </LinearLayout>
 
@@ -339,21 +325,21 @@
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
+                                        android:background="#FF80FD"
+                                        android:gravity="center"
+                                        android:padding="8dp"
                                         android:text="Last SB Contact"
                                         android:textColor="@color/white"
-                                        android:textStyle="bold"
                                         android:textSize="20sp"
-                                        android:background="#FF80FD"
-                                        android:padding="8dp"
-                                        android:gravity="center"/>
+                                        android:textStyle="bold" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:orientation="vertical"
                                     android:background="@color/white"
+                                    android:orientation="vertical"
                                     android:padding="10dp">
 
                                     <HorizontalScrollView
@@ -382,17 +368,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -412,17 +398,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -442,17 +428,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -472,17 +458,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -502,17 +488,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -532,17 +518,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -562,17 +548,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -592,17 +578,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -622,17 +608,17 @@
                                                         android:layout_height="match_parent"
                                                         android:layout_gravity="center"
                                                         android:layout_margin="5dp"
-                                                        android:src="@drawable/user"/>
+                                                        android:src="@drawable/user" />
 
                                                 </androidx.cardview.widget.CardView>
 
                                                 <TextView
                                                     android:layout_width="match_parent"
                                                     android:layout_height="match_parent"
-                                                    android:textColor="@color/black"
-                                                    android:textSize="12sp"
+                                                    android:gravity="center"
                                                     android:text="User"
-                                                    android:gravity="center"/>
+                                                    android:textColor="@color/black"
+                                                    android:textSize="12sp" />
 
                                             </LinearLayout>
 
@@ -657,4 +643,4 @@
 
     </LinearLayout>
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>

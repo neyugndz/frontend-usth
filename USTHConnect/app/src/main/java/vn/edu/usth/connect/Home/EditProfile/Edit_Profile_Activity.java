@@ -18,7 +18,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_edit_profile);
 
-
         setup_function();
     }
 
