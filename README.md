@@ -1,4 +1,4 @@
-USTHConnect FrontEnd
+### USTHConnect FrontEnd ###
 
 ### Complete:
 - UI for: Home(except Notification), Schedule, Campus, Resource, StudyBuddy(except StudyBuddy and Message) Login
@@ -6,9 +6,7 @@ USTHConnect FrontEnd
 - Set Image for profile but use URL
 
 ### In Progress:
-- Improve UI: lenght (padding), width, ui, color (rename color: Primary, ....), UI have backbutton => Linear to Frame, chỉnh lại height của header
-
-- Continue: StudyBuddy UI, cần dùng 1 component: bấm vào để sang trái phải,áp dụng cho lịch, bulding
+- Continue: StudyBuddy UI, cần dùng 1 component: bấm vào để sang trái phải, áp dụng cho lịch, bulding
 
 - Update edit profile and profile StudyBuddy: upgrade to use picture in phone
 
@@ -20,3 +18,14 @@ USTHConnect FrontEnd
 + Chưa đổi đc tên các môn học trong từng Program: do Layout cứng 
 
 + Setup comment
+
++ Logic StudyBuddy => Register => Pre-Preccessing => StudyBuddy =>
+
+### Today
+
+### Tomorow
++ Model của Việt
+
++ Xem usecase
+
++ Audio Call
