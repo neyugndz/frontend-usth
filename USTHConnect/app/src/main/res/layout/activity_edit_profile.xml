@@ -74,7 +74,8 @@
                                 android:layout_width="110dp"
                                 android:layout_height="110dp"
                                 android:layout_gravity="center"
-                                android:src="@drawable/usth_logo"/>
+                                android:background="@drawable/usth_logo"
+                                android:scaleType="centerCrop"/>
 
                         </androidx.cardview.widget.CardView>
 
