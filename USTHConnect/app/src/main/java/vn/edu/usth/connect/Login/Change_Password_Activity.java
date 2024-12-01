@@ -16,13 +16,11 @@ import vn.edu.usth.connect.R;
 public class Change_Password_Activity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword, editTextConfirmPassword;
-
     private Button change_password_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_change_password);
 
         editTextEmail = findViewById(R.id.editTextReEmail);
@@ -36,7 +34,10 @@ public class Change_Password_Activity extends AppCompatActivity {
             String confirm = editTextConfirmPassword.getText().toString();
 
             if(validatechangepass(email, pass, confirm)){
+                // Check new password and confirm equal
                 if(pass.equals(confirm)){
+                    Toast.makeText(this, "Change Password complete!", Toast.LENGTH_SHORT).show();
+
                     Fragment loginFragment = new LoginFragment();
                     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(android.R.id.content, loginFragment);
@@ -47,7 +48,7 @@ public class Change_Password_Activity extends AppCompatActivity {
                 }
             }
             else{
-                Toast.makeText(this, "Please enter email to change password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter email to change password!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -65,11 +66,13 @@ public class Change_Password_Activity extends AppCompatActivity {
     }
 
     private void button_function(){
+        // Back to Login, nothing change
         ImageButton back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(view -> {
             onBackPressed();
         });
 
+        // Move to Login
         Button change_password = findViewById(R.id.change_password);
         change_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +81,9 @@ public class Change_Password_Activity extends AppCompatActivity {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(android.R.id.content, loginFragment);
                 transaction.commit();
+
+                // Execute method
+                finish();
             }
         });
     }

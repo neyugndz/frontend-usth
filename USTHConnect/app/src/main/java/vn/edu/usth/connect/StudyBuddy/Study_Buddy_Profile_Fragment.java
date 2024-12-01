@@ -21,7 +21,6 @@ public class Study_Buddy_Profile_Fragment extends Fragment {
 
         setup_function(v);
 
-
         return v;
     }
 
@@ -30,7 +29,7 @@ public class Study_Buddy_Profile_Fragment extends Fragment {
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.StudyBuddy.More.Edit_SB_Profile_Activity.class);
+                Intent i = new Intent(requireContext(), vn.edu.usth.connect.StudyBuddy.EditProfile.Edit_SB_Profile_Activity.class);
                 startActivity(i);
             }
         });

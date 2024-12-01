@@ -1,9 +1,14 @@
 package vn.edu.usth.connect.Resource;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -14,9 +19,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.RecyclerView.Resource_course_Adapter;
 import vn.edu.usth.connect.Resource.RecyclerView.Resource_course_Item;
@@ -24,9 +33,11 @@ import vn.edu.usth.connect.Resource.RecyclerView.Resource_course_Item;
 public class Resource_Activity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
-
     private List<Resource_course_Item> items;
     private Resource_course_Adapter adapter;
+
+    private ImageView avatar_profile_image;
+    private Handler handler = new Handler();
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +63,8 @@ public class Resource_Activity extends AppCompatActivity {
         setup_recyclerview_function();
 
         setup_function();
+
+        update_picture();
     }
 
     private void setup_recyclerview_function() {
@@ -144,6 +157,47 @@ public class Resource_Activity extends AppCompatActivity {
 
     private void setup_function(){
 
+    }
+
+    private void update_picture(){
+        avatar_profile_image = findViewById(R.id.avatar_profile);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
+        String url = sharedPreferences.getString("Image_URL", null);
+        if (url != null) {
+            new UpdateImage(url).start();
+        }
+    }
+
+    class UpdateImage extends Thread {
+        private String url;
+        private Bitmap bitmap;
+
+        public UpdateImage(String url) {
+            this.url = url;
+        }
+
+        @Override
+        public void run() {
+            try {
+                URL imageUrl = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            handler.post(() -> {
+                if (bitmap != null) {
+                    avatar_profile_image.setImageBitmap(bitmap);
+                } else {
+                    Toast.makeText(Resource_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void filterList(String text) {

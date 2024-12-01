@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="blue">#0866ff</color>
 
     <color name="blue_usth">#2a3c95</color>
@@ -16,16 +15,19 @@
 
     <color name="navigator_drawer_background">#4a67d9</color>
     <color name="navigator_drawer_task_background">#c4d5ff</color>
-    <color name="hr">#c8c8c8</color>
 
-    <color name="light_red">#ff696d</color>
-    <color name="orange">#ffc57e</color>
-    <color name="dark_mint">#00d3c9</color>
-    <color name="purple">#6d62f7</color>
-    <color name="dark_pink">#c234dc</color>
+    <color name="line">#ccc</color>
 
-    <color name="colorAccentDark">#dfe3ee</color>
+    <color name="color_1">#ff696d</color>
+    <color name="color_2">#ffc57e</color>
+    <color name="color_3">#00d3c9</color>
+    <color name="color_4">#6d62f7</color>
+    <color name="color_5">#c234dc</color>
 
-    <color name="text_">#B1B1BC</color>
+
+
+<!--    <color name="colorAccentDark">#dfe3ee</color>-->
+
+<!--    <color name="text_">#B1B1BC</color>-->
 
 </resources>

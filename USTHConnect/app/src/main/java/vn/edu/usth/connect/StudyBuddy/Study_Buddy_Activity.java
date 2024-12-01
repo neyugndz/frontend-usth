@@ -1,11 +1,17 @@
 package vn.edu.usth.connect.StudyBuddy;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -19,16 +25,22 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Schedule.Fragment_schedule_changing;
 
 public class Study_Buddy_Activity extends AppCompatActivity {
 
     private ViewPager2 mviewPager;
-
     private BottomNavigationView bottomNavigationView;
-
     private DrawerLayout mDrawerLayout;
+
+    private ImageView avatar_profile_image;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +117,8 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         });
 
         navigator_drawer_function();
+
+        update_picture();
     }
 
     private void navigator_drawer_function(){
@@ -169,5 +183,46 @@ public class Study_Buddy_Activity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void update_picture(){
+        avatar_profile_image = findViewById(R.id.avatar_profile);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
+        String url = sharedPreferences.getString("Image_URL", null);
+        if (url != null) {
+            new UpdateImage(url).start();
+        }
+    }
+
+    class UpdateImage extends Thread {
+        private String url;
+        private Bitmap bitmap;
+
+        public UpdateImage(String url) {
+            this.url = url;
+        }
+
+        @Override
+        public void run() {
+            try {
+                URL imageUrl = new URL(url);
+                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            handler.post(() -> {
+                if (bitmap != null) {
+                    avatar_profile_image.setImageBitmap(bitmap);
+                } else {
+                    Toast.makeText(Study_Buddy_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }

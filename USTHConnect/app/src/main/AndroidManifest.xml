@@ -24,7 +24,7 @@
             android:name=".Schedule.Course.First_Course_Activity"
             android:exported="false" />
         <activity
-            android:name=".StudyBuddy.More.Edit_SB_Profile_Activity"
+            android:name=".StudyBuddy.EditProfile.Edit_SB_Profile_Activity"
             android:exported="false" />
         <activity
             android:name=".Resource.Second_Third_Year.Year_Course_Resource_Activity"

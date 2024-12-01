@@ -17,11 +17,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="Notification"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <!-- Body -->
         <LinearLayout

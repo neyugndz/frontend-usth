@@ -13,34 +13,36 @@
         android:layout_height="match_parent">
 
         <!-- Header -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/blue_usth"
-            android:orientation="horizontal">
+            android:padding="8dp">
 
             <ImageButton
                 android:id="@+id/menu_button"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/white_menu" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
+        <!-- ViewPager2 -->
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_campus_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/campus_bottom_navigation"/>
 
+        <!-- BottomNavigation -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/campus_bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp"
             android:background="@color/navigator_background"
             app:itemIconTint="@color/home_navigator"
             app:itemTextColor="@color/home_navigator"
@@ -78,9 +80,11 @@
                         app:cardCornerRadius="50dp">
 
                         <ImageButton
+                            android:id="@+id/avatar_profile"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:background="@drawable/user"/>
+                            android:background="@drawable/user"
+                            android:scaleType="centerCrop"/>
 
                     </androidx.cardview.widget.CardView>
 

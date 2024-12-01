@@ -22,14 +22,14 @@ public class LoginFragment extends Fragment {
     private Button buttonLogin;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);
         buttonLogin = view.findViewById(R.id.login_button);
 
+        // Remember Login using SharePreference
         buttonLogin.setOnClickListener(v -> {
             String email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
@@ -44,7 +44,7 @@ public class LoginFragment extends Fragment {
                 startActivity(intent);
                 getActivity().finish();
             } else {
-                Toast.makeText(getActivity(), "Please check your ID and Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Please check your ID and Password!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -57,12 +57,13 @@ public class LoginFragment extends Fragment {
         return !email.isEmpty() && !password.isEmpty();
     }
 
-    private void button_function(View view){
-     LinearLayout forgot_password = view.findViewById(R.id.forgot_password);
+    private void button_function(View view) {
+        // Change Password
+        LinearLayout forgot_password = view.findViewById(R.id.forgot_password);
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), Change_Password_Activity.class );
+                Intent i = new Intent(requireContext(), Change_Password_Activity.class);
                 startActivity(i);
             }
         });

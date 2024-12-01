@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.StudyBuddy.More;
+package vn.edu.usth.connect.StudyBuddy.EditProfile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity;
 
 public class Edit_SB_Profile_Activity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class Edit_SB_Profile_Activity extends AppCompatActivity {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.More.Edit_SB_Profile_Activity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.EditProfile.Edit_SB_Profile_Activity.this, Study_Buddy_Activity.class);
                 startActivity(i);
             }
         });

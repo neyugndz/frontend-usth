@@ -138,7 +138,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -156,7 +156,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -174,7 +174,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -215,7 +215,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -233,7 +233,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/light_red"/>
+                            android:background="@color/color_1"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -274,7 +274,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -315,7 +315,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -333,7 +333,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -374,7 +374,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -392,7 +392,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -410,7 +410,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -451,7 +451,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -523,7 +523,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -541,7 +541,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -559,7 +559,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -600,7 +600,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -618,7 +618,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/light_red"/>
+                            android:background="@color/color_1"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -659,7 +659,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -700,7 +700,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -718,7 +718,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -759,7 +759,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -777,7 +777,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -795,7 +795,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -836,7 +836,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -908,7 +908,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -926,7 +926,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -944,7 +944,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -985,7 +985,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1003,7 +1003,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/light_red"/>
+                            android:background="@color/color_1"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1044,7 +1044,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1085,7 +1085,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1103,7 +1103,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1144,7 +1144,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1162,7 +1162,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1180,7 +1180,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1221,7 +1221,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1293,7 +1293,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1311,7 +1311,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1329,7 +1329,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1370,7 +1370,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1388,7 +1388,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/light_red"/>
+                            android:background="@color/color_1"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1429,7 +1429,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1470,7 +1470,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1488,7 +1488,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1529,7 +1529,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1547,7 +1547,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1565,7 +1565,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1606,7 +1606,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1678,7 +1678,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1696,7 +1696,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1714,7 +1714,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1755,7 +1755,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1773,7 +1773,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/light_red"/>
+                            android:background="@color/color_1"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1814,7 +1814,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1855,7 +1855,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1873,7 +1873,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1914,7 +1914,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/orange"/>
+                            android:background="@color/color_2"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1932,7 +1932,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/purple"/>
+                            android:background="@color/color_4"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1950,7 +1950,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -1991,7 +1991,7 @@
                             android:textStyle="bold"
                             android:textSize="15sp"
                             android:gravity="center"
-                            android:background="@color/dark_mint"/>
+                            android:background="@color/color_3"/>
 
                     </androidx.cardview.widget.CardView>
 
