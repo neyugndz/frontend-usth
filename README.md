@@ -24,8 +24,4 @@
 ### Today
 
 ### Tomorow
-+ Model của Việt
-
-+ Xem usecase
-
-+ Audio Call
++ 
