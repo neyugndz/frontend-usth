@@ -10,9 +10,11 @@
 
 - Update edit profile and profile StudyBuddy: upgrade to use picture in phone
 
-- Notification: PushNotification: Tincoder
+- Notification: PushNotification: Tincoder (Quang)
 
 - Click to add course to Favorite
+
+- Basic Chat, Advance Chat 
 
 ### Note:
 + Chưa đổi đc tên các môn học trong từng Program: do Layout cứng 
@@ -22,6 +24,7 @@
 + Logic StudyBuddy => Register => Pre-Preccessing => StudyBuddy =>
 
 ### Today
++ 
 
 ### Tomorow
 + 
