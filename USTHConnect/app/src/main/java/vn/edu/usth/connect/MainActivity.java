@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
         SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
 
@@ -53,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
             navigateToLoginFragment();
             return;
         }
+
+        setContentView(R.layout.activity_main);
 
         mviewPager = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.home_bottom_navigation);
@@ -185,6 +185,12 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Update SharedPreferences to set isLoggedIn to false
+                SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("IsLoggedIn", false);
+                editor.apply();
+
                 Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(android.R.id.content, loginFragment);

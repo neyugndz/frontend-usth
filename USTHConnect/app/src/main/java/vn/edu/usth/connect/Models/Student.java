@@ -5,12 +5,22 @@ import java.util.Date;
 public class Student {
     private String id;
     private String fullName;
+    private String password;
     private String gender;
     private String major;
     private String phoneNumber;
     private String email;
     private Date dob;
     private String studyYear;
+
+    public Student() {
+    }
+
+    public Student(String id, String password, String phone) {
+        this.id = id;
+        this.password = password;
+        this.phoneNumber = phone;
+    }
 
     public String getId() {
         return id;
