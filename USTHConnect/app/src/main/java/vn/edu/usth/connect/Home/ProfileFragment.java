@@ -136,7 +136,19 @@ public class ProfileFragment extends Fragment {
         major.setText(student.getMajor());
         studentId.setText(student.getId());
         phoneNumber.setText(student.getPhoneNumber());
-        email.setText(student.getEmail());
+
+        // Email:
+        email.setText(shortEmail(student.getEmail()));
+    }
+
+    private String shortEmail(String email) {
+        int atIndex = email.indexOf("@");
+        if (atIndex > 7) { // Ensure there is enough room for truncation
+            String prefix = email.substring(0, 7); // Take the first 7 characters
+            String suffix = email.substring(email.indexOf("@") - 3); // Add the last 3 characters before '@' and everything after '@'
+            return prefix + "..." + suffix;
+        }
+        return email;
     }
 
     class UpdateImage extends Thread {
