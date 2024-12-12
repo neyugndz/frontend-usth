@@ -129,17 +129,17 @@
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textSize="18sp"
-                                            android:text="Fullname:"
+                                            android:text="Full Name:"
                                             android:textColor="@color/black"/>
 
                                         <TextView
+                                            android:id="@+id/full_name"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textStyle="bold"
                                             android:textSize="18sp"
-                                            android:text="Chu Hoang Viet"
                                             android:textColor="@color/black"/>
 
                                     </LinearLayout>
@@ -156,17 +156,17 @@
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textSize="18sp"
-                                            android:text="StudentID:"
+                                            android:text="Student ID:"
                                             android:textColor="@color/black"/>
 
                                         <TextView
+                                            android:id="@+id/student_id"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textStyle="bold"
                                             android:textSize="18sp"
-                                            android:text="22BI13462"
                                             android:textColor="@color/black"/>
 
                                     </LinearLayout>
@@ -183,17 +183,17 @@
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textSize="18sp"
-                                            android:text="Username:"
+                                            android:text="Major:"
                                             android:textColor="@color/black"/>
 
                                         <TextView
+                                            android:id="@+id/major"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textStyle="bold"
                                             android:textSize="18sp"
-                                            android:text="VietChu"
                                             android:textColor="@color/black"/>
 
                                     </LinearLayout>
@@ -214,13 +214,13 @@
                                             android:textColor="@color/black"/>
 
                                         <TextView
+                                            android:id="@+id/email"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textStyle="bold"
                                             android:textSize="18sp"
-                                            android:text="vietch@usth.edu.vn"
                                             android:textColor="@color/black"/>
 
                                     </LinearLayout>
@@ -237,26 +237,21 @@
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textSize="18sp"
-                                            android:text="Phone number:"
+                                            android:text="Phone Number:"
                                             android:textColor="@color/black"/>
 
                                         <TextView
+                                            android:id="@+id/phone_number"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textStyle="bold"
                                             android:textSize="18sp"
-                                            android:text="012345678"
                                             android:textColor="@color/black"/>
 
                                     </LinearLayout>
-
-
                                 </LinearLayout>
-
-
-
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
