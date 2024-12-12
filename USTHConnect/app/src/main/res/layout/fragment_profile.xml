@@ -156,33 +156,6 @@
                                             android:layout_weight="1"
                                             android:gravity="center"
                                             android:textSize="15sp"
-                                            android:text="Date of Birth:"
-                                            android:textColor="@color/black"/>
-
-                                        <TextView
-                                            android:id="@+id/student_dob"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="center"
-                                            android:textStyle="bold"
-                                            android:textSize="15sp"
-                                            android:textColor="@color/black"/>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="15dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="center"
-                                            android:textSize="15sp"
                                             android:text="Student ID:"
                                             android:textColor="@color/black"/>
 
@@ -215,32 +188,6 @@
 
                                         <TextView
                                             android:id="@+id/major"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="center"
-                                            android:textStyle="bold"
-                                            android:textSize="15sp"
-                                            android:textColor="@color/black"/>
-
-                                    </LinearLayout>
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginBottom="15dp"
-                                        android:orientation="horizontal">
-
-                                        <TextView
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_weight="1"
-                                            android:gravity="center"
-                                            android:textSize="15sp"
-                                            android:text="Study Year:"
-                                            android:textColor="@color/black"/>
-
-                                        <TextView
-                                            android:id="@+id/study_year"
                                             android:layout_width="0dp"
                                             android:layout_height="wrap_content"
                                             android:layout_weight="1"

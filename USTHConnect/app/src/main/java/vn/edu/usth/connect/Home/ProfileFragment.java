@@ -27,8 +27,6 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +41,7 @@ import vn.edu.usth.connect.R;
 public class ProfileFragment extends Fragment {
 
     private ImageView avatar_profile_image;
-    private TextView fullName, dob, studentId, major, studyYear, email, phoneNumber;
+    private TextView fullName, studentId, major, email, phoneNumber;
     private Handler handler = new Handler();
     private ProgressDialog progressDialog;
 
@@ -125,13 +123,9 @@ public class ProfileFragment extends Fragment {
 
     // Function to match and display the data based on the ID
     private void displayUserProfile(Student student, View v) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
         // Set student data to the UI
         fullName = v.findViewById(R.id.full_name);
-        dob = v.findViewById(R.id.student_dob);
         major = v.findViewById(R.id.major);
-        studyYear = v.findViewById(R.id.study_year);
         studentId = v.findViewById(R.id.student_id);
         phoneNumber = v.findViewById(R.id.phone_number);
         email = v.findViewById(R.id.email);
@@ -139,12 +133,7 @@ public class ProfileFragment extends Fragment {
         Log.d("ProfileFragment", "Setting user data: " + student.getFullName() + ", " + student.getMajor());
 
         fullName.setText(student.getFullName());
-
-        // Format the Date object to a String
-        String formattedDob = dateFormat.format(student.getDob());
-        dob.setText(formattedDob);
         major.setText(student.getMajor());
-        studyYear.setText(student.getStudyYear());
         studentId.setText(student.getId());
         phoneNumber.setText(student.getPhoneNumber());
 
@@ -152,11 +141,10 @@ public class ProfileFragment extends Fragment {
         email.setText(shortEmail(student.getEmail()));
     }
 
-
     private String shortEmail(String email) {
         int atIndex = email.indexOf("@");
-        if (atIndex > 3) { // Ensure there is enough room for truncation
-            String prefix = email.substring(0, 3); // Take the first 7 characters
+        if (atIndex > 7) { // Ensure there is enough room for truncation
+            String prefix = email.substring(0, 7); // Take the first 7 characters
             String suffix = email.substring(email.indexOf("@") - 3); // Add the last 3 characters before '@' and everything after '@'
             return prefix + "..." + suffix;
         }
