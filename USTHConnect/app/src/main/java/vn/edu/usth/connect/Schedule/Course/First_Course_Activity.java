@@ -26,13 +26,16 @@ public class First_Course_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_first_course.xml
         setContentView(R.layout.activity_first_course);
 
+        // Setup Recyclerview for Course and SearchView
         setup_recyclerview_function();
 
-        setup_recyclerview();
+        // Set text for RecyclerView
+        setup_text_recyclerview();
 
+        // Function for backbutton
         setup_function();
 
     }
@@ -44,7 +47,7 @@ public class First_Course_Activity extends AppCompatActivity {
         });
     }
 
-    private void setup_recyclerview(){
+    private void setup_text_recyclerview(){
         TextView program_name = findViewById(R.id.program_name);
 
         String name = getIntent().getStringExtra("Program Name");
@@ -52,7 +55,10 @@ public class First_Course_Activity extends AppCompatActivity {
         program_name.setText(name);
     }
 
+    // SetUp RecyclerView and SearchView
+    // Folder: RecyclerView: CourseItem, CourseAdapter, CourseViewHolder
     private void setup_recyclerview_function(){
+        // RecyclerView point to List_Class_in_Course_Activity
         RecyclerView recyclerView = findViewById(R.id.first_year_recyclerview);
 
         items = new ArrayList<CourseItem>();
@@ -86,6 +92,7 @@ public class First_Course_Activity extends AppCompatActivity {
         });
     }
 
+    // Filter for SearchView
     private void filterList(String text) {
         List<CourseItem> filteredItems = new ArrayList<>();
 

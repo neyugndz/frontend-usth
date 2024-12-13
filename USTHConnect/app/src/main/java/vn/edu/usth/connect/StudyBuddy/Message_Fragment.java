@@ -15,6 +15,7 @@ public class Message_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // fragment_chat.xml
         View v = inflater.inflate(R.layout.fragment_chat_, container, false);
 
         return v;

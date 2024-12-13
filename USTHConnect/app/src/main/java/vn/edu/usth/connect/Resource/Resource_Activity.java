@@ -38,17 +38,19 @@ public class Resource_Activity extends AppCompatActivity {
 
     private ImageView avatar_profile_image;
     private Handler handler = new Handler();
-    
+
+    // ResourceActivity != Resource
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+        // activity_resource.xml
         setContentView(R.layout.activity_resource);
 
+        // Setup Side-menu for Activity
         ImageButton mImageView = findViewById(R.id.menu_button);
-
         mDrawerLayout = findViewById(R.id.resource_page);
 
+        // Function to open Side-menu
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,17 +59,23 @@ public class Resource_Activity extends AppCompatActivity {
                 }
             }
         });
-        
+
+        // Side-menu function
         navigator_drawer_function();
 
+        // Setup function for RecyclerView and SearchView
         setup_recyclerview_function();
 
-        setup_function();
-
+        // Load image in the Side-menu
         update_picture();
     }
 
+    // SetUp RecyclerView and SearchView
+    // Folder: RecyclerView: Resource_course_Adapter, Resource_course_Item, Resource_course_ViewHolder
     private void setup_recyclerview_function() {
+        // RecyclerView point to First_Year.Semester_Activity
+        // or
+        // RecyclerView point to Second_Third_Year.Year_Activity
         RecyclerView recyclerView = findViewById(R.id.resource_recyclerview);
 
         items = new ArrayList<Resource_course_Item>();
@@ -155,10 +163,6 @@ public class Resource_Activity extends AppCompatActivity {
         });
     }
 
-    private void setup_function(){
-
-    }
-
     private void update_picture(){
         avatar_profile_image = findViewById(R.id.avatar_profile);
 
@@ -200,6 +204,7 @@ public class Resource_Activity extends AppCompatActivity {
         }
     }
 
+    // Filter for SearchView
     private void filterList(String text) {
         List<Resource_course_Item> filteredItems = new ArrayList<>();
 

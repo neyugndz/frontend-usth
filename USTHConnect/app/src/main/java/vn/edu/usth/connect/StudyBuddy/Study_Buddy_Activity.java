@@ -45,16 +45,21 @@ public class Study_Buddy_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_study_buddy.xml
         setContentView(R.layout.activity_study_buddy);
 
+        // ViewPager2: Change fragments: MessageFragment, StudyBuddyFragment, StudyBuddyProfileFragment
         mviewPager = findViewById(R.id.view_study_buddy_pager);
+
+        // BottomNavigation: Bottom Menu :D
         bottomNavigationView = findViewById(R.id.study_buddy_bottom_navigation);
 
+        // Adapter: Fragment_Study_Buddy_changing
         Fragment_Study_Buddy_changeing adapter = new Fragment_Study_Buddy_changeing(getSupportFragmentManager(), getLifecycle());
         mviewPager.setAdapter(adapter);
         mviewPager.setUserInputEnabled(false);
 
+        // ViewPager2 setup Function
         mviewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 
             @Override
@@ -85,6 +90,7 @@ public class Study_Buddy_Activity extends AppCompatActivity {
             }
         });
 
+        // BottomNavigation setup Function
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -104,8 +110,10 @@ public class Study_Buddy_Activity extends AppCompatActivity {
             }
         });
 
+        // Setup Side-menu for Activity
         mDrawerLayout= findViewById(R.id.sb_activity);
 
+        // Function to open Side-menu
         ImageButton mImageView = findViewById(R.id.menu_button);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +124,10 @@ public class Study_Buddy_Activity extends AppCompatActivity {
             }
         });
 
+        // Side-menu function
         navigator_drawer_function();
 
+        // Load image in the Side-menu
         update_picture();
     }
 

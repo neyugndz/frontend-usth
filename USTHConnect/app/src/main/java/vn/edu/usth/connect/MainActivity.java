@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // SharePreferences: Save Login
         SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
 
@@ -52,15 +53,21 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        // activity_main.xml
         setContentView(R.layout.activity_main);
 
+        // ViewPager2: Change fragments: DashboardFragment, NotificationFragment, ProfileFragment
         mviewPager = findViewById(R.id.view_pager);
+
+        // BottomNavigation: Bottom Menu :D
         bottomNavigationView = findViewById(R.id.home_bottom_navigation);
 
+        // Adapter: Fragment_home_changing
         vn.edu.usth.connect.Home.Fragment_home_changing adapter = new  vn.edu.usth.connect.Home.Fragment_home_changing(getSupportFragmentManager(), getLifecycle());
         mviewPager.setAdapter(adapter);
         mviewPager.setUserInputEnabled(false);
 
+        // ViewPager2 setup Function
         mviewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 
             @Override
@@ -91,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // BottomNavigation setup Function
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -110,8 +118,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Setup Side-menu for Activity
         mDrawerLayout = findViewById(R.id.home_activity);
 
+        // Function to open Side-menu
         ImageButton mImageView = findViewById(R.id.menu_button);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +132,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Side-menu function
         navigator_drawer_function();
 
+        // Load image in the Side-menu
         update_picture();
 
     }

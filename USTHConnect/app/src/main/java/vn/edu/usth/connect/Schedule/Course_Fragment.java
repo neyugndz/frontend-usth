@@ -31,20 +31,21 @@ public class Course_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // fragment_course_.xml
         View v = inflater.inflate(R.layout.fragment_course_, container, false);
 
+        // Setup Recyclerview for Course and SearchView
         setup_recyclerview_function(v);
-
-        setup_function(v);
 
         return v;
     }
 
-    private void setup_function(View v){
-
-    }
-    
+    // SetUp RecyclerView and SearchView
+    // Folder: Course_RecyclerView: Course_course_Item, Course_course_Adapter, Course_course_ViewHolder
     private void setup_recyclerview_function(View v){
+        // RecyclerView point to Course.First_Course_Activity
+        // or
+        // Course.Program_Activity
         RecyclerView recyclerView = v.findViewById(R.id.course_course_recyclerview);
 
         items = new ArrayList<Course_course_Item>();
@@ -85,6 +86,7 @@ public class Course_Fragment extends Fragment {
 
     }
 
+    // Filter for SearchView
     private void filterList(String text) {
         List<Course_course_Item> filteredItems = new ArrayList<>();
 

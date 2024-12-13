@@ -27,16 +27,19 @@ public class Building_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // fragment_building_.xml
         View v = inflater.inflate(R.layout.fragment_building_, container, false);
 
+        // Setup Recyclerview for Building and SearchView
         setup_recyclerview_function(v);
-
-        setup_function(v);
 
         return v;
     }
 
+    // SetUp RecyclerView and SearchView
+    // Folder: RecyclerView: BuildingAdapter, BuildingItem, BuildingViewHolder
     private void setup_recyclerview_function(View v){
+        // RecyclerView point to Detail.Detail_Building_Activity
         RecyclerView recyclerView = v.findViewById(R.id.building_recyclerview);
 
         items = new ArrayList<BuildingItem>();
@@ -67,8 +70,7 @@ public class Building_Fragment extends Fragment {
         });
     }
 
-    private void setup_function(View v){}
-
+    // Filter for SearchView
     private void filterList(String text) {
         List<BuildingItem> filteredItems = new ArrayList<>();
 

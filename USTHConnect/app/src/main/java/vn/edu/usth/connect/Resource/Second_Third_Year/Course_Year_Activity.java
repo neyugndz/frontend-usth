@@ -27,13 +27,16 @@ public class Course_Year_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_course_year.xml
         setContentView(R.layout.activity_course_year);
 
+        // Setup Recyclerview for Course and Searchview
         setup_recyclerview_function();
 
-        setup_recyclerview();
+        // Set text for RecyclerView
+        setup_text_recyclerview();
 
+        // Button Function
         setup_function();
     }
 
@@ -44,7 +47,7 @@ public class Course_Year_Activity extends AppCompatActivity {
         });
     }
 
-    private void setup_recyclerview(){
+    private void setup_text_recyclerview(){
         TextView course_name = findViewById(R.id.year_course);
 
         String name = getIntent().getStringExtra("Year");
@@ -52,7 +55,10 @@ public class Course_Year_Activity extends AppCompatActivity {
         course_name.setText(name);
     }
 
+    // SetUp RecyclerView and SearchView
+    // Folder: RecyclerView: Sty_Adapter, Sty_Item, Sty_ViewHolder
     private void setup_recyclerview_function(){
+        // RecyclerView point to Year_Course_Resource_Activity
         RecyclerView recyclerView = findViewById(R.id.year_course_recyclerview);
 
         items = new ArrayList<Sty_Item>();

@@ -24,8 +24,11 @@ public class Timetable_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // fragment_timetable_.xml
         View v = inflater.inflate(R.layout.fragment_timetable_, container, false);
 
+        // TabLayout: Schedule.TabLayout_Fragment, 3 fragments: Day, Month, Week _Fragment
+        // todo: change to RecyclerView
         schedule_tablayout(v);
 
         return v;

@@ -10,14 +10,19 @@ import vn.edu.usth.connect.R;
 
 public class Resource extends AppCompatActivity {
 
+    // ResourceActivity: Fragment show resource: lecture, slide, labwork,...
+    // Activity phát sinh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_resource2.xml
         setContentView(R.layout.activity_resource2);
 
-        setup_recyclerview();
+        // Set text for RecyclerView in Header
+        setup_text_recyclerview();
 
+        // Back Button
+        // Todo: RecyclerView (?)
         setup_function();
     }
 
@@ -29,7 +34,7 @@ public class Resource extends AppCompatActivity {
 
     }
 
-    private void setup_recyclerview(){
+    private void setup_text_recyclerview(){
         TextView course_name = findViewById(R.id.task_name);
 
         String name = getIntent().getStringExtra("Task");

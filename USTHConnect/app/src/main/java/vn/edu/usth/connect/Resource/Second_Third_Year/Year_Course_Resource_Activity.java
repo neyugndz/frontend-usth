@@ -17,11 +17,13 @@ public class Year_Course_Resource_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_year_course_resource.xml
         setContentView(R.layout.activity_year_course_resource);
 
-        setup_recyclerview();
+        // Set text for RecyclerView
+        setup_text_recyclerview();
 
+        // Button Function
         setup_function();
     }
 
@@ -102,7 +104,7 @@ public class Year_Course_Resource_Activity extends AppCompatActivity {
         });
     }
 
-    private void setup_recyclerview(){
+    private void setup_text_recyclerview(){
         TextView course_name = findViewById(R.id.course_name);
 
         String name = getIntent().getStringExtra("Course Name");

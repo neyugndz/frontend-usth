@@ -22,20 +22,19 @@ public class Favorite_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // fragment_favorite_.xml
         View v = inflater.inflate(R.layout.fragment_favorite_, container, false);
 
+        // Setup Recyclerview for Course
         setup_recyclerview_function(v);
-
-        setup_function(v);
 
         return v;
     }
 
-    private void setup_function(View v){
-
-    }
-
+    // SetUp RecyclerView
+    // Folder: Favorite_RecyclerView: Favorite_course_Adapter, Favorite_course_Item, Favorite_course_ViewHolder
     private void setup_recyclerview_function(View v){
+        // RecyclerView point to List_Class_in_Course_Activity
         RecyclerView recyclerView = v.findViewById(R.id.favorite_course_recyclerview);
 
         List<Favorite_course_Item> items = new ArrayList<Favorite_course_Item>();

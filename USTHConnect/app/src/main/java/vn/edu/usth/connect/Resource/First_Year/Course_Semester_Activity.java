@@ -30,10 +30,13 @@ public class Course_Semester_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_course_semester);
 
-        setup_recyclerview();
-        
+        // Set text from RecyclerView to Header
+        setup_text_recyclerview();
+
+        // Setup Recyclerview for Course and Searchview
         setup_recyclerview_function();
 
+        // Button Function
         setup_function();
 
     };
@@ -45,13 +48,16 @@ public class Course_Semester_Activity extends AppCompatActivity {
         });
     }
 
-    private void setup_recyclerview(){
+    private void setup_text_recyclerview(){
         TextView course_name = findViewById(R.id.program_name);
         String name = getIntent().getStringExtra("Semester");
         course_name.setText(name);
     }
 
+    // SetUp RecyclerView and SearchView
+    // Folder: RecyclerView: First_year_course_Adapter, First_year_course_Item, First_year_course_ViewHolder
     private void setup_recyclerview_function(){
+        // RecyclerView point to Course_Resource_Activity
         RecyclerView recyclerView = findViewById(R.id.course_semester_recyclerview);
 
         items = new ArrayList<First_year_course_Item>();
@@ -85,6 +91,7 @@ public class Course_Semester_Activity extends AppCompatActivity {
         });
     }
 
+    // Filter for SearchView
     private void filterList(String text) {
         List<First_year_course_Item> filteredItems = new ArrayList<>();
 

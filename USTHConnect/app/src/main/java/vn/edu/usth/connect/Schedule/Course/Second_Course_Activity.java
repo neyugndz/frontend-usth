@@ -25,13 +25,16 @@ public class Second_Course_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_second_course.xml
         setContentView(R.layout.activity_second_course);
 
-        setup_recyclerview();
+        // Set text for RecyclerView
+        setup_text_recyclerview();
 
+        // Setup Recyclerview for Course and SearchView
         setup_recyclerview_function();
 
+        // Button Function
         setup_function();
     }
 
@@ -42,7 +45,7 @@ public class Second_Course_Activity extends AppCompatActivity {
         });
     }
 
-    private void setup_recyclerview(){
+    private void setup_text_recyclerview(){
         TextView program_name = findViewById(R.id.program_name);
 
         String name = getIntent().getStringExtra("Program Name");
@@ -50,7 +53,10 @@ public class Second_Course_Activity extends AppCompatActivity {
         program_name.setText(name);
     }
 
+    // SetUp RecyclerView and SearchView
+    // Folder: RecyclerView: CourseItem, Course_Adapter, CourseViewHolder
     private void setup_recyclerview_function(){
+        // RecyclerView point to List_Class_in_Course_Activity
         RecyclerView recyclerView = findViewById(R.id.second_year_recyclerview);
 
         items = new ArrayList<CourseItem>();
@@ -84,6 +90,7 @@ public class Second_Course_Activity extends AppCompatActivity {
         });
     }
 
+    // Filter for SearchView
     private void filterList(String text) {
         List<CourseItem> filteredItems = new ArrayList<>();
 
