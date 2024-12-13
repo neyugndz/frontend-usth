@@ -1,6 +1,5 @@
 package vn.edu.usth.connect.Home.EditProfile;
 
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,10 +25,9 @@ import java.net.URL;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.usth.connect.Home.ProfileFragment;
 import vn.edu.usth.connect.MainActivity;
-import vn.edu.usth.connect.Models.Student;
-import vn.edu.usth.connect.Models.StudentDTO;
+import vn.edu.usth.connect.Models.Student.Student;
+import vn.edu.usth.connect.Models.Student.StudentDTO;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
@@ -108,12 +106,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
                         Toast.makeText(Edit_Profile_Activity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
                         finish(); // Go back to the previous screen
                     } else {
-                        // Log the response code and body when the body is null
                         Log.e("UpdateProfile", "Response body is null. Code: " + response.code() + " Message: " + response.message());
                         Toast.makeText(Edit_Profile_Activity.this, "Update failed: " + response.message(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    // Log the error response details
                     Log.e("UpdateProfile", "Update failed. Response Code: " + response.code() + " Message: " + response.message());
                     Toast.makeText(Edit_Profile_Activity.this, "Update failed: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -121,7 +117,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Student> call, Throwable t) {
-                // Log full exception
                 Log.e("UpdateProfile", "Error: " + t.getMessage(), t);
                 Toast.makeText(Edit_Profile_Activity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

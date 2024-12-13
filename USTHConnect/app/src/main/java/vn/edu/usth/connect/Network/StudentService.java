@@ -5,10 +5,9 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import vn.edu.usth.connect.Models.Student;
-import vn.edu.usth.connect.Models.StudentDTO;
+import vn.edu.usth.connect.Models.Student.Student;
+import vn.edu.usth.connect.Models.Student.StudentDTO;
 
 public interface StudentService {
     // Endpoint to fetch the Student profile based on their ID

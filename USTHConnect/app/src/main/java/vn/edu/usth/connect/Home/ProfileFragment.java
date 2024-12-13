@@ -8,8 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -18,9 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +29,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.usth.connect.Home.EditProfile.ChangePicture_Activity;
-import vn.edu.usth.connect.Home.EditProfile.Edit_Profile_Activity;
-import vn.edu.usth.connect.Models.Student;
+import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
@@ -138,6 +132,7 @@ public class ProfileFragment extends Fragment {
 
         Log.d("ProfileFragment", "Setting user data: " + student.getFullName() + ", " + student.getMajor());
 
+        // ViewModel Setup
         fullName.setText(student.getFullName());
 
         // Format the Date object to a String

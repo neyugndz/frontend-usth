@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Models;
+package vn.edu.usth.connect.Models.Student;
 
 public class StudentDTO {
     private String id;
