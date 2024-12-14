@@ -17,6 +17,15 @@
         android:theme="@style/Theme.USTHConnect"
         tools:targetApi="31">
         <activity
+            android:name=".Schedule.TimeTable.Event.EventEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Schedule.TimeTable.DailyCalenderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Schedule.TimeTable.WeekViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".Home.EditProfile.ChangePicture_Activity"
             android:exported="false" />
         <activity
