@@ -17,7 +17,7 @@
         android:theme="@style/Theme.USTHConnect"
         tools:targetApi="31">
         <activity
-            android:name=".Schedule.TimeTable.Event.EventEditActivity"
+            android:name=".Schedule.TimeTable.Event.EventActivity"
             android:exported="false" />
         <activity
             android:name=".Schedule.TimeTable.DailyCalenderActivity"

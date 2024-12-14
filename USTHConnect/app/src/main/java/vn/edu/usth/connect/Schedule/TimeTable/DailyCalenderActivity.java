@@ -24,7 +24,7 @@ import java.util.Locale;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderUtils;
 import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
-import vn.edu.usth.connect.Schedule.TimeTable.Event.EventEditActivity;
+import vn.edu.usth.connect.Schedule.TimeTable.Event.EventActivity;
 import vn.edu.usth.connect.Schedule.TimeTable.Hour.HourAdapter;
 import vn.edu.usth.connect.Schedule.TimeTable.Hour.HourEvent;
 
@@ -101,7 +101,7 @@ public class DailyCalenderActivity extends AppCompatActivity {
     // Create Event
     // Folder: Hour: HourEvent and HourAdapter
     public void newEventAction(View view) {
-        startActivity(new Intent(this, EventEditActivity.class));
+        startActivity(new Intent(this, EventActivity.class));
     }
 
     private void setup_function(){

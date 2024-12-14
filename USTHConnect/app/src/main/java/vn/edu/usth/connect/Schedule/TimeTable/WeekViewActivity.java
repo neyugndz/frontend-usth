@@ -24,7 +24,7 @@ import vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderAdapter;
 import vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderUtils;
 import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
 import vn.edu.usth.connect.Schedule.TimeTable.Event.EventAdapter;
-import vn.edu.usth.connect.Schedule.TimeTable.Event.EventEditActivity;
+import vn.edu.usth.connect.Schedule.TimeTable.Event.EventActivity;
 
 public class WeekViewActivity extends AppCompatActivity implements CalenderAdapter.OnItemListener{
 
@@ -107,7 +107,7 @@ public class WeekViewActivity extends AppCompatActivity implements CalenderAdapt
 
     // Create Event like dynamic
     public void newEventAction(View view) {
-        startActivity(new Intent(this, EventEditActivity.class));
+        startActivity(new Intent(this, EventActivity.class));
     }
 
     private void setup_function(){
