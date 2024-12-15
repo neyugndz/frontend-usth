@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -30,8 +31,13 @@ public class DailyCalenderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_daily_calender);
+
+        // Retrieve the selected date from the Intent
+        String selectedDate = getIntent().getStringExtra("selectedDate");
+        if (selectedDate != null) {
+            CalenderUtils.selectedDate = LocalDate.parse(selectedDate);
+        }
 
         // Setup TextView
         monthDayText = findViewById(R.id.monthDayText);

@@ -32,13 +32,6 @@ public class Timetable_Fragment extends Fragment implements CalenderAdapter.OnIt
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
 
-    // Đa số sẽ là show kiểu RecyclerView thoi
-    // Đăng Nguyên lm cái đấy thì đăng nguyên xem qua nhg file naày
-    // Folder Event: Event và EventAdapter
-    // Chúng nó sử dụng ListView có vẻ cx c chút tương đồng với RecyclerView
-    // Của t lm thì có 1 cái nútt ấn vào nó sẽ lấy cái LocalTime của bh và nó
-    // add thêm text ở đằng trc
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,7 +76,11 @@ public class Timetable_Fragment extends Fragment implements CalenderAdapter.OnIt
     public void onItemClick(int position, LocalDate date) {
         if (date != null) {
             CalenderUtils.selectedDate = date;
-            setMonthView();
+
+            // Create an Intent to open DailyCalenderActivity
+            Intent intent = new Intent(requireContext(), DailyCalenderActivity.class);
+            intent.putExtra("selectedDate", date.toString()); // Pass the selected date as a String
+            startActivity(intent);
         }
     }
 
@@ -122,10 +119,9 @@ public class Timetable_Fragment extends Fragment implements CalenderAdapter.OnIt
         week_action.setOnClickListener(view -> {
             weeklyAction(view);
         });
-
-        Button daily_action = v.findViewById(R.id.dailyAction);
-        daily_action.setOnClickListener(view -> {
-            dailyAction(view);
-        });
+//        Button daily_action = v.findViewById(R.id.dailyAction);
+//        daily_action.setOnClickListener(view -> {
+//            dailyAction(view);
+//        });
     }
 }
