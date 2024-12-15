@@ -1,5 +1,7 @@
 package vn.edu.usth.connect.Schedule.TimeTable.Event;
 
+import android.util.Log;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -15,6 +17,7 @@ public class Event {
     {
         ArrayList<Event> events = new ArrayList<>();
 
+        Log.d("Event", "Filtering events for date: " + date);
         for(Event event : eventsList)
         {
             // Check date in Event == date
@@ -23,6 +26,7 @@ public class Event {
                 events.add(event);
         }
 
+        Log.d("Event", "Found events: " + events.size());
         return events;
     }
 

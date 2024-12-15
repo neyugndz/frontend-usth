@@ -1,13 +1,13 @@
-package vn.edu.usth.connect.Schedule.TimeTable.Event;
+package vn.edu.usth.connect.Workers;
+
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import java.util.List;
 
@@ -18,100 +18,83 @@ import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.EventService;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.StudentService;
-import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
 
-public class EventActivity extends AppCompatActivity {
+public class FetchEventsWorker extends Worker {
 
-    private ListView eventListView;
-    private EventAdapter eventAdapter;
-    private Student currentStudent;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_edit);
-
-        eventListView = findViewById(R.id.eventListView);
-
-        // Fetch Student Profile and Events
-        fetchUserProfileAndEvents();
+    public FetchEventsWorker(@NonNull Context context, @NonNull WorkerParameters params) {
+        super(context, params);
     }
 
-    private void fetchUserProfileAndEvents() {
-        // Get token from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
+    @NonNull
+    @Override
+    public Result doWork() {
+        Log.d("FetchEventsWorker", "Starting to fetch events...");
+
+        // Fetch token and studentId from SharedPreferences
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("Token", "");
         String studentId = sharedPreferences.getString("StudentId", "");
 
         if (!token.isEmpty() && !studentId.isEmpty()) {
             String authHeader = "Bearer " + token;
 
-            // Create an instance of Retrofit and call the API
+            // Create an instance of Retrofit and fetch student profile
             StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
             Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
+
             call.enqueue(new Callback<Student>() {
                 @Override
                 public void onResponse(Call<Student> call, Response<Student> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        currentStudent = response.body();
-                        Log.d("EventActivity", "Student data: " + currentStudent);
+                        Student currentStudent = response.body();
+                        Log.d("FetchEventsWorker", "Student data: " + currentStudent);
 
-                        // Fetch events using student data
                         String studyYear = currentStudent.getStudyYear();
                         String major = currentStudent.getMajor();
                         Integer organizerId = calculateOrganizerId(studyYear, major);
 
-                        // Fetch events based on the organizer ID
+                        // Fetch events for the student
                         fetchEvents(authHeader, organizerId);
                     } else {
-                        Toast.makeText(EventActivity.this, "Failed to load user profile", Toast.LENGTH_SHORT).show();
+                        Log.e("FetchEventsWorker", "Failed to load user profile");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Student> call, Throwable t) {
-                    Toast.makeText(EventActivity.this, "Error fetching profile: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("FetchEventsWorker", "Error fetching profile: " + t.getMessage());
                 }
             });
         } else {
-            Log.d("EventActivity", "Token or StudentId is empty");
+            Log.d("FetchEventsWorker", "Token or StudentId is empty");
         }
+
+        // Return success after event fetching logic
+        return Result.success();
     }
 
     private void fetchEvents(String token, Integer organizerId) {
         EventService eventService = RetrofitClient.getInstance().create(EventService.class);
-
-        // Log the request data
-        Log.d("EventActivity", "Fetching events for organizerId: " + organizerId);
-
         eventService.getEvents(token, organizerId).enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                // Log the response code and response body
-                Log.d("EventActivity", "Event fetch response code: " + response.code());
                 if (response.isSuccessful() && response.body() != null) {
                     List<Event> events = response.body();
-                    Log.d("EventActivity", "Fetched " + events.size() + " events");
+                    Log.d("FetchEventsWorker", "Fetched " + events.size() + " events");
 
-                    Event.eventsList.clear(); // Clear the existing events if you want to refresh
-                    Event.eventsList.addAll(events); // Add the fetched events to the static list
+                    Event.eventsList.clear();
+                    Event.eventsList.addAll(events);
 
-                    // Set up the adapter for the event list view
-                    eventAdapter = new EventAdapter(EventActivity.this, events);
-                    eventListView.setAdapter(eventAdapter);
+                    // You can store the fetched events in local storage or notify the app (via a notification or broadcast)
                 } else {
-                    // Log when the response is not successful
-                    Log.d("EventActivity", "Failed to fetch events, response body is null or response code: " + response.code());
-                    Toast.makeText(EventActivity.this, "Failed to fetch events!", Toast.LENGTH_SHORT).show();
+                    Log.e("FetchEventsWorker", "Failed to fetch events, response code: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
-                // Log the failure case
-                Log.e("EventActivity", "Error fetching events: " + t.getMessage(), t);
-                Toast.makeText(EventActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("FetchEventsWorker", "Error fetching events: " + t.getMessage());
             }
         });
     }
@@ -136,5 +119,4 @@ public class EventActivity extends AppCompatActivity {
         }
         return 999;
     }
-
 }

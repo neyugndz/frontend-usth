@@ -1,53 +1,46 @@
-package vn.edu.usth.connect.Schedule.TimeTable.Hour;
+package vn.edu.usth.connect.Schedule.TimeTable;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderUtils;
 import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
 
-public class HourAdapter extends ArrayAdapter<HourEvent> {
+public class WeeklyEventAdapter extends ArrayAdapter<Event> {
+    private Context context;
+    private ArrayList<Event> events;
 
-    // 4 sure t chưa vào đây :))))
-    public HourAdapter(@NonNull Context context, List<HourEvent> hourEvents)
-    {
-        super(context, 0, hourEvents);
+    public WeeklyEventAdapter(Context context, ArrayList<Event> events) {
+        super(context, 0, events);
+        this.context = context;
+        this.events = events;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
-    {
-        HourEvent event = getItem(position);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.hour_frame, parent, false);
+        }
 
-        if (convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.hour_frame, parent, false);
+        ArrayList<Event> dailyEvents = new ArrayList<>();
+        // In this case, we'll get a subset of events for this specific time slot
+        if (position < events.size()) {
+            dailyEvents.add(events.get(position));
+        }
 
-        ListView eventListView = convertView.findViewById(R.id.eventListView);
-
-        convertView.setTag(event.getStartTime());
-        setEvents(convertView, event.events);
+        // Call setEvents to display the events for this slot
+        setEvents(convertView, dailyEvents);
 
         return convertView;
     }
-
 
     private void setEvents(View convertView, ArrayList<Event> events) {
         LinearLayout eventsContainer = convertView.findViewById(R.id.eventsContainer);
@@ -66,18 +59,11 @@ public class HourAdapter extends ArrayAdapter<HourEvent> {
         }
     }
 
-
-    private void setEvent(TextView textView, Event event)
-    {
+    private void setEvent(TextView textView, Event event) {
         String eventDetails = event.getEventName() + "\n" +
                 formatEventTime(event) + "\n" + event.getLocation();
         textView.setText(eventDetails);
         textView.setVisibility(View.VISIBLE);
-    }
-
-    private void hideEvent(TextView tv)
-    {
-        tv.setVisibility(View.INVISIBLE);
     }
 
     private String formatEventTime(Event event) {

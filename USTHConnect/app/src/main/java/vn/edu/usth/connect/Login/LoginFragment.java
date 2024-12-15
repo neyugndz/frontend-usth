@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +30,7 @@ import vn.edu.usth.connect.Models.LoginRequest;
 import vn.edu.usth.connect.Network.AuthService;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
 public class LoginFragment extends Fragment {
 
@@ -101,10 +106,6 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getActivity(), "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private boolean validateLogin(String email, String password) {
-        return !email.isEmpty() && !password.isEmpty();
     }
 
     private void button_function(View view) {

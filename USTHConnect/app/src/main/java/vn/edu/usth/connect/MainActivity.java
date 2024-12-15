@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -21,15 +22,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import vn.edu.usth.connect.Home.EditProfile.Edit_Profile_Activity;
+import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,10 +55,13 @@ public class MainActivity extends AppCompatActivity {
         // SharePreferences: Save Login
         SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
         boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
+        String token = sharedPreferences.getString("Token", null);
 
-        if (!isLoggedIn) {
+        if (!isLoggedIn || token == null || isTokenExpired(token)) {
             navigateToLoginFragment();
             return;
+        } else {
+            scheduleEventFetchWorker();
         }
 
         // activity_main.xml
@@ -139,6 +150,23 @@ public class MainActivity extends AppCompatActivity {
         update_picture();
 
     }
+
+    // Check if the token is Expired
+    private boolean isTokenExpired(String token) {
+        try {
+            String[] split = token.split("\\.");
+            String payload = split[1];
+            String json = new String(android.util.Base64.decode(payload, android.util.Base64.URL_SAFE));
+            JSONObject jsonObject = new JSONObject(json);
+            long exp = jsonObject.getLong("exp");
+            long currentTime = System.currentTimeMillis() / 1000;
+            return currentTime > exp;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true; // Treat as expired if error occurs
+        }
+    }
+
 
     private void navigator_drawer_function(){
         LinearLayout to_home_activity = findViewById(R.id.to_home_page);
@@ -259,6 +287,17 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(android.R.id.content, loginFragment);
         transaction.commit();
+    }
+
+    // Fetch events every 10 minutes
+    private void scheduleEventFetchWorker() {
+        WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 10, TimeUnit.MINUTES)
+                .build();
+
+        // Enqueue the work request using WorkManager
+        WorkManager.getInstance(this).enqueue(fetchEventsRequest);
+
+        Log.d("MainActivity", "Periodic event fetch worker scheduled.");
     }
 
 }

@@ -37,7 +37,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_frame, parent, false);
 
-//        TextView eventCellTV = convertView.findViewById(R.id.eventCellTV);
         TextView eventNameTV = convertView.findViewById(R.id.eventNameTV);
         TextView eventTimeTV = convertView.findViewById(R.id.eventTimeTV);
         TextView eventLocationTV = convertView.findViewById(R.id.eventLocationTV);
