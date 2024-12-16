@@ -163,7 +163,7 @@
                         android:textStyle="bold" />
 
                     <Button
-                        android:id="@+id/text_message"
+                        android:id="@+id/message_text"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
