@@ -8,8 +8,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+
+import java.util.Arrays;
+import java.util.List;
 
 import vn.edu.usth.connect.R;
 
@@ -36,15 +41,43 @@ public class MajorFragment extends Fragment {
         third_year = v.findViewById(R.id.year_b3);
 
         next_button = v.findViewById(R.id.next_button);
+
+        majors = getResources().getStringArray(R.array.major);
+
         // Button Function
         setup_function(v);
 
         // Spinner Function
-
+        SpinnerSelect(v);
 
         return v;
     }
 
+    // Choose Major using Spinner
+    private void SpinnerSelect(View v){
+        Spinner spinner = v.findViewById(R.id.select_major);
+
+        List<String> majorList = Arrays.asList(majors);
+        SpinnerAdapter adapter = new SpinnerAdapter(requireContext(), majorList, hint);
+
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedMajor = adapterView.getItemAtPosition(i).toString();
+                checkSelect();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                selectedMajor = hint;
+                checkSelect();
+            }
+        });
+    }
+
+    // Select Year
     private void yearSelect(String year) {
         first_year.setBackgroundResource(R.drawable.rounded_border);
         second_year.setBackgroundResource(R.drawable.rounded_border);
@@ -64,6 +97,11 @@ public class MajorFragment extends Fragment {
 
         selectedYear = year;
 
+        checkSelect();
+    }
+
+    // Enable Button
+    private void checkSelect(){
         if (!selectedMajor.equals(hint) && !selectedYear.isEmpty()) {
             next_button.setEnabled(true);
         } else {
@@ -82,7 +120,7 @@ public class MajorFragment extends Fragment {
             navigatorToNextFragment();
         });
 
-        // Select Gender Button
+        // Select Year Button
         first_year.setOnClickListener(view -> {
             yearSelect("b1");
         });
@@ -99,7 +137,7 @@ public class MajorFragment extends Fragment {
 
     // Move to another Fragment
     private void navigatorToNextFragment() {
-        Fragment majorFragment = new MajorFragment();
+        Fragment majorFragment = new PersonalityFragment();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(android.R.id.content, majorFragment);
         fragmentTransaction.addToBackStack(null);
