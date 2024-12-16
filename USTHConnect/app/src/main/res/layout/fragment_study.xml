@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".StudyBuddy.Welcome.SubjectFragment">
+    tools:context=".StudyBuddy.Welcome.StudyFragment">
 
     <!-- Header -->
     <RelativeLayout
@@ -58,20 +58,46 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_margin="15dp"
-            android:text="What are your favorite subjects"
+            android:text="Where you want to study?"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexbox_layout"
+        <Spinner
+            android:id="@+id/select_where_study"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textline"
-            app:alignItems="center"
-            app:flexWrap="wrap"
-            app:justifyContent="flex_start">
-        </com.google.android.flexbox.FlexboxLayout>
+            android:layout_below="@+id/textline"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:spinnerMode="dropdown"
+            android:prompt="@string/prompt_study_location"/>
+
+        <TextView
+            android:id="@+id/textline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/select_where_study"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dp"
+            android:text="When you want to study?"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/select_when_study"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textline2"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:spinnerMode="dropdown"
+            android:prompt="@string/prompt_study_time"/>
 
         <Button
             android:id="@+id/next_button"
