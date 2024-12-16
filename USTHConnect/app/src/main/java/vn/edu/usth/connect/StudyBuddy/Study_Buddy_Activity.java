@@ -32,6 +32,7 @@ import java.net.URL;
 import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Schedule.Fragment_schedule_changing;
+import vn.edu.usth.connect.StudyBuddy.Welcome.WelcomeFragment;
 
 public class Study_Buddy_Activity extends AppCompatActivity {
 
@@ -78,9 +79,11 @@ public class Study_Buddy_Activity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.chat_page).setChecked(true);
                         break;
                     case 2:
+                        bottomNavigationView.getMenu().findItem(R.id.audio_page).setChecked(true);
+                        break;
+                    case 3:
                         bottomNavigationView.getMenu().findItem(R.id.sb_profile_page).setChecked(true);
                         break;
-
                 }
             }
 
@@ -102,8 +105,12 @@ public class Study_Buddy_Activity extends AppCompatActivity {
                     mviewPager.setCurrentItem(1, true);
                     return true;
                 }
-                if (item.getItemId() == R.id.sb_profile_page) {
+                if (item.getItemId() == R.id.audio_page) {
                     mviewPager.setCurrentItem(2, true);
+                    return true;
+                }
+                if (item.getItemId() == R.id.sb_profile_page) {
+                    mviewPager.setCurrentItem(3, true);
                     return true;
                 }
                 return false;
@@ -129,6 +136,10 @@ public class Study_Buddy_Activity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
+
+        // Register
+        // todo: SharePreference
+        navigatorToRegister();
     }
 
     private void navigator_drawer_function(){
@@ -234,5 +245,13 @@ public class Study_Buddy_Activity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void navigatorToRegister(){
+        Fragment welcomeFragment = new WelcomeFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, welcomeFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

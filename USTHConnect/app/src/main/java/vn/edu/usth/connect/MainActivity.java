@@ -57,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
         boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
         String token = sharedPreferences.getString("Token", null);
 
-        if (!isLoggedIn || token == null || isTokenExpired(token)) {
-            navigateToLoginFragment();
-            return;
-        } else {
-            scheduleEventFetchWorker();
-        }
+//        if (!isLoggedIn || token == null || isTokenExpired(token)) {
+//            navigateToLoginFragment();
+//            return;
+//        } else {
+//            scheduleEventFetchWorker();
+//        }
 
         // activity_main.xml
         setContentView(R.layout.activity_main);
@@ -166,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
             return true; // Treat as expired if error occurs
         }
     }
-
 
     private void navigator_drawer_function(){
         LinearLayout to_home_activity = findViewById(R.id.to_home_page);

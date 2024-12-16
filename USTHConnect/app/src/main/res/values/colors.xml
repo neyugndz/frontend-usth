@@ -24,10 +24,10 @@
     <color name="color_4">#6d62f7</color>
     <color name="color_5">#c234dc</color>
 
+<!--    <color name="rounded_button_color">#5e5d5c</color>-->
+    <!-- Text-Disable: #39434f -->
+    <color name="next_button_disabled">#3d434f</color>
+    <color name="next_button">#ff3462</color>
 
-
-<!--    <color name="colorAccentDark">#dfe3ee</color>-->
-
-<!--    <color name="text_">#B1B1BC</color>-->
 
 </resources>
