@@ -2,65 +2,145 @@ package vn.edu.usth.connect.StudyBuddy.Welcome;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.google.android.flexbox.FlexboxLayout;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.edu.usth.connect.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SubjectFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SubjectFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private List<String> fav_subjects = new ArrayList<>();
+    private List<String> selectedSubjectList = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int selectedSubjectCount = 0;
+    private final int maxSubjectSelection = 5;
 
-    public SubjectFragment() {
-        // Required empty public constructor
-    }
+    private String[] selectedSubject;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SubjectFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SubjectFragment newInstance(String param1, String param2) {
-        SubjectFragment fragment = new SubjectFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private String hintSubject = "Choose your favourite subject";
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private Button next_button;
 
+    // Get Favorite Subject from Study Buddy
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subject, container, false);
+        // fragment_subject.xml
+        View v = inflater.inflate(R.layout.fragment_subject, container, false);
+
+        // Load Subject from Assets folder
+        loadSubjectsfromFile();
+
+        // Call ID Button
+        next_button = v.findViewById(R.id.next_button);
+
+        // Flexbox for Subject
+        FlexboxLayout flexboxLayout = v.findViewById(R.id.flexbox_layout);
+
+        for (String subject : fav_subjects){
+            TextView tagView = createTagView(subject, flexboxLayout);
+            flexboxLayout.addView(tagView);
+        }
+
+        // Button Function
+        setup_function(v);
+
+        return v;
+    }
+    private TextView createTagView(String subject, FlexboxLayout flexboxLayout) {
+        TextView tag = new TextView(getContext());
+        tag.setText(subject);
+        tag.setTextSize(16f);
+        tag.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
+        tag.setBackgroundResource(R.drawable.rounded_border);
+        tag.setPadding(30,30,30,30);
+
+        FlexboxLayout.LayoutParams params = new FlexboxLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(8, 8, 8, 8);
+
+        tag.setLayoutParams(params);
+
+        tag.setOnClickListener(view -> toggleSelection(tag, subject));
+
+        return tag;
+    }
+
+    // Choosing Subject
+    private void toggleSelection(TextView tag, String subject) {
+        if (tag.isSelected()) {
+            tag.setSelected(false);
+            tag.setBackgroundResource(R.drawable.rounded_border);
+            selectedSubjectCount --;
+            selectedSubjectList.remove(subject);
+        } else if (selectedSubjectCount < maxSubjectSelection) {
+            tag.setSelected(true);
+            tag.setBackgroundResource(R.drawable.rounded_border_selected);
+            selectedSubjectCount ++;
+            selectedSubjectList.add(subject);
+        }
+        updateButton();
+    }
+
+    // Update number of Subject Choosing
+    private void updateButton() {
+        Button continueButton = getView() != null ? getView().findViewById(R.id.next_button) : null;
+        if (continueButton != null) {
+            continueButton.setText("Next (" + selectedSubjectCount + "/" + maxSubjectSelection + ")");
+            continueButton.setEnabled(selectedSubjectCount > 0);
+        }
+    }
+
+    private void loadSubjectsfromFile() {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(getActivity().getAssets().open("subjects.txt")));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                fav_subjects.add(line.trim());
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setup_function(View v) {
+        ImageButton back_button = v.findViewById(R.id.back_button);
+        back_button.setOnClickListener(view -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
+
+        next_button.setEnabled(false);
+        next_button.setOnClickListener(view -> {
+            selectedSubject = selectedSubjectList.toArray(new String[0]);
+            navigatorToNextFragment();
+        });
+    }
+
+    // Move to another Fragment
+    private void navigatorToNextFragment() {
+        Fragment studyFragment = new StudyFragment();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, studyFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

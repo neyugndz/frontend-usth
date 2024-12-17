@@ -51,7 +51,6 @@ public class InterestFragment extends Fragment {
         // Flexbox for Interesting
         FlexboxLayout flexboxLayout = v.findViewById(R.id.flexbox_layout);
 
-
         for (String interest : interests) {
             TextView tagView = createTagView(interest, flexboxLayout);
             flexboxLayout.addView(tagView);

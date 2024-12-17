@@ -91,9 +91,9 @@ public class GenderFragment extends Fragment {
 
     // Move to next Fragment
     private void navigatorToNextFragment() {
-        Fragment majorFragment = new MajorFragment();
+        Fragment personalityFragment = new PersonalityFragment();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(android.R.id.content, majorFragment);
+        fragmentTransaction.replace(android.R.id.content, personalityFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
