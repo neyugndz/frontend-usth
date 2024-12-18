@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year.CourseRecyclerView;
+package vn.edu.usth.connect.Resource.CourseRecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.Second_Third_Year.ActivityRecyclerView.Year_Course_Resource_Activity;
+import vn.edu.usth.connect.Resource.ActivityRecyclerView.ActivityActivity;
 
 public class CourseActivity extends AppCompatActivity {
 
@@ -36,8 +36,6 @@ public class CourseActivity extends AppCompatActivity {
         // Set year name to header
         setupRecyclerView();
 
-        // Button Function
-//        setup_function();
         // Handle button clicks
         setupClickHandlers();
     }
@@ -75,7 +73,7 @@ public class CourseActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(position -> {
             Sty_Item selectedItem = items.get(position);
-            navigateToYearCourseResourceActivity(selectedItem.getHeading(), selectedItem.getSubhead());
+            navigateToYearCourseResourceActivity(selectedItem.getHeading(), selectedItem.getSubhead(), selectedItem.getId());
         });
     }
 
@@ -91,10 +89,11 @@ public class CourseActivity extends AppCompatActivity {
         backButton.setOnClickListener(view -> onBackPressed());
     }
 
-    private void navigateToYearCourseResourceActivity(String courseName, String courseProf) {
-        Intent intent = new Intent(this, Year_Course_Resource_Activity.class);
+    private void navigateToYearCourseResourceActivity(String courseName, String courseProf, Long courseId) {
+        Intent intent = new Intent(this, ActivityActivity.class);
         intent.putExtra("Course Name", courseName);
         intent.putExtra("Course Instructor", courseProf);
+        intent.putExtra("Course ID", courseId);
         startActivity(intent);
     }
 
@@ -120,39 +119,39 @@ public class CourseActivity extends AppCompatActivity {
         if ("Second Year".equals(year)) {
             switch (subCategoryId) {
                 case 1:
-                    courseList.add(new Sty_Item("Advanced Programming with Python", "Dr. Tran Giang Son"));
+                    courseList.add(new Sty_Item("Advanced Programming with Python", "Dr. Tran Giang Son", 2L));
                     break;
                 case 2:
-                    courseList.add(new Sty_Item("Introduction to Cryptography", "Dr. Nguyen Minh Huong"));
+                    courseList.add(new Sty_Item("Introduction to Cryptography", "Dr. Nguyen Minh Huong", 6L));
                     break;
                 case 3:
-                    courseList.add(new Sty_Item("Linear Algebra", "Prof. Johnson"));
+                    courseList.add(new Sty_Item("Linear Algebra", "Prof. Johnson", 101L));
                     break;
                 case 4:
-                    courseList.add(new Sty_Item("Calculus", "Prof. Smith"));
+                    courseList.add(new Sty_Item("Calculus", "Prof. Smith", 100L));
                     break;
                 default:
-                    courseList.add(new Sty_Item("Not Found", "Not Available"));
+                    courseList.add(new Sty_Item("Not Found", "Not Available", -1L));
                     break;
             }
         }
         if ("Third Year".equals(year)) {
             switch (subCategoryId) {
                 case 1:
-                    courseList.add(new Sty_Item("Mobile Application Development", "Dr. Tran Giang Son, Kieu Quoc Viet "));
-                    courseList.add(new Sty_Item("Web Application Development", "Huynh Vinh Nam"));
+                    courseList.add(new Sty_Item("Mobile Application Development", "Dr. Tran Giang Son, Kieu Quoc Viet ", 4L));
+                    courseList.add(new Sty_Item("Web Application Development", "Huynh Vinh Nam", 5L));
                     break;
                 case 2:
-                    courseList.add(new Sty_Item("Introduction to Cryptography", "Dr. Nguyen Minh Huong"));
+                    courseList.add(new Sty_Item("Introduction to Cryptography", "Dr. Nguyen Minh Huong", 6L));
                     break;
                 case 3:
-                    courseList.add(new Sty_Item("Machine Learning in Medicine", "Dr. Tran Giang Son"));
+                    courseList.add(new Sty_Item("Machine Learning in Medicine", "Dr. Tran Giang Son", 7L));
                     break;
                 case 4:
-                    courseList.add(new Sty_Item("Calculus", "Prof. Smith"));
+                    courseList.add(new Sty_Item("Calculus", "Prof. Smith", 100L));
                     break;
                 default:
-                    courseList.add(new Sty_Item("Not Found", "Not Available"));
+                    courseList.add(new Sty_Item("Not Found", "Not Available", -1L));
                     break;
             }
         }

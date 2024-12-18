@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.Second_Third_Year.YearActivity;
+import vn.edu.usth.connect.Resource.YearActivity;
 
 public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.SubCategoryViewHolder> {
 

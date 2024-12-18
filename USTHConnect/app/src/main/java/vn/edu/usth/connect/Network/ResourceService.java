@@ -8,13 +8,24 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 import vn.edu.usth.connect.Models.Moodle.Activity;
 import vn.edu.usth.connect.Models.Moodle.Course;
+import vn.edu.usth.connect.Models.Moodle.Resource;
 
 public interface ResourceService {
     @GET("/api/v1/courses/activities-resources")
     Call<List<Course>> getResources(@Header("Authorization") String authHeader);
 
-    @GET("/api/v1/course/{courseId}")
+    // Endpoint to fetch all activities based on courseId
+    @GET("/api/v1/activities/course/{courseId}")
     Call<List<Activity>> getActivities(
             @Header("Authorization") String authHeader,
-            @Path("courseId") String courseId);
+            @Path("courseId") Long courseId);
+
+    @GET("/api/v1/activities/{courseId}/activity/{activityId}/resources")
+    Call<List<Resource>> getResources(
+            @Header("Authorization") String authHeader,
+            @Path("courseId") Long courseId,
+            @Path("activityId") Long activityId
+    );
+
+
 }

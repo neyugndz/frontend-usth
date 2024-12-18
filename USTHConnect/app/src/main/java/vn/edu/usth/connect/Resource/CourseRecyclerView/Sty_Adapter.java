@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year.CourseRecyclerView;
+package vn.edu.usth.connect.Resource.CourseRecyclerView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -43,10 +43,6 @@ public class Sty_Adapter extends RecyclerView.Adapter<Sty_ViewHolder>{
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(position);
             }
-//            Intent i = new Intent(context, Year_Course_Resource_Activity.class);
-//            i.putExtra("Course Name", item.getHeading());
-//            i.putExtra("Course Instructor", item.getSubhead());
-//            context.startActivity(i);
         });
     }
 

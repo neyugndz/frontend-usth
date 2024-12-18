@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year.CourseRecyclerView;
+package vn.edu.usth.connect.Resource.CourseRecyclerView;
 
 import android.view.View;
 import android.widget.TextView;

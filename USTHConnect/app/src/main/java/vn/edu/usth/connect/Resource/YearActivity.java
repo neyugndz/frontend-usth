@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year;
+package vn.edu.usth.connect.Resource;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.Second_Third_Year.CourseRecyclerView.CourseActivity;
+import vn.edu.usth.connect.Resource.CourseRecyclerView.CourseActivity;
 
 public class YearActivity extends AppCompatActivity {
 

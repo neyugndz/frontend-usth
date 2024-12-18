@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.Second_Third_Year.YearActivity;
+import vn.edu.usth.connect.Resource.YearActivity;
 
 public class SubCategoryActivity extends AppCompatActivity {
 
