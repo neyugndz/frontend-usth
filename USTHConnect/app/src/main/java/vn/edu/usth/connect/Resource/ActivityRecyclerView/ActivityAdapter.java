@@ -1,13 +1,15 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year.ActivityRecyclerView;
+package vn.edu.usth.connect.Resource.ActivityRecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.Models.Moodle.Activity;
@@ -16,11 +18,21 @@ import vn.edu.usth.connect.R;
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {
 
     private List<Activity> activities;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Activity activity);
+    }
+
+    public ActivityAdapter(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public void setActivities(List<Activity> activities) {
-        this.activities = activities;
+        this.activities = activities != null ? activities : new ArrayList<>();
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ActivityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,6 +44,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
     public void onBindViewHolder(ActivityViewHolder holder, int position) {
         Activity activity = activities.get(position);
         holder.heading.setText(activity.getActivityName());
+        holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(activity));
     }
 
     @Override

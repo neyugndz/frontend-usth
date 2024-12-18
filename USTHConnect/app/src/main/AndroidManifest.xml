@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -32,7 +34,7 @@
             android:name=".Home.EditProfile.ChangePicture_Activity"
             android:exported="false" />
         <activity
-            android:name=".Resource.Resource"
+            android:name=".Resource.ResourceRecyclerView.ResourceActivity"
             android:exported="false" />
         <activity
             android:name=".Schedule.Course.First_Course_Activity"
@@ -41,13 +43,13 @@
             android:name=".StudyBuddy.EditProfile.Edit_SB_Profile_Activity"
             android:exported="false" />
         <activity
-            android:name=".Resource.Second_Third_Year.ActivityRecyclerView.Year_Course_Resource_Activity"
+            android:name=".Resource.ActivityRecyclerView.ActivityActivity"
             android:exported="false" />
         <activity
-            android:name=".Resource.Second_Third_Year.CourseRecyclerView.CourseActivity"
+            android:name=".Resource.CourseRecyclerView.CourseActivity"
             android:exported="false" />
         <activity
-            android:name=".Resource.Second_Third_Year.YearActivity"
+            android:name=".Resource.YearActivity"
             android:exported="false" />
         <activity
             android:name=".Resource.First_Year.Course_Resource_Activity"

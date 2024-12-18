@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.Resource;
+import vn.edu.usth.connect.Resource.ResourceRecyclerView.ResourceActivity;
 
 public class Course_Resource_Activity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         lecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Lectures");
                 startActivity(i);
             }
@@ -48,7 +48,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         labwork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Labwork");
                 startActivity(i);
             }
@@ -58,7 +58,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         sampleCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Sample Code");
                 startActivity(i);
             }
@@ -68,7 +68,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         document.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Document");
                 startActivity(i);
             }
@@ -78,7 +78,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         midtermExam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Midterm Exam");
                 startActivity(i);
             }
@@ -88,7 +88,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         finalExam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Final Exam");
                 startActivity(i);
             }
@@ -98,7 +98,7 @@ public class Course_Resource_Activity extends AppCompatActivity {
         retakeExam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, Resource.class);
+                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Course_Resource_Activity.this, ResourceActivity.class);
                 i.putExtra("Task", "Retake Exam");
                 startActivity(i);
             }
