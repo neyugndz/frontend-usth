@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource.RecyclerView;
+package vn.edu.usth.connect.Resource.CategoryRecyclerView;
 
 import android.view.View;
 import android.widget.TextView;
@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import vn.edu.usth.connect.R;
 
-public class Resource_course_ViewHolder extends RecyclerView.ViewHolder{
+public class CategoryViewHolder extends RecyclerView.ViewHolder{
 
     TextView heading;
 
-    public Resource_course_ViewHolder(@NonNull View itemView){
+    public CategoryViewHolder(@NonNull View itemView){
         super(itemView);
         heading = itemView.findViewById(R.id.first_text);
     }

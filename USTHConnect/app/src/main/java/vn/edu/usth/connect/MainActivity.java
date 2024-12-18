@@ -36,7 +36,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import vn.edu.usth.connect.Home.EditProfile.Edit_Profile_Activity;
+import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
 public class MainActivity extends AppCompatActivity {
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         to_resource_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.Resource.Resource_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, CategoryActivity.class);
                 startActivity(i);
                 finish();
             }

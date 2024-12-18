@@ -29,9 +29,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Schedule.Fragment_schedule_changing;
+import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.StudyBuddy.Welcome.WelcomeFragment;
 
 public class Study_Buddy_Activity extends AppCompatActivity {
@@ -177,7 +176,7 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         to_resource_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, vn.edu.usth.connect.Resource.Resource_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.this, CategoryActivity.class);
                 startActivity(i);
                 finish();
             }

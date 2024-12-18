@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 
 import vn.edu.usth.connect.Login.LoginFragment;
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 
 public class WelcomeFragment extends Fragment {
 
@@ -86,7 +87,7 @@ public class WelcomeFragment extends Fragment {
         to_resource_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), vn.edu.usth.connect.Resource.Resource_Activity.class);
+                Intent i = new Intent(requireContext(), CategoryActivity.class);
                 startActivity(i);
             }
         });

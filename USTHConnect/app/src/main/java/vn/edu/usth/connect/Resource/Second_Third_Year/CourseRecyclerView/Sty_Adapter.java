@@ -1,7 +1,6 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year.RecyclerView;
+package vn.edu.usth.connect.Resource.Second_Third_Year.CourseRecyclerView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,12 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.Second_Third_Year.Year_Course_Resource_Activity;
 
 public class Sty_Adapter extends RecyclerView.Adapter<Sty_ViewHolder>{
 
     Context context;
     List<Sty_Item> items;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     public Sty_Adapter(Context context, List<Sty_Item> items){
         this.context = context;
@@ -36,10 +39,14 @@ public class Sty_Adapter extends RecyclerView.Adapter<Sty_ViewHolder>{
         holder.heading.setText(item.getHeading());
         holder.subhead.setText(item.getSubhead());
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent i = new Intent(context, Year_Course_Resource_Activity.class);
-            i.putExtra("Course Name", item.getHeading());
-            context.startActivity(i);
+        holder .itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(position);
+            }
+//            Intent i = new Intent(context, Year_Course_Resource_Activity.class);
+//            i.putExtra("Course Name", item.getHeading());
+//            i.putExtra("Course Instructor", item.getSubhead());
+//            context.startActivity(i);
         });
     }
 
@@ -51,6 +58,10 @@ public class Sty_Adapter extends RecyclerView.Adapter<Sty_ViewHolder>{
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
     }
 
 }

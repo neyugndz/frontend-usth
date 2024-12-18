@@ -28,8 +28,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 
 public class Schedule_Activity extends AppCompatActivity {
 
@@ -165,7 +165,7 @@ public class Schedule_Activity extends AppCompatActivity {
         to_resource_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Schedule.Schedule_Activity.this, vn.edu.usth.connect.Resource.Resource_Activity.class);
+                Intent i = new Intent(vn.edu.usth.connect.Schedule.Schedule_Activity.this, CategoryActivity.class);
                 startActivity(i);
                 finish();
             }

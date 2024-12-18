@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource;
+package vn.edu.usth.connect.Resource.CategoryRecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,16 +25,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.RecyclerView.Resource_course_Adapter;
-import vn.edu.usth.connect.Resource.RecyclerView.Resource_course_Item;
 
-public class Resource_Activity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
     private DrawerLayout mDrawerLayout;
-    private List<Resource_course_Item> items;
-    private Resource_course_Adapter adapter;
+    private List<CategoryItem> items;
+//    private List<Course> courses = new ArrayList<>();;
+    private CategoryAdapter adapter;
 
     private ImageView avatar_profile_image;
     private Handler handler = new Handler();
@@ -65,6 +64,7 @@ public class Resource_Activity extends AppCompatActivity {
 
         // Setup function for RecyclerView and SearchView
         setup_recyclerview_function();
+//        fetchResources();
 
         // Load image in the Side-menu
         update_picture();
@@ -78,23 +78,24 @@ public class Resource_Activity extends AppCompatActivity {
         // RecyclerView point to Second_Third_Year.Year_Activity
         RecyclerView recyclerView = findViewById(R.id.resource_recyclerview);
 
-        items = new ArrayList<Resource_course_Item>();
+        items = new ArrayList<CategoryItem>();
 
-        items.add(new Resource_course_Item("First Year - Sciences (three-year program)"));
-        items.add(new Resource_course_Item("Information and Communication Technology"));
-        items.add(new Resource_course_Item("Pharmacological Medical and Agronomical Biotechnology"));
-        items.add(new Resource_course_Item("Advanced Materials Science and Nanotechnology"));
-        items.add(new Resource_course_Item("Applied Engineering and Technology (AET)"));
-        items.add(new Resource_course_Item("Applied Environmental Sciences"));
-        items.add(new Resource_course_Item("Space and Applications"));
-        items.add(new Resource_course_Item("Medical Science and Technology (MST)"));
-        items.add(new Resource_course_Item("Food Science and Technology (FST)"));
-        items.add(new Resource_course_Item("Aeronautical Maintenance and Engineering"));
-        items.add(new Resource_course_Item("Chemistry"));
-        items.add(new Resource_course_Item("Applied Mathematics"));
+        items.add(new CategoryItem("First Year - Sciences (three-year program)", 1));
+        items.add(new CategoryItem("Information and Communication Technology", 2));
+        items.add(new CategoryItem("Pharmacological Medical and Agronomical Biotechnology", 3));
+        items.add(new CategoryItem("Advanced Materials Science and Nanotechnology", 4));
+        items.add(new CategoryItem("Applied Engineering and Technology (AET)", 5));
+        items.add(new CategoryItem("Applied Environmental Sciences", 6));
+        items.add(new CategoryItem("Space and Applications", 7));
+        items.add(new CategoryItem("Medical Science and Technology (MST)", 8));
+        items.add(new CategoryItem("Food Science and Technology (FST)", 9));
+        items.add(new CategoryItem("Aeronautical Maintenance and Engineering", 10));
+        items.add(new CategoryItem("Chemistry", 11));
+        items.add(new CategoryItem("Applied Mathematics", 12));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Resource_course_Adapter(this, items);
+//        adapter = new Resource_course_Adapter(this, courses);
+        adapter = new CategoryAdapter(this, items);
         recyclerView.setAdapter(adapter);
 
         // SearchView
@@ -116,12 +117,64 @@ public class Resource_Activity extends AppCompatActivity {
 
     }
 
+    // Method to fetch courses from the backend
+//    private void fetchResources() {
+//        // Fetch token and studentId from SharedPreferences
+//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
+//        String token = sharedPreferences.getString("Token", "");
+//        String studentId = sharedPreferences.getString("StudentId", "");
+//
+//        if (!token.isEmpty() && !studentId.isEmpty()) {
+//            String authHeader = "Bearer " + token;
+//
+//            // Create an instance of Retrofit and fetch student profile
+//            ResourceService resourceService = RetrofitClient.getInstance().create(ResourceService.class);
+//            Call<List<Course>> call = resourceService.getResources(authHeader);
+//
+//            call.enqueue(new Callback<List<Course>>() {
+//                @Override
+//                public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
+//                    if (response.isSuccessful() && response.body() != null) {
+//                        List<Course> courses = response.body();
+//                        updateRecyclerView(courses);
+//
+//                    } else {
+//                        Log.e("FetchResources", "Response failed");
+//                        Log.e("FetchResources", "Status Code: " + response.code());
+//                        if (response.errorBody() != null) {
+//                            try {
+//                                Log.e("FetchResources", "Error Body: " + response.errorBody().string());
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        Toast.makeText(Resource_Activity.this, "Failed to fetch resources", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<Course>> call, Throwable t) {
+//                    Log.e("FetchResources", "Error fetching resources: " + t.getMessage());
+//                    Toast.makeText(Resource_Activity.this, "Error fetching resources", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        } else {
+//            Log.d("Resource_Activity", "Token or StudentId is empty");
+//        }
+//    }
+//
+//     Update the Recycler View
+//    private void updateRecyclerView(List<Course> courses) {
+//        adapter.setCourses(courses);
+//    }
+
+
     private void navigator_drawer_function(){
         LinearLayout to_home_activity = findViewById(R.id.to_home_page);
         to_home_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Resource_Activity.this, vn.edu.usth.connect.MainActivity.class);
+                Intent i = new Intent(CategoryActivity.this, vn.edu.usth.connect.MainActivity.class);
                 startActivity(i);
             }
         });
@@ -130,7 +183,7 @@ public class Resource_Activity extends AppCompatActivity {
         to_schedule_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Resource_Activity.this, vn.edu.usth.connect.Schedule.Schedule_Activity.class);
+                Intent i = new Intent(CategoryActivity.this, vn.edu.usth.connect.Schedule.Schedule_Activity.class);
                 startActivity(i);
             }
         });
@@ -139,7 +192,7 @@ public class Resource_Activity extends AppCompatActivity {
         to_campus_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Resource_Activity.this, vn.edu.usth.connect.Campus.Campus_Activity.class);
+                Intent i = new Intent(CategoryActivity.this, vn.edu.usth.connect.Campus.Campus_Activity.class);
                 startActivity(i);
             }
         });
@@ -148,7 +201,7 @@ public class Resource_Activity extends AppCompatActivity {
         to_resource_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Resource_Activity.this, vn.edu.usth.connect.Resource.Resource_Activity.class);
+                Intent i = new Intent(CategoryActivity.this, CategoryActivity.class);
                 startActivity(i);
             }
         });
@@ -157,7 +210,7 @@ public class Resource_Activity extends AppCompatActivity {
         to_study_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Resource_Activity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
+                Intent i = new Intent(CategoryActivity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
                 startActivity(i);
             }
         });
@@ -198,17 +251,33 @@ public class Resource_Activity extends AppCompatActivity {
                 if (bitmap != null) {
                     avatar_profile_image.setImageBitmap(bitmap);
                 } else {
-                    Toast.makeText(Resource_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CategoryActivity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
     // Filter for SearchView
+//    private void filterList(String text) {
+//        List<Course> filteredCourses = new ArrayList<>();
+//
+//        for (Course course : courses) {
+//            if (course.getCourseName().toLowerCase().contains(text.toLowerCase())) {
+//                filteredCourses.add(course);
+//            }
+//        }
+//
+//        if (filteredCourses.isEmpty()) {
+//            Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show();
+//        } else {
+//            adapter = new Resource_course_Adapter(this, filteredCourses);
+//            recyclerView.setAdapter(adapter);
+//        }
+//    }
     private void filterList(String text) {
-        List<Resource_course_Item> filteredItems = new ArrayList<>();
+        List<CategoryItem> filteredItems = new ArrayList<>();
 
-        for (Resource_course_Item item : items) {
+        for (CategoryItem item : items) {
             if (item.getHeading().toLowerCase().contains(text.toLowerCase())) {
                 filteredItems.add(item);
             }

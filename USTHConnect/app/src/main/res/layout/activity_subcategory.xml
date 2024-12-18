@@ -21,13 +21,13 @@
             android:padding="8dp">
 
             <ImageButton
-                android:id="@+id/menu_button"
+                android:id="@+id/back_button"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/white_menu" />
+                android:background="@drawable/back" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,40 +50,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <SearchView
-                    android:id="@+id/resource_searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:iconifiedByDefault="false"
-                    android:background="@drawable/search_box"
-                    android:backgroundTint="@android:color/white"
-                    android:layout_margin="10dp"
-                    android:queryHint="Search Course"
-                    app:searchIcon="@drawable/search"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#d9d9d9d9">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Select bachelor programme"
+                    android:text="Select your major programme"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:padding="10dp"/>
 
             </LinearLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,21 +69,19 @@
                     android:orientation="vertical">
 
                     <!-- RecyclerView -->
-                    <androidx.core.widget.NestedScrollView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/resource_recyclerview"
+                            android:id="@+id/subcategory_recyclerview"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:nestedScrollingEnabled="false" />
+                            android:layout_height="wrap_content"/>
 
-                    </androidx.core.widget.NestedScrollView>
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </ScrollView>
 
         </LinearLayout>
 

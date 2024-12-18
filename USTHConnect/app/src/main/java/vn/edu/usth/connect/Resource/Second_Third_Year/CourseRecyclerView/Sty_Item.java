@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Resource.Second_Third_Year.RecyclerView;
+package vn.edu.usth.connect.Resource.Second_Third_Year.CourseRecyclerView;
 
 public class Sty_Item {
 
