@@ -48,6 +48,15 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         // activity_study_buddy.xml
         setContentView(R.layout.activity_study_buddy);
 
+        // SharedPreference for the 1st time
+//        SharedPreferences sharedPreferences = getSharedPreferences("ToRegister1", MODE_PRIVATE);
+//        boolean isRegister = sharedPreferences.getBoolean("IsRegister", false);
+//
+//        if(!isRegister){
+//            // Move to WelcomeFragment
+//            navigatorToRegister();
+//        }
+
         // ViewPager2: Change fragments: MessageFragment, StudyBuddyFragment, StudyBuddyProfileFragment
         mviewPager = findViewById(R.id.view_study_buddy_pager);
 
@@ -135,10 +144,6 @@ public class Study_Buddy_Activity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
-
-        // Register
-        // todo: SharePreference
-        navigatorToRegister();
     }
 
     private void navigator_drawer_function(){
