@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".StudyBuddy.Audio.OutgoingCall">
+
+    <!-- OutgoingCall -->
+    <RelativeLayout
+        android:id="@+id/outgoing_call_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/outgoing_remote_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Remote SIP address"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:id="@+id/button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/outgoing_hang_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/hang_up_button"
+                android:text="Hang"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/outgoing_toggle_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/hang_up_button"
+                android:text="Video"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/outgoing_toggle_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/hang_up_button"
+                android:text="Camera"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/outgoing_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/hang_up_button"
+                android:text="Pause"
+                app:backgroundTint="@null" />
+
+
+        </LinearLayout>
+
+        <TextureView
+            android:id="@+id/outgoing_remote_video_surface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/button_layout"
+            android:layout_below="@id/outgoing_remote_address" />
+
+
+        <org.linphone.mediastream.video.capture.CaptureTextureView
+            android:id="@+id/outgoing_local_preview_video_surface"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_above="@id/button_layout"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</LinearLayout>

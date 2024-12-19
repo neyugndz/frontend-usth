@@ -22,6 +22,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".StudyBuddy.Audio.IncomingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudyBuddy.Audio.OutgoingCall"
+            android:exported="false" />
+        <activity
             android:name=".StudyBuddy.Message_Recycler.ChatActivity"
             android:exported="false" />
         <activity

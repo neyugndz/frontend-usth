@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/background">
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
@@ -33,7 +34,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/user_boxchat"
+                android:id="@+id/contact_boxchat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="BoxChat 1"
@@ -42,14 +43,14 @@
                 android:textStyle="bold"
                 android:gravity="center_vertical"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="#ccc" />
-
         </RelativeLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ccc" />
 
 </LinearLayout>

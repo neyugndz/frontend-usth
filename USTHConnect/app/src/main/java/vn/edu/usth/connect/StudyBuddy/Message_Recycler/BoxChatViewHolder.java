@@ -15,8 +15,6 @@ public class BoxChatViewHolder extends RecyclerView.ViewHolder {
     public BoxChatViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        boxchat_name =itemView.findViewById(R.id.user_boxchat);
-
+        boxchat_name = itemView.findViewById(R.id.user_boxchat);
     }
-
 }
