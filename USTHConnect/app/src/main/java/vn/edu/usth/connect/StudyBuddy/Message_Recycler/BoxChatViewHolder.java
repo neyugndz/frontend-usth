@@ -12,10 +12,10 @@ public class BoxChatViewHolder extends RecyclerView.ViewHolder {
 
     TextView boxchat_name;
 
-    public BoxChatViewHolder(@NonNull View iteView) {
-        super(iteView);
+    public BoxChatViewHolder(@NonNull View itemView) {
+        super(itemView);
 
-        boxchat_name =iteView.findViewById(R.id.user_boxchat);
+        boxchat_name =itemView.findViewById(R.id.user_boxchat);
 
     }
 

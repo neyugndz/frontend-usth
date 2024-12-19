@@ -36,9 +36,9 @@ public class BoxChatAdapter extends RecyclerView.Adapter<BoxChatViewHolder>{
 
         holder.itemView.setOnClickListener(v -> {
             Intent i = new Intent(context, ChatActivity.class);
-            i.putExtra("BoxChat_Name", item.getName());
-//            i.putExtra("sip_username", item.getUsername());
-//            i.putExtra("sip_password", item.getPassword());
+            i.putExtra("BoxChat_Name", item.getName()); // BoxChat name: Move from MessageFragment to ChatActivity
+            i.putExtra("sip_username", item.getUsername()); // Username Sip Account: Move from MessageFragment to ChatActivity
+            i.putExtra("sip_password", item.getPassword()); // Password Sip Account: Move from MessageFragment to ChatActivity
             context.startActivity(i);
         });
     }

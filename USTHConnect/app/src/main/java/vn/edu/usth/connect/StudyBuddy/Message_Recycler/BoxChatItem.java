@@ -3,8 +3,8 @@ package vn.edu.usth.connect.StudyBuddy.Message_Recycler;
 public class BoxChatItem {
 
     String name;
-    String username;
-    String password;
+    String username; // Username for SIP Account
+    String password; // Password for SIP Account
 
     public BoxChatItem(String name, String username, String password) {
         this.name = name;

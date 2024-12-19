@@ -1,8 +1,5 @@
 package vn.edu.usth.connect.StudyBuddy;
 
-import static android.content.Intent.getIntent;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,8 +19,8 @@ import vn.edu.usth.connect.StudyBuddy.Message_Recycler.BoxChatItem;
 
 public class Message_Fragment extends Fragment {
 
-    private String username;
-    private String password;
+    private String username; // Username of SIP Account
+    private String password; // Password of SIP Account
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +29,7 @@ public class Message_Fragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_chat_, container, false);
 
         // Get username and password
+        // Idea: Get Username and Password after RegisterStudyBuddyFragment to login
         username = requireActivity().getIntent().getStringExtra("sip_username");
         password = requireActivity().getIntent().getStringExtra("sip_password");
 
@@ -46,9 +44,12 @@ public class Message_Fragment extends Fragment {
 
         List<BoxChatItem> items = new ArrayList<>();
 
-        items.add(new BoxChatItem("ducduyvx", username, password));
-        items.add(new BoxChatItem("vietanhngx", username, password));
-        items.add(new BoxChatItem("quangminhdo", username, password));
+        items.add(new BoxChatItem("ducduyvx", username, password)); // Test: ducduyvx - 1234567890
+        items.add(new BoxChatItem("vietanhngx", username, password)); // Test: vietanhngx - 1234567890
+        items.add(new BoxChatItem("quangminhdo", username, password)); // Test: quangminhdo - 1234567890
+        items.add(new BoxChatItem("hoanglanvx", username, password)); // Account don't exist
+        items.add(new BoxChatItem("hoanganhpham", username, password)); // Account don't exist
+        items.add(new BoxChatItem("dangnguyennguyen", username, password)); // Account don't exist
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         BoxChatAdapter adapter = new BoxChatAdapter(requireContext(), items);
