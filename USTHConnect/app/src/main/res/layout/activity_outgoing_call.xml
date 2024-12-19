@@ -27,58 +27,57 @@
             android:textColor="@color/white"
             android:textSize="25sp" />
 
-        <LinearLayout
-            android:id="@+id/button_layout"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/outgoing_hang_up"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/hang_up_button"
+            android:text="Hang up"
+            app:backgroundTint="@null" />
 
-            <Button
-                android:id="@+id/outgoing_hang_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/hang_up_button"
-                android:text="Hang"
-                app:backgroundTint="@null" />
+        <Button
+            android:id="@+id/outgoing_toggle_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/outgoing_pause"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/audio"
+            android:text="Video"
+            app:backgroundTint="@null" />
 
-            <Button
-                android:id="@+id/outgoing_toggle_video"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/hang_up_button"
-                android:text="Video"
-                app:backgroundTint="@null" />
+        <Button
+            android:id="@+id/outgoing_toggle_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/outgoing_hang_up"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60dp"
+            android:background="@drawable/audio"
+            android:text="Camera"
+            app:backgroundTint="@null" />
 
-            <Button
-                android:id="@+id/outgoing_toggle_camera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/hang_up_button"
-                android:text="Camera"
-                app:backgroundTint="@null" />
+        <Button
+            android:id="@+id/outgoing_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/answer_button"
+            android:text="Pause"
+            app:backgroundTint="@null" />
 
-            <Button
-                android:id="@+id/outgoing_pause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/hang_up_button"
-                android:text="Pause"
-                app:backgroundTint="@null" />
-
-
-        </LinearLayout>
 
         <TextureView
             android:id="@+id/outgoing_remote_video_surface"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/button_layout"
             android:layout_below="@id/outgoing_remote_address" />
 
 
@@ -86,7 +85,6 @@
             android:id="@+id/outgoing_local_preview_video_surface"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_above="@id/button_layout"
             android:layout_alignParentRight="true" />
 
     </RelativeLayout>

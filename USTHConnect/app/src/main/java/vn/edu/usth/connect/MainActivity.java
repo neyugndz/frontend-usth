@@ -58,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
         boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
         String token = sharedPreferences.getString("Token", null);
 
-//        if (!isLoggedIn || token == null || isTokenExpired(token)) {
-//            navigateToLoginFragment();
-//            return;
-//        } else {
-//            scheduleEventFetchWorker();
-//        }
+        if (!isLoggedIn || token == null || isTokenExpired(token)) {
+            navigateToLoginFragment();
+            return;
+        } else {
+            scheduleEventFetchWorker();
+        }
 
         // Check if the intent has the extra to open NotificationFragment
 //        if (getIntent() != null && getIntent().getStringExtra("open_fragment") != null) {
