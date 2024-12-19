@@ -36,6 +36,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import vn.edu.usth.connect.Home.NotificationRecyclerView.NotificationFragment;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
@@ -63,6 +64,19 @@ public class MainActivity extends AppCompatActivity {
 //        } else {
 //            scheduleEventFetchWorker();
 //        }
+
+        // Check if the intent has the extra to open NotificationFragment
+//        if (getIntent() != null && getIntent().getStringExtra("open_fragment") != null) {
+//            String fragmentToOpen = getIntent().getStringExtra("open_fragment");
+//            Log.d("MainActivity", "Intent received with fragment: " + fragmentToOpen);
+//            if ("notification".equals(fragmentToOpen)) {
+//                // Replace the current fragment with NotificationFragment
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_container, new NotificationFragment()) // Make sure you have a container
+//                        .commit();
+//            }
+//        }
+
 
         // activity_main.xml
         setContentView(R.layout.activity_main);
