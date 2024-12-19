@@ -50,7 +50,7 @@ public class Semester_Activity extends AppCompatActivity {
         semester_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(vn.edu.usth.connect.Resource.First_Year.Semester_Activity.this, Course_Semester_Activity.class);
+                Intent i = new Intent(Semester_Activity.this, Course_Semester_Activity.class);
                 i.putExtra("Semester", "Semester 2");
                 startActivity(i);
             }

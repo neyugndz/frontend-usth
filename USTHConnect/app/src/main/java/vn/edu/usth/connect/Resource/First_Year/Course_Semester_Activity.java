@@ -1,5 +1,6 @@
 package vn.edu.usth.connect.Resource.First_Year;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.ImageButton;
@@ -16,13 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Resource.First_Year.RecyclerView.First_year_course_Adapter;
-import vn.edu.usth.connect.Resource.First_Year.RecyclerView.First_year_course_Item;
+import vn.edu.usth.connect.Resource.ActivityRecyclerView.ActivityActivity;
+import vn.edu.usth.connect.Resource.CourseRecyclerView.Sty_Adapter;
+import vn.edu.usth.connect.Resource.CourseRecyclerView.Sty_Item;
 
 public class Course_Semester_Activity extends AppCompatActivity {
 
-    private List<First_year_course_Item> items;
-    private First_year_course_Adapter adapter;
+    private List<Sty_Item> items;
+    private Sty_Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +62,11 @@ public class Course_Semester_Activity extends AppCompatActivity {
         // RecyclerView point to Course_Resource_Activity
         RecyclerView recyclerView = findViewById(R.id.course_semester_recyclerview);
 
-        items = new ArrayList<First_year_course_Item>();
+        items = new ArrayList<Sty_Item>();
 
-        items.add(new First_year_course_Item("Introduction to Infomatics", "Dr. "));
-        items.add(new First_year_course_Item("Fundamental Physics 1", "Dr. "));
-        items.add(new First_year_course_Item("General Chemistry 1", "Dr. "));
-        items.add(new First_year_course_Item("Cellular Biology", "Dr. "));
-        items.add(new First_year_course_Item("Calculus 1", "Dr. "));
-        items.add(new First_year_course_Item("Calculus 2", "Dr. "));
-
+        items.add(new Sty_Item("Introduction to Infomatics", "Dr. Nguyen Le Dung, Dr. Nguyen Duc Dung, Dr. Pham Duc Binh, Dr. Pham Hien", 3L));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new First_year_course_Adapter(this, items);
+        adapter = new Sty_Adapter(this, items);
         recyclerView.setAdapter(adapter);
 
         // SearchView
@@ -89,13 +85,25 @@ public class Course_Semester_Activity extends AppCompatActivity {
                 return true;
             }
         });
+
+        adapter.setOnItemClickListener(position -> {
+            Sty_Item selectedItem = items.get(position);
+            navigateToYearCourseResourceActivity(selectedItem.getHeading(), selectedItem.getSubhead(), selectedItem.getId());
+        });
     }
 
+    private void navigateToYearCourseResourceActivity(String courseName, String courseProf, Long courseId) {
+        Intent intent = new Intent(this, ActivityActivity.class);
+        intent.putExtra("Course Name", courseName);
+        intent.putExtra("Course Instructor", courseProf);
+        intent.putExtra("Course ID", courseId);
+        startActivity(intent);
+    }
     // Filter for SearchView
     private void filterList(String text) {
-        List<First_year_course_Item> filteredItems = new ArrayList<>();
+        List<Sty_Item> filteredItems = new ArrayList<>();
 
-        for (First_year_course_Item item : items) {
+        for (Sty_Item item : items) {
             if (item.getHeading().toLowerCase().contains(text.toLowerCase())) {
                 filteredItems.add(item);
             }

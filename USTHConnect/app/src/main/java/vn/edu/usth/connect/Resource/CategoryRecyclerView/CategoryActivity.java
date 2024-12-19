@@ -64,14 +64,12 @@ public class CategoryActivity extends AppCompatActivity {
 
         // Setup function for RecyclerView and SearchView
         setup_recyclerview_function();
-//        fetchResources();
 
         // Load image in the Side-menu
         update_picture();
     }
 
     // SetUp RecyclerView and SearchView
-    // Folder: RecyclerView: Resource_course_Adapter, Resource_course_Item, Resource_course_ViewHolder
     private void setup_recyclerview_function() {
         // RecyclerView point to First_Year.Semester_Activity
         // or
@@ -116,58 +114,6 @@ public class CategoryActivity extends AppCompatActivity {
         });
 
     }
-
-    // Method to fetch courses from the backend
-//    private void fetchResources() {
-//        // Fetch token and studentId from SharedPreferences
-//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-//        String token = sharedPreferences.getString("Token", "");
-//        String studentId = sharedPreferences.getString("StudentId", "");
-//
-//        if (!token.isEmpty() && !studentId.isEmpty()) {
-//            String authHeader = "Bearer " + token;
-//
-//            // Create an instance of Retrofit and fetch student profile
-//            ResourceService resourceService = RetrofitClient.getInstance().create(ResourceService.class);
-//            Call<List<Course>> call = resourceService.getResources(authHeader);
-//
-//            call.enqueue(new Callback<List<Course>>() {
-//                @Override
-//                public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
-//                    if (response.isSuccessful() && response.body() != null) {
-//                        List<Course> courses = response.body();
-//                        updateRecyclerView(courses);
-//
-//                    } else {
-//                        Log.e("FetchResources", "Response failed");
-//                        Log.e("FetchResources", "Status Code: " + response.code());
-//                        if (response.errorBody() != null) {
-//                            try {
-//                                Log.e("FetchResources", "Error Body: " + response.errorBody().string());
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                        Toast.makeText(Resource_Activity.this, "Failed to fetch resources", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<List<Course>> call, Throwable t) {
-//                    Log.e("FetchResources", "Error fetching resources: " + t.getMessage());
-//                    Toast.makeText(Resource_Activity.this, "Error fetching resources", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        } else {
-//            Log.d("Resource_Activity", "Token or StudentId is empty");
-//        }
-//    }
-//
-//     Update the Recycler View
-//    private void updateRecyclerView(List<Course> courses) {
-//        adapter.setCourses(courses);
-//    }
-
 
     private void navigator_drawer_function(){
         LinearLayout to_home_activity = findViewById(R.id.to_home_page);
