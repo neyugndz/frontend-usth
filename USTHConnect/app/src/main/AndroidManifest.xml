@@ -62,7 +62,7 @@
             android:name=".Resource.ResourceRecyclerView.ResourceActivity"
             android:exported="false" />
         <activity
-            android:name=".Schedule.Course.First_Course_Activity"
+            android:name=".Schedule.Course.First_Course_Fragment"
             android:exported="false" />
         <activity
             android:name=".StudyBuddy.EditProfile.Edit_SB_Profile_Activity"
@@ -86,13 +86,13 @@
             android:name=".Campus.Detail.Detail_Building_Activity"
             android:exported="false" />
         <activity
-            android:name=".Schedule.Course.Second_Course_Activity"
+            android:name=".Schedule.Course.Second_Course_Fragment"
             android:exported="false" />
         <activity
-            android:name=".Schedule.Course.Third_Course_Activity"
+            android:name=".Schedule.Course.Third_Course_Fragment"
             android:exported="false" />
         <activity
-            android:name=".Schedule.Course.List_Class_in_Course_Activity"
+            android:name=".Schedule.Course.Event_RecyclerView.List_Class_in_Course_Activity"
             android:exported="false" />
         <activity
             android:name=".Schedule.Course.Program_Activity"

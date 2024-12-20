@@ -1,6 +1,8 @@
 package vn.edu.usth.connect.Workers;
 
 
+import static vn.edu.usth.connect.Schedule.TimeTable.Event.Event.eventsList;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -83,8 +86,8 @@ public class FetchEventsWorker extends Worker {
                     List<Event> events = response.body();
                     Log.d("FetchEventsWorker", "Fetched " + events.size() + " events");
 
-                    Event.eventsList.clear();
-                    Event.eventsList.addAll(events);
+                    eventsList.clear();
+                    eventsList.addAll(events);
 
                     // You can store the fetched events in local storage or notify the app (via a notification or broadcast)
                 } else {
