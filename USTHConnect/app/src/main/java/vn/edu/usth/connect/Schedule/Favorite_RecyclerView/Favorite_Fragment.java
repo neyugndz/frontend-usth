@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Schedule;
+package vn.edu.usth.connect.Schedule.Favorite_RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

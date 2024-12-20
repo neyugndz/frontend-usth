@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,6 +35,8 @@ public class NotificationFragment extends Fragment {
     private RecyclerView recyclerView;
     private NotificationAdapter adapter;
     private List<Notification> notificationList;
+    // Notification List for comparison
+    private List<Notification> previousNotificationList = new ArrayList<>();
 
     // Handler to manage periodic fetching
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -53,10 +57,6 @@ public class NotificationFragment extends Fragment {
         // Set up adapter
         adapter = new NotificationAdapter();
         recyclerView.setAdapter(adapter);
-
-        // Create notification channel (for devices running Android 8.0 and above)
-        NotificationUtils.createNotificationChannel(getActivity());
-
 
         // Fetch Notifications
         startFetchingNotifications();
@@ -90,6 +90,11 @@ public class NotificationFragment extends Fragment {
         // Stop fetching notifications when the fragment is destroyed
         stopFetchingNotifications();
     }
+
+    public void fetchNotificationsFromActivity() {
+        fetchNotifications();
+    }
+
     private void fetchNotifications() {
         // Fetch token and studentId from SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
@@ -142,15 +147,26 @@ public class NotificationFragment extends Fragment {
 
                     Log.d("NotificationFragment", "Fetched " + notificationList.size() + " notifications");
                     adapter.updateNotifications(notificationList);
+                    // Check if the notifications are different from the previous ones
+                    if (notificationsHaveChanged(notificationList, previousNotificationList)) {
+                        // Update the adapter with new notifications
+                        adapter.updateNotifications(notificationList);
 
-                    // Trigger notification for the user
-                    if (getActivity() != null) {
-                        NotificationUtils.showNotification(getActivity(), "New Notification", "You have new notifications.");
+                        // Trigger notification for the user if there are new notifications
+                        if (getActivity() != null) {
+                            NotificationUtils.showNotification(getActivity(), "New Notification", "There are some event changes.");
+                        }
+
+                        // Update the previous notification list to the current list
+                        previousNotificationList = new ArrayList<>(notificationList);
+                    } else {
+                        Log.d("NotificationFragment", "No new notifications available.");
                     }
                 } else {
                     Log.e("NotificationFragment", "Failed to fetch notifications, response code: " + response.code());
                 }
             }
+
 
             @Override
             public void onFailure(Call<List<Notification>> call, Throwable t) {
@@ -159,6 +175,25 @@ public class NotificationFragment extends Fragment {
         });
     }
 
+    // Method to compare new notifications with previous ones
+    private boolean notificationsHaveChanged(List<Notification> newNotifications, List<Notification> oldNotifications) {
+        if (newNotifications.size() != oldNotifications.size()) {
+            return true; // If the size of the lists is different, they are considered changed
+        }
+
+        // Compare each notification's createdAt or any other unique field
+        for (int i = 0; i < newNotifications.size(); i++) {
+            Notification newNotification = newNotifications.get(i);
+            Notification oldNotification = oldNotifications.get(i);
+
+            // Check if the createdAt or another field differs
+            if (!newNotification.getCreatedAt().equals(oldNotification.getCreatedAt())) {
+                return true; // Notifications have changed if createdAt differs
+            }
+        }
+
+        return false; // No changes detected
+    }
     // Calculate OrganizerID dynamically based on StudyYear and Major
     private int calculateOrganizerId(String studyYear, String major) {
         if ("ICT".equalsIgnoreCase(major)) {

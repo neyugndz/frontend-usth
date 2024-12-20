@@ -36,8 +36,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import vn.edu.usth.connect.Home.Fragment_home_changing;
 import vn.edu.usth.connect.Home.NotificationRecyclerView.NotificationFragment;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
+import vn.edu.usth.connect.Utils.NotificationUtils;
 import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,25 +63,15 @@ public class MainActivity extends AppCompatActivity {
         if (!isLoggedIn || token == null || isTokenExpired(token)) {
             navigateToLoginFragment();
             return;
-        } else {
-            scheduleEventFetchWorker();
         }
 
-        // Check if the intent has the extra to open NotificationFragment
-//        if (getIntent() != null && getIntent().getStringExtra("open_fragment") != null) {
-//            String fragmentToOpen = getIntent().getStringExtra("open_fragment");
-//            Log.d("MainActivity", "Intent received with fragment: " + fragmentToOpen);
-//            if ("notification".equals(fragmentToOpen)) {
-//                // Replace the current fragment with NotificationFragment
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.fragment_container, new NotificationFragment()) // Make sure you have a container
-//                        .commit();
-//            }
-//        }
+        // Create notification channel (for devices running Android 8.0 and above)
+        NotificationUtils.createNotificationChannel(this);
 
+        setContentView(R.layout.activity_main); // Set layout first
 
-        // activity_main.xml
-        setContentView(R.layout.activity_main);
+        // Schedule background tasks
+        scheduleEventFetchWorker();
 
         // ViewPager2: Change fragments: DashboardFragment, NotificationFragment, ProfileFragment
         mviewPager = findViewById(R.id.view_pager);
@@ -163,6 +155,23 @@ public class MainActivity extends AppCompatActivity {
         // Load image in the Side-menu
         update_picture();
 
+        // Handle intent for opening specific fragments
+        handleIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent != null && intent.getStringExtra("open_fragment") != null) {
+            String fragmentToOpen = intent.getStringExtra("open_fragment");
+            if ("notification".equals(fragmentToOpen)) {
+                mviewPager.setCurrentItem(1, true);
+            }
+        }
     }
 
     // Check if the token is Expired
