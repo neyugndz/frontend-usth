@@ -28,6 +28,8 @@ public class Register_StudyBuddyFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
 
+    // todo: Save data in the .csv format
+
     // Register SIP Account
     // Login to Study Buddy using SIP account
     @Override
@@ -46,7 +48,7 @@ public class Register_StudyBuddyFragment extends Fragment {
             String password = user_password.getText().toString();
 
             if (!email.isEmpty() && !password.isEmpty()){
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1", getContext().MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister12", getContext().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("IsRegister", true);
                 editor.apply();

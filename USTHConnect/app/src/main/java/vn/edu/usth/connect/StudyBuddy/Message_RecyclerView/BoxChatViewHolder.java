@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.StudyBuddy.Message_Recycler;
+package vn.edu.usth.connect.StudyBuddy.Message_RecyclerView;
 
 import android.view.View;
 import android.widget.TextView;

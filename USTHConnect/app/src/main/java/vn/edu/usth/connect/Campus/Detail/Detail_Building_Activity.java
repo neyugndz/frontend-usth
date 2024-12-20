@@ -69,7 +69,6 @@ public class Detail_Building_Activity extends AppCompatActivity {
         }).attach();
     }
 
-    //
     private void setup_function(){
         ImageButton back_button = findViewById(R.id.back_button);
         back_button.setOnClickListener(view -> {

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.StudyBuddy.Message_Recycler.BoxChatAdapter;
-import vn.edu.usth.connect.StudyBuddy.Message_Recycler.BoxChatItem;
+import vn.edu.usth.connect.StudyBuddy.Message_RecyclerView.BoxChatAdapter;
+import vn.edu.usth.connect.StudyBuddy.Message_RecyclerView.BoxChatItem;
 
 public class Message_Fragment extends Fragment {
 

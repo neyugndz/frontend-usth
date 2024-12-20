@@ -72,9 +72,9 @@ public class NameFragment extends Fragment {
 
     // Move to next Fragment
     private void navigatorToNextFragment(){
-        Fragment descriptionFragment = new DescriptionFragment();
+        Fragment genderFragment = new GenderFragment();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(android.R.id.content, descriptionFragment);
+        fragmentTransaction.replace(android.R.id.content, genderFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

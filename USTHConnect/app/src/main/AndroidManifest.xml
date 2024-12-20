@@ -44,7 +44,7 @@
             android:name=".StudyBuddy.Audio.OutgoingCall"
             android:exported="false" />
         <activity
-            android:name=".StudyBuddy.Message_Recycler.ChatActivity"
+            android:name=".StudyBuddy.Message_RecyclerView.ChatActivity"
             android:exported="false" />
         <activity
             android:name=".Resource.SubCategoryRecyclerView.SubCategoryActivity"
