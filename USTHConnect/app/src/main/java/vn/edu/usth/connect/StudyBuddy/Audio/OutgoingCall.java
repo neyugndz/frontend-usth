@@ -28,6 +28,7 @@ import org.linphone.core.RegistrationState;
 import org.linphone.core.TransportType;
 
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.MyApplication;
 
 public class OutgoingCall extends AppCompatActivity {
 
@@ -45,6 +46,8 @@ public class OutgoingCall extends AppCompatActivity {
         // activity_outgoing_call.xml
         setContentView(R.layout.activity_outgoing_call);
 
+        MyApplication app = (MyApplication) getApplicationContext();
+        core = app.getLinphoneCore();
         // Get username, password, boxChat name
         Intent intent = getIntent();
         username = intent.getStringExtra("sip_username");
@@ -52,11 +55,7 @@ public class OutgoingCall extends AppCompatActivity {
         box_chat = intent.getStringExtra("BoxChat_Name");
 
         // Create Function & Core:
-        // Outgoing call
-        Factory factory = Factory.instance();
-        core = factory.createCore(null, null, this);
 
-        // Login Outgoing
         login(username, password);
 
     }

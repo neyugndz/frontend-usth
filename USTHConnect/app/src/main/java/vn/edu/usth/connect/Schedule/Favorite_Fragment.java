@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Schedule.Course.First_Course_Activity;
+import vn.edu.usth.connect.Schedule.Course.RecyclerView.CourseAdapter;
 import vn.edu.usth.connect.Schedule.Course.RecyclerView.CourseItem;
 import vn.edu.usth.connect.Schedule.Course.Second_Course_Activity;
 import vn.edu.usth.connect.Schedule.Course.Third_Course_Activity;
