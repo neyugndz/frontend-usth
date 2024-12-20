@@ -38,6 +38,9 @@ public class OutgoingCall extends AppCompatActivity {
 
     private String box_chat;
 
+    // Button
+    private Button hang_up_button, pause_button, toggle_video_button, toggle_camera_button;
+
     // Outgoing Call
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class OutgoingCall extends AppCompatActivity {
         Intent intent = getIntent();
         username = intent.getStringExtra("sip_username");
         password = intent.getStringExtra("sip_password");
-        box_chat = intent.getStringExtra("BoxChat_Name");
+        box_chat = intent.getStringExtra("Contact_Name");
 
         // Create Function & Core:
         // Outgoing call
@@ -59,6 +62,49 @@ public class OutgoingCall extends AppCompatActivity {
         // Login Outgoing
         login(username, password);
 
+        // Setup Video Cam
+        core.setNativeVideoWindowId(findViewById(R.id.outgoing_remote_video_surface));
+        core.setNativePreviewWindowId(findViewById(R.id.outgoing_local_preview_video_surface));
+        core.enableVideoCapture(true);
+        core.enableVideoDisplay(true);
+
+        core.getVideoActivationPolicy().setAutomaticallyAccept(true);
+
+        // Call Function
+        outgoingCall();
+
+        // Set Audio Name
+        TextView textView = findViewById(R.id.outgoing_remote_address);
+        textView.setText(box_chat);
+
+        // Outgoing Call Function
+        // Hangup Button
+        hang_up_button = findViewById(R.id.outgoing_hang_up);
+        hang_up_button.setEnabled(true);;
+        hang_up_button.setOnClickListener(view -> {
+            hangUp();
+        });
+
+        // Pause Button
+        pause_button = findViewById(R.id.outgoing_pause);
+        pause_button.setEnabled(false);
+        pause_button.setOnClickListener(view -> {
+            pauseOrResume();
+        });
+
+        // Toggle Video
+        toggle_video_button = findViewById(R.id.outgoing_toggle_video);
+        toggle_video_button.setEnabled(false);
+        toggle_video_button.setOnClickListener(view -> {
+            toggleVideo();
+        });
+
+        // Toggle Camera
+        toggle_camera_button = findViewById(R.id.outgoing_toggle_camera);
+        toggle_camera_button.setEnabled(false);
+        toggle_camera_button.setOnClickListener(view -> {
+            toggleCamera();
+        });
     }
 
     // Outgoing CoreListener
@@ -66,44 +112,53 @@ public class OutgoingCall extends AppCompatActivity {
         @Override
         public void onAccountRegistrationStateChanged(Core core, Account account, RegistrationState state, String message) {}
 
+        // Call to another User
+        // When connected
         @Override
         public void onCallStateChanged(Core core, Call call, Call.State state, String message) {
             if (state == Call.State.OutgoingInit) {
             } else if (state == Call.State.StreamsRunning) {
-                findViewById(R.id.outgoing_hang_up).setVisibility(View.VISIBLE);
-                findViewById(R.id.outgoing_hang_up).setEnabled(true);
+                // While Call
+                // Enable to pause call 
+                pause_button.setEnabled(true);
+                pause_button.setText("Pause");
 
-                findViewById(R.id.outgoing_pause).setVisibility(View.VISIBLE);
-                findViewById(R.id.outgoing_pause).setEnabled(true);
-                ((Button) findViewById(R.id.outgoing_pause)).setText("Pause");
+                // Enable to toggle video
+                toggle_video_button.setVisibility(View.VISIBLE);
+                toggle_video_button.setEnabled(true);
 
-                findViewById(R.id.outgoing_toggle_video).setVisibility(View.VISIBLE);
-                findViewById(R.id.outgoing_toggle_video).setEnabled(true);
-
-                findViewById(R.id.outgoing_toggle_camera).setVisibility(View.VISIBLE);
-                findViewById(R.id.outgoing_toggle_camera).setEnabled(core.getVideoDevicesList().length > 2 && call.getCurrentParams().videoEnabled());
+                // Enable to toggle camera
+                toggle_camera_button.setVisibility(View.VISIBLE);
+                toggle_camera_button.setEnabled(core.getVideoDevicesList().length > 2 && call.getCurrentParams().videoEnabled());
             } else if (state == Call.State.Paused) {
-                ((Button) findViewById(R.id.outgoing_pause)).setText("Resume");
-                findViewById(R.id.outgoing_toggle_video).setEnabled(false);
+                // While Pause Call
+                pause_button.setText("Resume");
+
+                toggle_video_button.setEnabled(false);
             } else if (state == Call.State.Released) {
-                ((TextView) findViewById(R.id.outgoing_remote_address)).setText("");
+                // Call hangup
+                // Clear text
+                TextView textView = findViewById(R.id.outgoing_remote_address);
+                textView.setText("");
 
-                findViewById(R.id.outgoing_pause).setEnabled(false);
-                ((Button) findViewById(R.id.outgoing_pause)).setText("Pause");
+                // Diasble Button
+                pause_button.setEnabled(false);
+                toggle_video_button.setEnabled(false);
+                hang_up_button.setEnabled(false);
+                toggle_camera_button.setEnabled(false);
 
-                findViewById(R.id.outgoing_toggle_video).setEnabled(false);
+                pause_button.setText("Pause");
 
-                findViewById(R.id.outgoing_hang_up).setEnabled(false);
-
-                findViewById(R.id.outgoing_toggle_camera).setEnabled(false);
-
-                findViewById(R.id.outgoing_call_layout).setVisibility(View.GONE);
+                // Test: Hangup from incoming call
+//                onBackPressed();
+//                finish();
             }
         }
     };
 
     // OutgoingCall
     private void outgoingCall() {
+        // Connect to other Account
         String remoteSipUri = String.format("sip:%s@sip.linphone.org", box_chat);
         Address remoteAddress = Factory.instance().createAddress(remoteSipUri);
         if (remoteAddress == null) return;
@@ -115,7 +170,7 @@ public class OutgoingCall extends AppCompatActivity {
         core.inviteAddressWithParams(remoteAddress, params);
     }
 
-    // Outgoing Hangup
+    // Outgoing Hangup Function
     private void hangUp() {
         if (core.getCallsNb() == 0) return;
 
@@ -125,9 +180,12 @@ public class OutgoingCall extends AppCompatActivity {
 
         // Terminate the call
         call.terminate();
+
+        // Finish OutgoingCall
+        finish();
     }
 
-    // Outgoing ToggleVideo
+    // Outgoing ToggleVideo Function
     private void toggleVideo() {
         if (core.getCallsNb() == 0) return;
 
@@ -150,7 +208,7 @@ public class OutgoingCall extends AppCompatActivity {
         }
     }
 
-    // Outgoing toggleCamera
+    // Outgoing toggleCamera Function
     private void toggleCamera() {
         String currentDevice = core.getVideoDevice();
 
@@ -162,7 +220,7 @@ public class OutgoingCall extends AppCompatActivity {
         }
     }
 
-    // Outgoing Pause/Resume => Wait
+    // Outgoing Pause/Resume Function
     private void pauseOrResume() {
         if (core.getCallsNb() == 0) return;
 
@@ -171,12 +229,15 @@ public class OutgoingCall extends AppCompatActivity {
 
         // Pause or resume the call based on its state
         if (call.getState() != Call.State.Paused && call.getState() != Call.State.Pausing) {
+            // Pause
             call.pause();
         } else if (call.getState() != Call.State.Resuming) {
+            // Resume
             call.resume();
         }
     }
 
+    // Login Button
     private void login(String username, String password) {
         String domain = "sip.linphone.org";
         AuthInfo authInfo = Factory.instance().createAuthInfo(username, null, password, null, null, domain, null);
@@ -211,6 +272,11 @@ public class OutgoingCall extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, 0);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
 }
