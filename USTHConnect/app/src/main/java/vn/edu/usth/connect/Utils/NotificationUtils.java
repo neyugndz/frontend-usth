@@ -1,5 +1,7 @@
 package vn.edu.usth.connect.Utils;
 
+import static androidx.core.app.ServiceCompat.startForeground;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,8 +11,10 @@ import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import vn.edu.usth.connect.MainActivity;
+import vn.edu.usth.connect.Models.Notification;
 import vn.edu.usth.connect.R;
 
 public class NotificationUtils {
@@ -55,7 +59,7 @@ public class NotificationUtils {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default_channel")
-                .setSmallIcon(R.drawable.b3) // Add your notification icon
+                .setSmallIcon(R.drawable.b3) // todo : Add your notification icon
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -63,11 +67,12 @@ public class NotificationUtils {
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
+        if (notificationManager == null) {
+            Log.e("NotificationUtils", "NotificationManager is null, failed to show notification.");
+        } else {
+            Log.d("NotificationUtils", "NotificationManager initialized successfully.");
             notificationManager.notify(0, builder.build());
             Log.d("NotificationUtils", "Notification displayed successfully.");
-        } else {
-            Log.e("NotificationUtils", "NotificationManager is null, failed to show notification.");
         }
     }
 

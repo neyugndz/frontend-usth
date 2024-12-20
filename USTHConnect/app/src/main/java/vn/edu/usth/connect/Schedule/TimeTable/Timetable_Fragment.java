@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Schedule;
+package vn.edu.usth.connect.Schedule.TimeTable;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +21,6 @@ import vn.edu.usth.connect.R;
 
 import vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderUtils;
 import vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderAdapter;
-import vn.edu.usth.connect.Schedule.TimeTable.DailyCalenderActivity;
-import vn.edu.usth.connect.Schedule.TimeTable.WeekViewActivity;
 
 import static  vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderUtils.daysInMonthArray;
 import static  vn.edu.usth.connect.Schedule.TimeTable.Calender.CalenderUtils.monthYearFromDate;

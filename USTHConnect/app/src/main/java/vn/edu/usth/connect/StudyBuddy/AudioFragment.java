@@ -40,7 +40,7 @@ public class AudioFragment extends Fragment {
     }
     
     private void setup_recyclerview_function (View v){
-        RecyclerView recyclerView = v.findViewById(R.id.chat_recyclerview);
+        RecyclerView recyclerView = v.findViewById(R.id.contact_recyclerview);
 
         List<ContactItem> items = new ArrayList<>();
 
