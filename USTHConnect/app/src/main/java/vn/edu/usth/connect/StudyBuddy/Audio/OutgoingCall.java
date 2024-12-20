@@ -3,6 +3,7 @@ package vn.edu.usth.connect.StudyBuddy.Audio;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import org.linphone.core.RegistrationState;
 import org.linphone.core.TransportType;
 
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.CallService;
 import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.MyApplication;
 
 public class OutgoingCall extends AppCompatActivity {
@@ -38,6 +40,7 @@ public class OutgoingCall extends AppCompatActivity {
     private String password; // Password of Sip Account
 
     private String box_chat;
+    public String domain = "sip.linphone.org";
 
     // Button
     private Button hang_up_button, pause_button, toggle_video_button, toggle_camera_button;
@@ -116,7 +119,21 @@ public class OutgoingCall extends AppCompatActivity {
         @Override
         public void onCallStateChanged(Core core, Call call, Call.State state, String message) {
             if (state == Call.State.OutgoingInit) {
-            } else if (state == Call.State.StreamsRunning) {
+            } else if (state == Call.State.IncomingReceived) {
+                Intent serviceIntent = new Intent(OutgoingCall.this, CallService.class);
+                serviceIntent.putExtra("username", username);
+                serviceIntent.putExtra("password", password);
+                serviceIntent.putExtra("domain", domain);
+                serviceIntent.putExtra("transport_type", TransportType.Tls);
+                serviceIntent.putExtra("remote user", call.getRemoteAddress().getUsername());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(serviceIntent);
+                } else {
+                    startService(serviceIntent);
+                }
+            }
+            else if (state == Call.State.StreamsRunning) {
                 // While Call
                 // Enable to pause call 
                 pause_button.setEnabled(true);
@@ -238,7 +255,7 @@ public class OutgoingCall extends AppCompatActivity {
 
     // Login Button
     private void login(String username, String password) {
-        String domain = "sip.linphone.org";
+        domain = "sip.linphone.org";
         AuthInfo authInfo = Factory.instance().createAuthInfo(username, null, password, null, null, domain, null);
 
         Address identity = Factory.instance().createAddress("sip:" + username + "@" + domain);
