@@ -1,6 +1,8 @@
 package vn.edu.usth.connect.Schedule.Course;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -10,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +27,7 @@ public class Second_Course_Activity extends AppCompatActivity {
 
     private List<CourseItem> items;
     private CourseAdapter adapter;
+    public static List<CourseItem> favouriteCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +68,31 @@ public class Second_Course_Activity extends AppCompatActivity {
 
         items = new ArrayList<CourseItem>();
 
-        items.add(new CourseItem("Advanced Programming with Python", "Dr. Tran Giang Son"));
-        items.add(new CourseItem("Algorithms and Data Structures", "Dr. Doan Nhat Quang"));
-        items.add(new CourseItem("Signal and System", "Dr. Tran Duc Tan"));
-        items.add(new CourseItem("Numetical Methods", "Dr."));
-        items.add(new CourseItem("Fundamental Database", "Dr.Nguyen Hoang Ha"));
-        items.add(new CourseItem("Probability and Statistics", "Dr.Le Nhu Chu Hiep"));
+        items.add(new CourseItem("Advanced Programming with Python", "Dr. Tran Giang Son", false));
+        items.add(new CourseItem("Algorithms and Data Structures", "Dr. Doan Nhat Quang", false));
+        items.add(new CourseItem("Signal and System", "Dr. Tran Duc Tan", false));
+        items.add(new CourseItem("Numetical Methods", "Dr.", false));
+        items.add(new CourseItem("Fundamental Database", "Dr.Nguyen Hoang Ha", false));
+        items.add(new CourseItem("Probability and Statistics", "Dr.Le Nhu Chu Hiep", false));
 
+        favouriteCourses = loadFavouriteCourses();
+        for (CourseItem item : items) {
+            for (CourseItem favorite : favouriteCourses) {
+                if (item.getHeading().equals(favorite.getHeading())) {
+                    item.setFavourite(true);
+                    break;
+                }
+            }
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CourseAdapter(this, items);
+        adapter = new CourseAdapter(this, items, courseItem -> {
+            if (courseItem.isFavourite()) {
+                if (!favouriteCourses.contains(courseItem)) favouriteCourses.add(courseItem);
+            } else {
+                favouriteCourses.remove(courseItem);
+            }
+            saveFavouriteCourses();
+        });
         recyclerView.setAdapter(adapter);
 
         // SearchView
@@ -88,6 +111,29 @@ public class Second_Course_Activity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private List<CourseItem> loadFavouriteCourses() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Retrieve the JSON string and deserialize it
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("favourite_courses_second", "[]");  // Default to empty list
+        Type type = new TypeToken<List<CourseItem>>(){}.getType();
+
+        return gson.fromJson(json, type);
+    }
+
+    private void saveFavouriteCourses() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Convert the list to a JSON string (you can use Gson or any other method for serialization)
+        Gson gson = new Gson();
+        String json = gson.toJson(favouriteCourses);
+
+        editor.putString("favourite_courses_second", json);
+        editor.apply();
     }
 
     // Filter for SearchView
@@ -112,5 +158,9 @@ public class Second_Course_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public List<CourseItem> getFavouriteCourses() {
+        return favouriteCourses;
     }
 }

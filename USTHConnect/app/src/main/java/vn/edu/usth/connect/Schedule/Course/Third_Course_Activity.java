@@ -1,6 +1,8 @@
 package vn.edu.usth.connect.Schedule.Course;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -14,6 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +31,7 @@ public class Third_Course_Activity extends AppCompatActivity {
 
     private List<CourseItem> items;
     private CourseAdapter adapter;
+    public static List<CourseItem> favouriteCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +72,30 @@ public class Third_Course_Activity extends AppCompatActivity {
 
         items = new ArrayList<CourseItem>();
 
-        items.add(new CourseItem("Web Application Development", "Msc. Kieu Quoc Viet & Msc. Huynh Vinh Nam"));
-        items.add(new CourseItem("Object-oriented system analysis and design", "Dr. Do Trung Dung"));
-        items.add(new CourseItem("Mobile Application Development", "Dr. Tran Giang Son & Msc. Kieu Quoc Viet"));
+        items.add(new CourseItem("Web Application Development", "Msc. Kieu Quoc Viet & Msc. Huynh Vinh Nam", false));
+        items.add(new CourseItem("Object-oriented system analysis and design", "Dr. Do Trung Dung", false));
+        items.add(new CourseItem("Mobile Application Development", "Dr. Tran Giang Son & Msc. Kieu Quoc Viet", false));
+
+        favouriteCourses = loadFavouriteCourses();
+
+        for (CourseItem item : items) {
+            for (CourseItem favorite : favouriteCourses) {
+                if (item.getHeading().equals(favorite.getHeading())) {
+                    item.setFavourite(true);
+                    break;
+                }
+            }
+        }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CourseAdapter(this, items);
+        adapter = new CourseAdapter(this, items, courseItem -> {
+            if (courseItem.isFavourite()) {
+                if (!favouriteCourses.contains(courseItem)) favouriteCourses.add(courseItem);
+            } else {
+                favouriteCourses.remove(courseItem);
+            }
+            saveFavouriteCourses();
+        });
         recyclerView.setAdapter(adapter);
 
         // SearchView
@@ -89,6 +114,29 @@ public class Third_Course_Activity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private List<CourseItem> loadFavouriteCourses() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Retrieve the JSON string and deserialize it
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("favourite_courses_third", "[]");  // Default to empty list
+        Type type = new TypeToken<List<CourseItem>>(){}.getType();
+
+        return gson.fromJson(json, type);
+    }
+
+    private void saveFavouriteCourses() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Convert the list to a JSON string (you can use Gson or any other method for serialization)
+        Gson gson = new Gson();
+        String json = gson.toJson(favouriteCourses);
+
+        editor.putString("favourite_courses_third", json);
+        editor.apply();
     }
 
     // Filter for SearchView
@@ -115,4 +163,7 @@ public class Third_Course_Activity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    public List<CourseItem> getFavouriteCourses() {
+        return favouriteCourses;
+    }
 }

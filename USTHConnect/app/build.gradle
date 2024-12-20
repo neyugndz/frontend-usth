@@ -57,7 +57,9 @@ dependencies {
 
     // Media
     implementation 'androidx.media:media:1.2.0'
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     // Linphone :)?
     implementation 'com.google.android.material:material:1.9.0'
+    implementation 'org.linphone:linphone-sdk-android:5.0+'
 }
