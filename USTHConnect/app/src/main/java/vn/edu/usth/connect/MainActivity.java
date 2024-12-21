@@ -56,14 +56,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // SharePreferences: Save Login
-        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
-        String token = sharedPreferences.getString("Token", null);
-
-        if (!isLoggedIn || token == null || isTokenExpired(token)) {
-            navigateToLoginFragment();
-            return;
-        }
+//        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
+//        boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
+//        String token = sharedPreferences.getString("Token", null);
+//
+//        if (!isLoggedIn || token == null || isTokenExpired(token)) {
+//            navigateToLoginFragment();
+//            return;
+//        }
 
         // Create notification channel (for devices running Android 8.0 and above)
         NotificationUtils.createNotificationChannel(this);
