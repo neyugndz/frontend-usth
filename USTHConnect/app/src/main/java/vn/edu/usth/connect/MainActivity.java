@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Create notification channel (for devices running Android 8.0 and above)
-        NotificationUtils.createNotificationChannel(this);
+//        NotificationUtils.createNotificationChannel(this);
 
         setContentView(R.layout.activity_main); // Set layout first
 
