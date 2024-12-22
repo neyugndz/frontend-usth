@@ -37,48 +37,93 @@ public class FetchEventsWorker extends Worker {
         String token = sharedPreferences.getString("Token", "");
         String studentId = sharedPreferences.getString("StudentId", "");
 
-        if (!token.isEmpty() && !studentId.isEmpty()) {
-            String authHeader = "Bearer " + token;
-
-            // Create an instance of Retrofit and fetch student profile
-            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
-            Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
-
-            call.enqueue(new Callback<Student>() {
-                @Override
-                public void onResponse(Call<Student> call, Response<Student> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        Student currentStudent = response.body();
-                        Log.d("FetchEventsWorker", "Student data: " + currentStudent);
-
-                        String studyYear = currentStudent.getStudyYear();
-                        String major = currentStudent.getMajor();
-                        Integer organizerId = calculateOrganizerId(studyYear, major);
-
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("StudyYear", studyYear);
-                        editor.putString("Major", major);
-                        editor.apply();
-
-                        // Fetch events for the student
-                        fetchEvents(authHeader, organizerId);
-                    } else {
-                        Log.e("FetchEventsWorker", "Failed to load user profile");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Student> call, Throwable t) {
-                    Log.e("FetchEventsWorker", "Error fetching profile: " + t.getMessage());
-                }
-            });
-        } else {
-            Log.d("FetchEventsWorker", "Token or StudentId is empty");
+        if (token.isEmpty() || studentId.isEmpty()) {
+            Log.e("FetchEventsWorker", "Token or Student ID is missing.");
+            return Result.failure();
         }
 
-        // Return success after event fetching logic
-        return Result.success();
+        String authHeader = "Bearer " + token;
+
+        try {
+            // Create Retrofit instance and call the service
+            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+            Response<Student> response = studentService.getStudentProfile(authHeader, studentId).execute();
+
+            if (response.isSuccessful() && response.body() != null) {
+                Student currentStudent = response.body();
+                Log.d("FetchEventsWorker", "Student data: " + currentStudent);
+                String studyYear = currentStudent.getStudyYear();
+                String major = currentStudent.getMajor();
+                Integer organizerId = calculateOrganizerId(studyYear, major);
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("StudyYear", studyYear);
+                editor.putString("Major", major);
+                editor.apply();
+                // Fetch events for the student
+
+                fetchEvents(authHeader, organizerId);
+                return Result.success();
+            } else {
+                Log.e("FetchEventsWorker", "Failed to fetch student data: " + response.message());
+                return Result.retry(); // Retry in case of failure
+            }
+        } catch (Exception e) {
+            Log.e("FetchEventsWorker", "Error fetching student data", e);
+            return Result.failure();
+        }
     }
+//    public Result doWork() {
+//        Log.d("FetchEventsWorker", "Starting to fetch events...");
+//
+//        // Fetch token and studentId from SharedPreferences
+//        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
+//
+//        String token = sharedPreferences.getString("Token", "");
+//        String studentId = sharedPreferences.getString("StudentId", "");
+//
+//        if (!token.isEmpty() && !studentId.isEmpty()) {
+//            String authHeader = "Bearer " + token;
+//
+//            // Create an instance of Retrofit and fetch student profile
+//            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+//            Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
+//
+//            call.enqueue(new Callback<Student>() {
+//                @Override
+//                public void onResponse(Call<Student> call, Response<Student> response) {
+//                    if (response.isSuccessful() && response.body() != null) {
+//                        Student currentStudent = response.body();
+//                        Log.d("FetchEventsWorker", "Student data: " + currentStudent);
+//
+//                        String studyYear = currentStudent.getStudyYear();
+//                        String major = currentStudent.getMajor();
+//                        Integer organizerId = calculateOrganizerId(studyYear, major);
+//
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString("StudyYear", studyYear);
+//                        editor.putString("Major", major);
+//                        editor.apply();
+//
+//                        // Fetch events for the student
+//                        fetchEvents(authHeader, organizerId);
+//                    } else {
+//                        Log.e("FetchEventsWorker", "Failed to load user profile");
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Student> call, Throwable t) {
+//                    Log.e("FetchEventsWorker", "Error fetching profile: " + t.getMessage());
+//                }
+//            });
+//        } else {
+//            Log.d("FetchEventsWorker", "Token or StudentId is empty");
+//        }
+//
+//        // Return success after event fetching logic
+//        return Result.success();
+//    }
 
     private void fetchEvents(String token, Integer organizerId) {
         EventService eventService = RetrofitClient.getInstance().create(EventService.class);

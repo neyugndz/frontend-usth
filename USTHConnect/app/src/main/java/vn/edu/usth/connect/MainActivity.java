@@ -57,17 +57,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // SharePreferences: Save Login
-//        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
-//        boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
-//        String token = sharedPreferences.getString("Token", null);
-//
-//        if (!isLoggedIn || token == null || isTokenExpired(token)) {
-//            navigateToLoginFragment();
-//            return;
-//        }
+        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
+        String token = sharedPreferences.getString("Token", null);
 
-        // Create notification channel (for devices running Android 8.0 and above)
-//        NotificationUtils.createNotificationChannel(this);
+        if (!isLoggedIn || token == null || isTokenExpired(token)) {
+            navigateToLoginFragment();
+            return;
+        }
 
         setContentView(R.layout.activity_main); // Set layout first
 
@@ -297,17 +294,13 @@ public class MainActivity extends AppCompatActivity {
 
     // Fetch events every 10 minutes
     private void scheduleEventFetchWorker() {
-        // Always trigger the One-time event fetch worker immediately
-        OneTimeWorkRequest fetchEventsOneTimeRequest = new OneTimeWorkRequest.Builder(FetchEventsWorker.class)
-                .build();
-        WorkManager.getInstance(this).enqueue(fetchEventsOneTimeRequest);
-        Log.d("MainActivity", "One-time event fetch worker triggered.");
-
-        // If it's the first start-up or after login, schedule the periodic work
-        WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 10, TimeUnit.MINUTES)
+        // Cancel existing workers with the same tag
+        WorkManager.getInstance(this).cancelAllWorkByTag("fetchEventsWorker");
+        // Periodic work for recurring execution
+        WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 15, TimeUnit.MINUTES)
+                .addTag("fetchEventsWorker")
                 .build();
         WorkManager.getInstance(this).enqueue(fetchEventsRequest);
         Log.d("MainActivity", "Periodic event fetch worker scheduled.");
     }
-
 }
