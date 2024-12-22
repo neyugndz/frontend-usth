@@ -38,8 +38,12 @@ public class AudioFragment extends Fragment {
 
         return v;
     }
-    
+
+    // todo: SearchView
+    // SetUp RecyclerView
+    // Folder: Audio: ContactItem, ContactAdapter, ContactViewHolder
     private void setup_recyclerview_function (View v){
+        // RecyclerView point to Audio.OutgoingCall
         RecyclerView recyclerView = v.findViewById(R.id.contact_recyclerview);
 
         List<ContactItem> items = new ArrayList<>();

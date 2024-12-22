@@ -32,7 +32,10 @@ public class Study_Buddy_Fragment extends Fragment {
         return v;
     }
 
-    private void setup_Rcm_User(View v){
+    // Setup RecyclerView
+    // Folder: SB_Recycler: Rcm_UserAdapter, Rcm_UserItem, Rcm_UserViewHolder
+    private void setup_Rcm_User(View v) {
+        // RecyclerView point to Detail.UserDetailActivity
         RecyclerView recyclerView = v.findViewById(R.id.horizontal_recyclerview);
 
         List<Rcm_UserItem> items = new ArrayList<Rcm_UserItem>();

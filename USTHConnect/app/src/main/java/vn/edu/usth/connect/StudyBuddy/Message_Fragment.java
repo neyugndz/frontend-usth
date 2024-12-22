@@ -39,7 +39,11 @@ public class Message_Fragment extends Fragment {
         return v;
     }
 
+    // todo: SearchView
+    // SetUp RecyclerView
+    // Folder: Message_RecyclerView: BoxChatItem, BoxChatAdapter, BoxChatViewHolder
     private void setup_recyclerview_function (View v){
+        // RecyclerView point to Message_RecyclerView.ChatActivity
         RecyclerView recyclerView = v.findViewById(R.id.chat_recyclerview);
 
         List<BoxChatItem> items = new ArrayList<>();
