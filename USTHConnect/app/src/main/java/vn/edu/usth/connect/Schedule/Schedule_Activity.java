@@ -48,6 +48,7 @@ public class Schedule_Activity extends AppCompatActivity {
     private ImageView avatar_profile_image;
     private Handler handler = new Handler();
 
+    private final String TAG = "Schedule_Activity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,17 @@ public class Schedule_Activity extends AppCompatActivity {
 
         // BottomNavigation: Bottom Menu :D
         bottomNavigationView = findViewById(R.id.schedule_bottom_navigation);
+
+        // Retrieve studyYear and major from SharedPreferences
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
+        String studyYear = sharedPreferences.getString("StudyYear", "");
+        String major = sharedPreferences.getString("Major", "");
+
+        Log.d(TAG, "Study Year is " + studyYear + ", Major is " + major);
+        // Adapter: Fragment_schedule_changing
+        Fragment_schedule_changing adapter = new Fragment_schedule_changing(getSupportFragmentManager(), getLifecycle(), studyYear, major);
+        mviewPager.setAdapter(adapter);
+        mviewPager.setUserInputEnabled(false);
 
         // ViewPager2 setup Function
         mviewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -131,7 +143,7 @@ public class Schedule_Activity extends AppCompatActivity {
         // Load image in the Side-menu
         update_picture();
 
-        setupViewPager();
+//        setupViewPager();
     }
 
     private void navigator_drawer_function(){
@@ -238,46 +250,4 @@ public class Schedule_Activity extends AppCompatActivity {
             });
         }
     }
-
-    private void setupViewPager() {
-        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
-        String studentId = sharedPreferences.getString("StudentId", "");
-
-        if (!token.isEmpty() && !studentId.isEmpty()) {
-            String authHeader = "Bearer " + token;
-            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
-
-            studentService.getStudentProfile(authHeader, studentId).enqueue(new Callback<Student>() {
-                @Override
-                public void onResponse(Call<Student> call, Response<Student> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        String studyYear = response.body().getStudyYear();
-                        String major = response.body().getMajor();
-
-                        // Pass studyYear to Fragment_schedule_changing
-                        Fragment_schedule_changing adapter = new Fragment_schedule_changing(
-                                getSupportFragmentManager(),
-                                getLifecycle(),
-                                studyYear,
-                                major
-                        );
-                        ViewPager2 viewPager = findViewById(R.id.view_schedule_pager);
-                        viewPager.setAdapter(adapter);
-                    } else {
-                        Log.e("Activity", "Failed to fetch student profile");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Student> call, Throwable t) {
-                    Log.e("Activity", "Error fetching student profile: " + t.getMessage());
-                }
-            });
-        } else {
-            Log.d("Activity", "Token or StudentId is empty");
-        }
-    }
-
-
 }

@@ -207,7 +207,7 @@ public class NotificationFragment extends Fragment {
         if ("ICT".equalsIgnoreCase(major)) {
             switch (studyYear) {
                 case "B2":
-                    return 691;
+                    return 686;
                 case "B3":
                     return 2;
             }

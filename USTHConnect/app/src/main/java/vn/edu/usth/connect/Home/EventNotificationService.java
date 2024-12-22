@@ -35,7 +35,7 @@ public class EventNotificationService extends Service {
                 this,
                 0,
                 notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         // Build and display the notification using the message and created_at

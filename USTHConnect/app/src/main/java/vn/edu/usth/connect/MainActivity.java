@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Schedule background tasks
         scheduleEventFetchWorker();
+
 
         // ViewPager2: Change fragments: DashboardFragment, NotificationFragment, ProfileFragment
         mviewPager = findViewById(R.id.view_pager);
@@ -154,24 +156,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
-
-        // Handle intent for opening specific fragments
-        handleIntent(getIntent());
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent) {
-        if (intent != null && intent.getStringExtra("open_fragment") != null) {
-            String fragmentToOpen = intent.getStringExtra("open_fragment");
-            if ("notification".equals(fragmentToOpen)) {
-                mviewPager.setCurrentItem(1, true);
-            }
-        }
     }
 
     // Check if the token is Expired
@@ -313,12 +297,16 @@ public class MainActivity extends AppCompatActivity {
 
     // Fetch events every 10 minutes
     private void scheduleEventFetchWorker() {
+        // Always trigger the One-time event fetch worker immediately
+        OneTimeWorkRequest fetchEventsOneTimeRequest = new OneTimeWorkRequest.Builder(FetchEventsWorker.class)
+                .build();
+        WorkManager.getInstance(this).enqueue(fetchEventsOneTimeRequest);
+        Log.d("MainActivity", "One-time event fetch worker triggered.");
+
+        // If it's the first start-up or after login, schedule the periodic work
         WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 10, TimeUnit.MINUTES)
                 .build();
-
-        // Enqueue the work request using WorkManager
         WorkManager.getInstance(this).enqueue(fetchEventsRequest);
-
         Log.d("MainActivity", "Periodic event fetch worker scheduled.");
     }
 

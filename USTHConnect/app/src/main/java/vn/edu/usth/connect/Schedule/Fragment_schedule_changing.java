@@ -38,14 +38,12 @@ public class Fragment_schedule_changing extends FragmentStateAdapter {
                 if("B1".equals(studyYear)) {
                     return new FirstCourseFragment();
                 } else if("B2".equals(studyYear)) {
-//                    return new SecondCourseFragment();
                     SecondCourseFragment secondCourseFragment = new SecondCourseFragment();
                     Bundle args = new Bundle();
                     args.putString("major", major);  // Pass the major value
                     secondCourseFragment.setArguments(args);
                     return secondCourseFragment;
                 } else if("B3".equals(studyYear)) {
-//                    return new ThirdCourseFragment();
                     ThirdCourseFragment thirdCourseFragment = new ThirdCourseFragment();
                     Bundle args = new Bundle();
                     args.putString("major", major);  // Pass the major value
