@@ -29,6 +29,7 @@ public class Favorite_Fragment extends Fragment {
     private RecyclerView recyclerView;
     private Favorite_course_Adapter favoriteCourseAdapter;
     private List<Favorite_course_Item> favoriteCourseItems;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

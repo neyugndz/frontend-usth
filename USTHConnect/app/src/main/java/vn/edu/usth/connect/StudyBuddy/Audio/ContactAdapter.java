@@ -43,6 +43,11 @@ public class ContactAdapter  extends RecyclerView.Adapter<ContactViewHolder> {
         });
     }
 
+    public void setFilter(List<ContactItem> items){
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return items.size();

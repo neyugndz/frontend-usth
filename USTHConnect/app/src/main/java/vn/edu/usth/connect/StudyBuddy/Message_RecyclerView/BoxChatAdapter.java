@@ -43,6 +43,11 @@ public class BoxChatAdapter extends RecyclerView.Adapter<BoxChatViewHolder>{
         });
     }
 
+    public void setFilter(List<BoxChatItem> items){
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return items.size();

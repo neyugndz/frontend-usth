@@ -1,6 +1,7 @@
 package vn.edu.usth.connect.StudyBuddy.SB_RecyclerView.Detail;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,7 +56,10 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void setup_function(){
-
+        ImageButton back_button = findViewById(R.id.back_button);
+        back_button.setOnClickListener(view -> {
+            onBackPressed();
+        });
     }
 
     @Override
