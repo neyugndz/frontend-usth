@@ -1,6 +1,7 @@
 package vn.edu.usth.connect.StudyBuddy.Audio;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.TextView;
 
@@ -11,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.MyApplication;
+
 import org.linphone.core.*;
 public class IncomingActivity extends AppCompatActivity {
 
@@ -45,6 +48,7 @@ public class IncomingActivity extends AppCompatActivity {
             if (core.getCurrentCall() != null) {
                 core.getCurrentCall().terminate();
             }
+            finish();
         });
 
         findViewById(R.id.incoming_answer).setOnClickListener(v -> {
@@ -81,7 +85,9 @@ public class IncomingActivity extends AppCompatActivity {
                         break;
                     case Connected:
                         findViewById(R.id.incoming_mute_mic).setEnabled(true);
+                        findViewById(R.id.incoming_mute_mic).setVisibility(View.VISIBLE);
                         findViewById(R.id.incoming_toggle_speaker).setEnabled(true);
+                        findViewById(R.id.incoming_toggle_speaker).setVisibility(View.VISIBLE);
                         break;
                     case Released:
                         findViewById(R.id.incoming_hang_up).setEnabled(false);

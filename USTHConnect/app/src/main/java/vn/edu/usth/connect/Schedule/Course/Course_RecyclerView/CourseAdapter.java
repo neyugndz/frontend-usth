@@ -41,7 +41,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseViewHolder>{
 
         holder.heading.setText(item.getHeading());
         holder.subhead.setText(item.getSubhead());
-        holder.favorite_course_button.setImageResource( item.isFavourite() ? R.drawable.filled_star : R.drawable.favorite_course);
+        holder.favorite_course_button.setSelected(item.isFavourite());
 
         holder.favorite_course_button.setOnClickListener(view -> {
             item.setFavourite(!item.isFavourite());

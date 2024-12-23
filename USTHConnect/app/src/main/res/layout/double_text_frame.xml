@@ -42,6 +42,15 @@
             </LinearLayout>
 
             <ImageButton
+                android:id="@+id/favourite_course_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/favourite_button_unselector"
+                android:background="@android:color/transparent" />
+
+            <ImageButton
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/white_more"/>

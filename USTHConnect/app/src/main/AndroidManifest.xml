@@ -5,8 +5,12 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
@@ -20,7 +24,6 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
@@ -37,9 +40,6 @@
         android:theme="@style/Theme.USTHConnect"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".StudyBuddy.Audio.Incoming"
-            android:exported="false" />
         <activity
             android:name=".StudyBuddy.SB_RecyclerView.Detail.UserDetailActivity"
             android:exported="false" />
@@ -129,9 +129,6 @@
             android:foregroundServiceType="dataSync"
             android:permission="android.permission.FOREGROUND_SERVICE"
             android:exported="true"/>
-
-
-        <receiver android:name=".StudyBuddy.Audio.PushNoti.PushBroadcastReceiver"
 
         <receiver
             android:name=".StudyBuddy.Audio.PushNoti.PushBroadcastReceiver"
