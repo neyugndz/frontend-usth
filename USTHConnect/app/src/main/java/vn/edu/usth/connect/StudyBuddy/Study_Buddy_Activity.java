@@ -68,7 +68,6 @@ public class Study_Buddy_Activity extends AppCompatActivity {
             navigatorToRegister();
         }
 
-
         // ViewPager2: Change fragments: MessageFragment, StudyBuddyFragment, StudyBuddyProfileFragment
         mviewPager = findViewById(R.id.view_study_buddy_pager);
 
