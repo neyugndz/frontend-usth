@@ -29,15 +29,18 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.usth.connect.Models.Student.Student;
+import vn.edu.usth.connect.Network.EventService;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
+import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
 
 public class Schedule_Activity extends AppCompatActivity {
 
@@ -54,6 +57,9 @@ public class Schedule_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // activity_schedule
         setContentView(R.layout.activity_schedule);
+
+        // Fetch events on activity start
+        fetchStudentAndEvents();
 
         // ViewPager2: Change fragments: TimetableFragment, CourseFragment, FavoriteFragment
         mviewPager = findViewById(R.id.view_schedule_pager);
@@ -249,5 +255,95 @@ public class Schedule_Activity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void fetchStudentAndEvents() {
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString("Token", "");
+        String studentId = sharedPreferences.getString("StudentId", "");
+
+        if (token.isEmpty() || studentId.isEmpty()) {
+            Log.e(TAG, "Token or StudentId is missing.");
+            return;
+        }
+
+        String authHeader = "Bearer " + token;
+
+        // Fetch student profile and related events
+        StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+        Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
+
+        call.enqueue(new Callback<Student>() {
+            @Override
+            public void onResponse(Call<Student> call, Response<Student> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Student currentStudent = response.body();
+                    String studyYear = currentStudent.getStudyYear();
+                    String major = currentStudent.getMajor();
+                    Integer organizerId = calculateOrganizerId(studyYear, major);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("StudyYear", studyYear);
+                    editor.putString("Major", major);
+                    editor.apply();
+
+                    fetchEvents(authHeader, organizerId);
+                } else {
+                    Log.e(TAG, "Failed to fetch student profile: " + response.message());
+                    Toast.makeText(Schedule_Activity.this, "Unable to load schedule data", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Student> call, Throwable t) {
+                Log.e(TAG, "Error fetching student profile", t);
+                Toast.makeText(Schedule_Activity.this, "Error loading schedule", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fetchEvents(String token, Integer organizerId) {
+        EventService eventService = RetrofitClient.getInstance().create(EventService.class);
+        eventService.getEvents(token, organizerId).enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Event> events = response.body();
+                    Log.d(TAG, "Fetched " + events.size() + " events");
+
+                    Event.eventsList.clear();
+                    Event.eventsList.addAll(events);
+
+                    // Notify fragments or components about the updates if required
+                } else {
+                    Log.e(TAG, "Failed to fetch events: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                Log.e(TAG, "Error fetching events", t);
+            }
+        });
+    }
+
+    private int calculateOrganizerId(String studyYear, String major) {
+        if ("ICT".equalsIgnoreCase(major)) {
+            switch (studyYear) {
+                case "B2": return 686;
+                case "B3": return 2;
+            }
+        } else if ("CS".equalsIgnoreCase(major)) {
+            switch (studyYear) {
+                case "B2": return 18;
+                case "B3": return 689;
+            }
+        } else if ("DS".equalsIgnoreCase(major)) {
+            switch (studyYear) {
+                case "B2": return 688;
+                case "B3": return 690;
+            }
+        }
+        return 999;
     }
 }

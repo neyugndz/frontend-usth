@@ -87,79 +87,117 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
                     android:orientation="vertical">
 
-                    <!--- Header -->
+                    <!--- Entry -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Entry"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:layout_margin="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Free entry"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:layout_margin="5dp"/>
+
+                    </LinearLayout>
+
+                    <!--- Study Room -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Study Room"
+                            android:textColor="@color/white"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
+                            android:layout_margin="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Auditorium Floor 8 (330)"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:layout_margin="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Room 801 - Floor 8 (100)"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:layout_margin="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Room 802 - Floor 8 (60)"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:layout_margin="5dp"/>
+
+                    </LinearLayout>
+
+                    <!--- Map -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/previous"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Opening hours from 07 Oct to 13 Oct 2024"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:textSize="20dp"
-                            android:gravity="center"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"/>
-
-                        <ImageButton
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/forward"/>
-                        
-                    </LinearLayout>
-
-                    <!--- Date -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <!--- TabLayout -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
                             android:padding="15dp">
 
-                            <com.google.android.material.tabs.TabLayout
-                                android:id="@+id/building_detail_tablayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@color/background"
-                                app:tabIndicatorHeight="0dp"
-                                app:tabBackground="@drawable/date_select"
-                                app:tabSelectedTextColor="@color/white"
-                                app:tabTextAppearance="@style/TabLayout"
-                                app:tabTextColor="@color/white"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Map"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:textSize="25sp"/>
+
+                            <ImageButton
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@drawable/road_map_icon"/>
 
                         </LinearLayout>
 
-                        <!-- ViewPager2 -->
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/building_detail_viewPager2"
+                        <ImageView
+                            android:id="@+id/mapImage"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginTop="10dp"/>
+                            android:layout_height="260dp" />
 
                     </LinearLayout>
+
 
                 </LinearLayout>
 
             </ScrollView>
-
         </LinearLayout>
 
     </LinearLayout>
