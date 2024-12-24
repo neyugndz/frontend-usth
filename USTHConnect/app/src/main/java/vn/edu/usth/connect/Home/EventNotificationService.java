@@ -17,7 +17,7 @@ import vn.edu.usth.connect.Schedule.Schedule_Activity;
 import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.MyApplication;
 
 public class EventNotificationService extends Service {
-    public static final String CHANNEL_ID = MyApplication.CHANNEL_ID;
+    public static final String CHANNEL_ID = MyApplication.EVENT_CHANNEL_ID;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -46,6 +46,7 @@ public class EventNotificationService extends Service {
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setAutoCancel(true)
                 .setSubText("Created at: " + createdAt)  // Add created_at as a subtext
                 .build();

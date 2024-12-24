@@ -22,6 +22,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -42,6 +43,7 @@ import vn.edu.usth.connect.Home.NotificationRecyclerView.NotificationFragment;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.Utils.NotificationUtils;
 import vn.edu.usth.connect.Workers.FetchEventsWorker;
+import vn.edu.usth.connect.Workers.NotificationWorker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main); // Set layout first
 
-        // Schedule background tasks
-        scheduleEventFetchWorker();
+        // Schedule both workers to run periodically
+        scheduleWorkers();
 
 
         // ViewPager2: Change fragments: DashboardFragment, NotificationFragment, ProfileFragment
@@ -292,15 +294,65 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    // Fetch events every 10 minutes
-    private void scheduleEventFetchWorker() {
-        // Cancel existing workers with the same tag
-        WorkManager.getInstance(this).cancelAllWorkByTag("fetchEventsWorker");
-        // Periodic work for recurring execution
-        WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 15, TimeUnit.MINUTES)
-                .addTag("fetchEventsWorker")
-                .build();
-        WorkManager.getInstance(this).enqueue(fetchEventsRequest);
-        Log.d("MainActivity", "Periodic event fetch worker scheduled.");
+    private void scheduleWorkers() {
+        // Get an instance of WorkManager
+        WorkManager workManager = WorkManager.getInstance(this);
+
+        // Cancel any existing work to avoid duplicates
+        workManager.cancelAllWorkByTag("fetchEventsWorker");
+        workManager.cancelAllWorkByTag("fetchNotificationsWorker");
+
+        // Schedule FetchEventsWorker
+        PeriodicWorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(
+                FetchEventsWorker.class,
+                15,
+                TimeUnit.MINUTES
+        ).addTag("fetchEventsWorker").build();
+
+        workManager.enqueueUniquePeriodicWork(
+                "FetchEventsWork",  // Unique name for the work
+                ExistingPeriodicWorkPolicy.REPLACE,  // Replace if already scheduled
+                fetchEventsRequest
+        );
+
+        // Schedule NotificationWorker
+        PeriodicWorkRequest notificationRequest = new PeriodicWorkRequest.Builder(
+                NotificationWorker.class,
+                15,
+                TimeUnit.MINUTES
+        ).addTag("fetchNotificationsWorker").build();
+
+        workManager.enqueueUniquePeriodicWork(
+                "FetchNotificationsWork",  // Unique name for the work
+                ExistingPeriodicWorkPolicy.REPLACE,  // Replace if already scheduled
+                notificationRequest
+        );
     }
+
+                // Fetch events every 15 minutes
+//    private void scheduleEventFetchWorker() {
+//        // Cancel existing workers with the same tag
+//        WorkManager.getInstance(this).cancelAllWorkByTag("fetchEventsWorker");
+//        // Periodic work for recurring execution
+//        WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 15, TimeUnit.MINUTES)
+//                .addTag("fetchEventsWorker")
+//                .build();
+//        WorkManager.getInstance(this).enqueue(fetchEventsRequest);
+//        Log.d("MainActivity", "Periodic event fetch worker scheduled.");
+//    }
+//
+//    // Fetch notification every 15 mins
+//    private void notificationFetchWorker() {
+//        WorkManager workManager = WorkManager.getInstance(this);
+//        PeriodicWorkRequest notificationWorkRequest = new PeriodicWorkRequest.Builder(
+//                NotificationWorker.class,
+//                15, // Minimum interval for periodic work
+//                TimeUnit.MINUTES
+//        ).build();
+//        workManager.enqueueUniquePeriodicWork(
+//                "NotificationFetchWork",
+//                ExistingPeriodicWorkPolicy.REPLACE,
+//                notificationWorkRequest
+//        );
+//    }
 }

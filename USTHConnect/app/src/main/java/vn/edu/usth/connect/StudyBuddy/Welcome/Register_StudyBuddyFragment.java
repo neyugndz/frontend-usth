@@ -48,11 +48,10 @@ public class Register_StudyBuddyFragment extends Fragment {
             String password = user_password.getText().toString();
 
             if (!email.isEmpty() && !password.isEmpty()){
-<<<<<<< Updated upstream
                 SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister123456789045012345678", getContext().MODE_PRIVATE);
-=======
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1234", getContext().MODE_PRIVATE);
->>>>>>> Stashed changes
+
+               // SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1234", getContext().MODE_PRIVATE);
+
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("IsRegister", true);
                 editor.apply();

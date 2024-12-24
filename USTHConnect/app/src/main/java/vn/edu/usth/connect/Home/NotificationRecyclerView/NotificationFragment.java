@@ -93,10 +93,6 @@ public class NotificationFragment extends Fragment {
         stopFetchingNotifications();
     }
 
-    public void fetchNotificationsFromActivity() {
-        fetchNotifications();
-    }
-
     private void fetchNotifications() {
         // Fetch token and studentId from SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
@@ -155,16 +151,6 @@ public class NotificationFragment extends Fragment {
                         // Update the adapter with new notifications
                         adapter.updateNotifications(notificationList);
 
-                        // Trigger notification for the user if there are new notifications
-                        if (getActivity() != null) {
-                            // Pass notification details to the service to show the notification
-                            Notification latestNotification = notificationList.get(0);  // Assuming the most recent notification
-                            Intent serviceIntent = new Intent(getActivity(), EventNotificationService.class);
-                            serviceIntent.putExtra("notification_message", latestNotification.getMessage());
-                            serviceIntent.putExtra("created_at", latestNotification.getCreatedAt());
-                            getActivity().startService(serviceIntent);
-                        }
-
                         // Update the previous notification list to the current list
                         previousNotificationList = new ArrayList<>(notificationList);
                     } else {
@@ -195,11 +181,11 @@ public class NotificationFragment extends Fragment {
 
             // Check if the createdAt or another field differs
             if (!newNotification.getCreatedAt().equals(oldNotification.getCreatedAt())) {
-                return true; // Notifications have changed if createdAt differs
+                return true;
             }
         }
 
-        return false; // No changes detected
+        return false;
     }
 
     // Calculate OrganizerID dynamically based on StudyYear and Major
@@ -207,7 +193,7 @@ public class NotificationFragment extends Fragment {
         if ("ICT".equalsIgnoreCase(major)) {
             switch (studyYear) {
                 case "B2":
-                    return 686;
+                    return 691; //686
                 case "B3":
                     return 2;
             }
