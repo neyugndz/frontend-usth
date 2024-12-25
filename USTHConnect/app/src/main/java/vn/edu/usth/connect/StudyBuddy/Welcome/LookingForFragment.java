@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.R;
 
 public class LookingForFragment extends Fragment {
@@ -23,6 +25,8 @@ public class LookingForFragment extends Fragment {
 
     private String selectedLookingFor = "";
     private String selectedCommunicationStyle = "";
+
+    private StudyBuddyViewModel studyBuddyViewModel;
 
     // Select LookingFor and Communicate Style
     @Override
@@ -42,6 +46,9 @@ public class LookingForFragment extends Fragment {
         phone_call = v.findViewById(R.id.phone_call);
         text_message = v.findViewById(R.id.message_text);
         face_to_face = v.findViewById(R.id.face_to_face);
+
+        // Initialize ViewModel
+        studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
 
         // Button Function
         setup_function(v);
@@ -67,8 +74,8 @@ public class LookingForFragment extends Fragment {
                 break;
         }
 
-        selectedLookingFor = looking_for;
-
+//        selectedLookingFor = looking_for;
+        studyBuddyViewModel.getLookingFor().setValue(looking_for);
         checkSelect();
     }
 
@@ -94,14 +101,16 @@ public class LookingForFragment extends Fragment {
                 break;
         }
 
-        selectedCommunicationStyle = communication_style;
-
+//        selectedCommunicationStyle = communication_style;
+        studyBuddyViewModel.getCommunicationStyle().setValue(communication_style);
         checkSelect();
     }
 
     // Enable Button
     private void checkSelect(){
-        if (!selectedLookingFor.isEmpty() && !selectedCommunicationStyle.isEmpty()) {
+//        if (!selectedLookingFor.isEmpty() && !selectedCommunicationStyle.isEmpty()) {
+        if (studyBuddyViewModel.getLookingFor().getValue() != null && !studyBuddyViewModel.getLookingFor().getValue().isEmpty() &&
+                studyBuddyViewModel.getCommunicationStyle().getValue() != null && !studyBuddyViewModel.getCommunicationStyle().getValue().isEmpty()) {
             next_button.setEnabled(true);
         } else {
             next_button.setEnabled(false);

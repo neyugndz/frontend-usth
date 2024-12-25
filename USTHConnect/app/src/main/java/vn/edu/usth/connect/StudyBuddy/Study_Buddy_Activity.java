@@ -59,13 +59,15 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_study_buddy);
 
         // SharedPreference for the 1st time
-        SharedPreferences sharedPreferences = getSharedPreferences("ToRegister123456789045012345678", MODE_PRIVATE);
-        boolean isRegister = sharedPreferences.getBoolean("IsRegister", false);
+//        SharedPreferences sharedPreferences = getSharedPreferences("ToRegister123456789045012345678", MODE_PRIVATE);
+//        boolean isRegister = sharedPreferences.getBoolean("IsRegister", false);
+//
+//        if (!isRegister) {
+//            // Move to WelcomeFragment
+//            navigatorToRegister();
+//        }
 
-        if (!isRegister) {
-            // Move to WelcomeFragment
-            navigatorToRegister();
-        }
+        navigatorToRegister();
 
         // ViewPager2: Change fragments: MessageFragment, StudyBuddyFragment, StudyBuddyProfileFragment
         mviewPager = findViewById(R.id.view_study_buddy_pager);

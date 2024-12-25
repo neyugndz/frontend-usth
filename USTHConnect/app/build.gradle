@@ -39,6 +39,7 @@ dependencies {
     implementation libs.room.runtime
     implementation libs.lifecycle.livedata.ktx
     implementation libs.work.runtime
+    implementation libs.jackson.databind
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

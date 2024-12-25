@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.R;
 
 
@@ -50,12 +52,19 @@ public class StudyFragment extends Fragment {
     // Common Button
     private Button next_button;
 
+    private StudyBuddyViewModel studyBuddyViewModel;
+
+
     // Get Local and Time to study from Study Buddy
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // fragment_study.xml
         View v = inflater.inflate(R.layout.fragment_study, container, false);
+
+        // Initialize ViewModel
+        studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
+
 
         // Load Study Locate from Assets folder
         loadLocatefromFile();
@@ -95,12 +104,14 @@ public class StudyFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedTime = adapterView.getItemAtPosition(i).toString();
+                studyBuddyViewModel.getPreferredTimes().setValue(Arrays.asList(selectedTime));  // Store selected time
                 checkSelect();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 selectedTime = hintTime;
+                studyBuddyViewModel.getPreferredTimes().setValue(new ArrayList<>());  // Store selected time
                 checkSelect();
             }
         });
@@ -173,7 +184,7 @@ public class StudyFragment extends Fragment {
 
         next_button.setEnabled(false);
         next_button.setOnClickListener(view -> {
-            locationStudy = selectedStudyLocate.toArray(new String[0]);
+//            locationStudy = selectedStudyLocate.toArray(new String[0]);
             navigatorToNextFragment();
         });
 

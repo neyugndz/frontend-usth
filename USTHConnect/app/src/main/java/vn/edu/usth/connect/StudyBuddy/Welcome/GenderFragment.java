@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.R;
 
 
@@ -22,6 +24,8 @@ public class GenderFragment extends Fragment {
     private Button male, female, other, next_button;
 
     private String selectGender = "";
+
+    private StudyBuddyViewModel studyBuddyViewModel;
 
     // Select Gender of Study Buddy
     @Override
@@ -35,6 +39,9 @@ public class GenderFragment extends Fragment {
         female = v.findViewById(R.id.female);
         other = v.findViewById(R.id.other_gender);
         next_button = v.findViewById(R.id.next_button);
+
+        // Initialize ViewModel
+        studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
 
         // Button Function
         setup_function(v);
@@ -71,6 +78,7 @@ public class GenderFragment extends Fragment {
 
         next_button.setEnabled(false);
         next_button.setOnClickListener(view -> {
+            studyBuddyViewModel.getGender().setValue(selectGender); // Save gender in ViewModel
             navigatorToNextFragment();
         });
 

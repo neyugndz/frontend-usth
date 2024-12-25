@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.R;
 
 public class SubjectFragment extends Fragment {
@@ -36,6 +38,8 @@ public class SubjectFragment extends Fragment {
     private String hintSubject = "Choose your favourite subject";
 
     private Button next_button;
+
+    private StudyBuddyViewModel studyBuddyViewModel;
 
     // Get Favorite Subject from Study Buddy
     @Override
@@ -57,6 +61,9 @@ public class SubjectFragment extends Fragment {
             TextView tagView = createTagView(subject, flexboxLayout);
             flexboxLayout.addView(tagView);
         }
+
+        // Initialize ViewModel
+        studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
 
         // Button Function
         setup_function(v);
@@ -90,12 +97,15 @@ public class SubjectFragment extends Fragment {
             tag.setSelected(false);
             tag.setBackgroundResource(R.drawable.rounded_border);
             selectedSubjectCount --;
-            selectedSubjectList.remove(subject);
+            studyBuddyViewModel.getFavoriteSubjects().getValue().remove(subject);
+//            selectedSubjectList.remove(subject);
         } else if (selectedSubjectCount < maxSubjectSelection) {
             tag.setSelected(true);
             tag.setBackgroundResource(R.drawable.rounded_border_selected);
             selectedSubjectCount ++;
-            selectedSubjectList.add(subject);
+            studyBuddyViewModel.getFavoriteSubjects().getValue().add(subject);
+
+//            selectedSubjectList.add(subject);
         }
         updateButton();
     }
@@ -130,7 +140,7 @@ public class SubjectFragment extends Fragment {
 
         next_button.setEnabled(false);
         next_button.setOnClickListener(view -> {
-            selectedSubject = selectedSubjectList.toArray(new String[0]);
+//            selectedSubject = selectedSubjectList.toArray(new String[0]);
             navigatorToNextFragment();
         });
     }

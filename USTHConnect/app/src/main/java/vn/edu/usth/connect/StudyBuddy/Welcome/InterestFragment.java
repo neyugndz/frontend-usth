@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.R;
 
 public class InterestFragment extends Fragment {
@@ -35,12 +37,18 @@ public class InterestFragment extends Fragment {
 
     private Button next_button;
 
+    private StudyBuddyViewModel studyBuddyViewModel;
+
+
     // Select Interest of Study Buddy
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // fragment_interest.xml
         View v = inflater.inflate(R.layout.fragment_interest, container, false);
+
+        // Initialize ViewModel
+        studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
 
         // Load Interest from Assets folder
         loadInterestsfromFile();
@@ -89,12 +97,14 @@ public class InterestFragment extends Fragment {
             tag.setSelected(false);
             tag.setBackgroundResource(R.drawable.rounded_border);
             selectedCount --;
-            selectedInterestList.remove(interest);
+            studyBuddyViewModel.getInterests().getValue().remove(interest);
+//            selectedInterestList.remove(interest);
         } else if (selectedCount < maxSelection) {
             tag.setSelected(true);
             tag.setBackgroundResource(R.drawable.rounded_border_selected);
             selectedCount ++;
-            selectedInterestList.add(interest);
+            studyBuddyViewModel.getInterests().getValue().add(interest);
+//            selectedInterestList.add(interest);
         }
         updateButton();
     }
@@ -129,7 +139,7 @@ public class InterestFragment extends Fragment {
 
         next_button.setEnabled(false);
         next_button.setOnClickListener(view -> {
-            selectedInterest = selectedInterestList.toArray(new String[0]);
+//            selectedInterest = selectedInterestList.toArray(new String[0]);
             navigatorToNextFragment();
         });
     }

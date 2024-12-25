@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import java.util.Arrays;
 import java.util.List;
 
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.R;
 
 public class PersonalityFragment extends Fragment {
@@ -26,6 +28,8 @@ public class PersonalityFragment extends Fragment {
 
     private String hint = "Select your personality";
     private String selectedPersonality = "";
+
+    private StudyBuddyViewModel studyBuddyViewModel;
 
     // Select Personality of Study Buddy
     @Override
@@ -38,6 +42,9 @@ public class PersonalityFragment extends Fragment {
         next_button = v.findViewById(R.id.next_button);
 
         personality = getResources().getStringArray(R.array.personality);
+
+        // Initialize ViewModel
+        studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
 
         // Button Function
         setup_function(v);
@@ -80,6 +87,7 @@ public class PersonalityFragment extends Fragment {
 
         next_button.setEnabled(false);
         next_button.setOnClickListener(view -> {
+            studyBuddyViewModel.getGender().setValue(selectedPersonality); // Save personality in ViewModel
             navigatorToNextFragment();
         });
 
