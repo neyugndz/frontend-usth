@@ -48,7 +48,7 @@ public class Register_StudyBuddyFragment extends Fragment {
             String password = user_password.getText().toString();
 
             if (!email.isEmpty() && !password.isEmpty()){
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister123456789045012345678", getContext().MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1234567899", getContext().MODE_PRIVATE);
 
                // SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1234", getContext().MODE_PRIVATE);
 
