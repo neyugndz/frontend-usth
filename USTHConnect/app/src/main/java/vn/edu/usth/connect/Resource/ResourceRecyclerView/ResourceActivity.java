@@ -21,6 +21,7 @@ import retrofit2.Response;
 import vn.edu.usth.connect.Models.Moodle.Resource;
 import vn.edu.usth.connect.Network.ResourceService;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.R;
 
 public class ResourceActivity extends AppCompatActivity {
@@ -50,8 +51,7 @@ public class ResourceActivity extends AppCompatActivity {
     }
 
     private void fetchResources() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
+        String token = SessionManager.getInstance().getToken();
 
         if (!token.isEmpty()) {
             String authHeader = "Bearer " + token;

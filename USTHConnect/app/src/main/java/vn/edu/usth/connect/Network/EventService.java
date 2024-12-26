@@ -10,5 +10,8 @@ import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
 
 public interface EventService {
     @GET("/api/v1/events/organizer")
-    Call<List<Event>> getEvents(@Header("Authorization") String authorizationHeader, @Query("organizerId") Integer organizerId);
+    Call<List<Event>> getEvents(
+            @Header("Authorization") String authorizationHeader,
+            @Query("studyYear") String studyYear,
+            @Query("major") String major);
 }

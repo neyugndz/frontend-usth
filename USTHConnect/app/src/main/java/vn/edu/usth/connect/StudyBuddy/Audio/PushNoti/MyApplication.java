@@ -23,6 +23,7 @@ import vn.edu.usth.connect.Home.EventNotificationService;
 import vn.edu.usth.connect.Models.Notification;
 import vn.edu.usth.connect.Network.NotificationService;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 
 public class MyApplication extends Application {
 
@@ -90,19 +91,21 @@ public class MyApplication extends Application {
 //    }
 
     public void fetchNotifications() {
-        // Retrieve token, studentId, studyYear, and major from SharedPreferences
-        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
-        String studyYear = sharedPreferences.getString("StudyYear", "");
-        String major = sharedPreferences.getString("Major", "");
+        // Retrieve token, studentId, studyYear, and major from SessionManager
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+        String studyYear = SessionManager.getInstance().getStudyYear();
+        String major = SessionManager.getInstance().getMajor();
 
-        if (!token.isEmpty() && !studyYear.isEmpty() && !major.isEmpty()) {
+        if (token != null && !token.isEmpty() &&
+                studentId != null && !studentId.isEmpty() &&
+                studyYear != null && !studyYear.isEmpty() &&
+                major != null && !major.isEmpty()) {
             String authHeader = "Bearer " + token;
-            int organizerId = calculateOrganizerId(studyYear, major);
 
-            // Fetch notifications
+            // Fetch notifications using the studyYear and major
             NotificationService notificationService = RetrofitClient.getInstance().create(NotificationService.class);
-            notificationService.getNotificationsForOrganizerId(authHeader, organizerId).enqueue(new Callback<List<Notification>>() {
+            notificationService.getNotificationsForOrganizerId(authHeader, studyYear, major).enqueue(new Callback<List<Notification>>() {
                 @Override
                 public void onResponse(retrofit2.Call<List<Notification>> call, Response<List<Notification>> response) {
                     if (response.isSuccessful() && response.body() != null) {
@@ -140,35 +143,10 @@ public class MyApplication extends Application {
                 }
             });
         } else {
-            Log.e("MyApplication", "Token, studyYear, or major is missing.");
+            Log.e("MyApplication", "Token, studentId, studyYear, or major is missing.");
         }
     }
 
-    private int calculateOrganizerId(String studyYear, String major) {
-        if ("ICT".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2":
-                    return 691; //686
-                case "B3":
-                    return 2;
-            }
-        } else if ("CS".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2":
-                    return 18;
-                case "B3":
-                    return 689;
-            }
-        } else if ("DS".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2":
-                    return 688;
-                case "B3":
-                    return 690;
-            }
-        }
-        return 999;
-    }
 
     private boolean notificationsHaveChanged(List<Notification> currentList, List<Notification> previousList) {
         if (previousList == null || currentList.size() != previousList.size()) {

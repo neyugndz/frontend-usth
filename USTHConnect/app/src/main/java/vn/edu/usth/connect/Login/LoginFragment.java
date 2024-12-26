@@ -27,8 +27,11 @@ import retrofit2.Response;
 import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.Models.AuthResponse;
 import vn.edu.usth.connect.Models.LoginRequest;
+import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.AuthService;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
+import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
@@ -76,15 +79,8 @@ public class LoginFragment extends Fragment {
                     String token = response.body().getToken();
                     Log.d(TAG, "Login successful, token received: " + token);
 
-                    // Save the token in SharedPreferences
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToLogin", getContext().MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    fetchStudentDetails(token, username);
 
-                    // Save the state and String of the token
-                    editor.putBoolean("IsLoggedIn", true);
-                    editor.putString("Token", token);
-                    editor.putString("StudentId", username);
-                    editor.apply();
                     // Redirect to MainActivity
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
@@ -104,6 +100,27 @@ public class LoginFragment extends Fragment {
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fetchStudentDetails(String token, String username) {
+        StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+        String authHeader = "Bearer " + token;
+        Call<Student> call = studentService.getStudentProfile(authHeader, username);
+        call.enqueue(new Callback<Student>() {
+            @Override
+            public void onResponse(Call<Student> call, Response<Student> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Student student = response.body();
+                    // Save studyYear and major
+                    SessionManager.getInstance().saveSession(token, username, student.getStudyYear(), student.getMajor());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Student> call, Throwable t) {
+                Log.e(TAG, "Failed to fetch student details", t);
             }
         });
     }

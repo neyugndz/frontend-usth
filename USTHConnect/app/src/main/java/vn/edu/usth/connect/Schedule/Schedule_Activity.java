@@ -37,10 +37,12 @@ import retrofit2.Response;
 import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.EventService;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
+import vn.edu.usth.connect.Utils.LogoutUtils;
 
 public class Schedule_Activity extends AppCompatActivity {
 
@@ -58,21 +60,19 @@ public class Schedule_Activity extends AppCompatActivity {
         // activity_schedule
         setContentView(R.layout.activity_schedule);
 
+        String studyYear = SessionManager.getInstance().getStudyYear();
+        String major = SessionManager.getInstance().getMajor();
+
+        Log.d(TAG, "Study Year is " + studyYear + ", Major is " + major);
+
         // Fetch events on activity start
-        fetchStudentAndEvents();
+        fetchStudentAndEvents(studyYear, major);
 
         // ViewPager2: Change fragments: TimetableFragment, CourseFragment, FavoriteFragment
         mviewPager = findViewById(R.id.view_schedule_pager);
 
         // BottomNavigation: Bottom Menu :D
         bottomNavigationView = findViewById(R.id.schedule_bottom_navigation);
-
-        // Retrieve studyYear and major from SharedPreferences
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String studyYear = sharedPreferences.getString("StudyYear", "");
-        String major = sharedPreferences.getString("Major", "");
-
-        Log.d(TAG, "Study Year is " + studyYear + ", Major is " + major);
         // Adapter: Fragment_schedule_changing
         Fragment_schedule_changing adapter = new Fragment_schedule_changing(getSupportFragmentManager(), getLifecycle(), studyYear, major);
         mviewPager.setAdapter(adapter);
@@ -207,10 +207,7 @@ public class Schedule_Activity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(android.R.id.content, loginFragment);
-                transaction.commit();
+                LogoutUtils.getInstance().logoutUser(Schedule_Activity.this);
             }
         });
 
@@ -257,54 +254,26 @@ public class Schedule_Activity extends AppCompatActivity {
         }
     }
 
-    private void fetchStudentAndEvents() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
-        String studentId = sharedPreferences.getString("StudentId", "");
+    private void fetchStudentAndEvents(String studyYear, String major) {
+        String token = SessionManager.getInstance().getToken();
 
-        if (token.isEmpty() || studentId.isEmpty()) {
-            Log.e(TAG, "Token or StudentId is missing.");
+
+        if (token.isEmpty()|| studyYear.isEmpty() || major.isEmpty()) {
+            Log.e(TAG, "Token, StudyYear, or Major is missing.");
             return;
         }
 
-        String authHeader = "Bearer " + token;
+        String authHeader =  "Bearer " + token;
 
-        // Fetch student profile and related events
-        StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
-        Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
-
-        call.enqueue(new Callback<Student>() {
-            @Override
-            public void onResponse(Call<Student> call, Response<Student> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Student currentStudent = response.body();
-                    String studyYear = currentStudent.getStudyYear();
-                    String major = currentStudent.getMajor();
-                    Integer organizerId = calculateOrganizerId(studyYear, major);
-
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("StudyYear", studyYear);
-                    editor.putString("Major", major);
-                    editor.apply();
-
-                    fetchEvents(authHeader, organizerId);
-                } else {
-                    Log.e(TAG, "Failed to fetch student profile: " + response.message());
-                    Toast.makeText(Schedule_Activity.this, "Unable to load schedule data", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Student> call, Throwable t) {
-                Log.e(TAG, "Error fetching student profile", t);
-                Toast.makeText(Schedule_Activity.this, "Error loading schedule", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Now directly fetch events with the stored studyYear and major
+        fetchEvents(authHeader, studyYear, major);
     }
 
-    private void fetchEvents(String token, Integer organizerId) {
+    private void fetchEvents(String token, String studyYear, String major) {
         EventService eventService = RetrofitClient.getInstance().create(EventService.class);
-        eventService.getEvents(token, organizerId).enqueue(new Callback<List<Event>>() {
+
+        // Call the getEvents API with Authorization header, studyYear, and major
+        eventService.getEvents(token, studyYear, major).enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -314,36 +283,18 @@ public class Schedule_Activity extends AppCompatActivity {
                     Event.eventsList.clear();
                     Event.eventsList.addAll(events);
 
-                    // Notify fragments or components about the updates if required
+                    // You can now update your UI with the fetched events, e.g., notify a RecyclerView adapter
                 } else {
                     Log.e(TAG, "Failed to fetch events: " + response.message());
+                    Toast.makeText(Schedule_Activity.this, "Unable to load events", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 Log.e(TAG, "Error fetching events", t);
+                Toast.makeText(Schedule_Activity.this, "Error loading events", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private int calculateOrganizerId(String studyYear, String major) {
-        if ("ICT".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2": return 686;
-                case "B3": return 2;
-            }
-        } else if ("CS".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2": return 18;
-                case "B3": return 689;
-            }
-        } else if ("DS".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2": return 688;
-                case "B3": return 690;
-            }
-        }
-        return 999;
     }
 }

@@ -25,7 +25,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.Utils.LogoutUtils;
 
 public class CategoryActivity extends AppCompatActivity {
 
@@ -158,6 +160,13 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(CategoryActivity.this, vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity.class);
                 startActivity(i);
+            }
+        });
+        LinearLayout logout = findViewById(R.id.to_log_out);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogoutUtils.getInstance().logoutUser(CategoryActivity.this);
             }
         });
     }

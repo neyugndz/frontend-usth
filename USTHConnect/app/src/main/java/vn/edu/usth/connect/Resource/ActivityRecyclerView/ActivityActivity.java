@@ -23,6 +23,7 @@ import retrofit2.Response;
 import vn.edu.usth.connect.Models.Moodle.Activity;
 import vn.edu.usth.connect.Network.ResourceService;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.ResourceRecyclerView.ResourceActivity;
 
@@ -64,9 +65,7 @@ public class ActivityActivity extends AppCompatActivity {
     }
 
     private void fetchActivities() {
-        // Fetch token and studentId from SharedPreferences
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
+        String token = SessionManager.getInstance().getToken();
 
         if (!token.isEmpty()) {
             String authHeader = "Bearer " + token;

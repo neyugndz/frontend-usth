@@ -29,7 +29,7 @@ public class Sty_Adapter extends RecyclerView.Adapter<Sty_ViewHolder>{
     @NonNull
     @Override
     public Sty_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Sty_ViewHolder(LayoutInflater.from(context).inflate(R.layout.double_text_frame, parent, false));
+        return new Sty_ViewHolder(LayoutInflater.from(context).inflate(R.layout.double_text_frame_no_star, parent, false));
     }
 
     @Override

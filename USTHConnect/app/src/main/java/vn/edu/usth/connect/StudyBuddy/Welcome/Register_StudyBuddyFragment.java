@@ -1,5 +1,6 @@
 package vn.edu.usth.connect.StudyBuddy.Welcome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +22,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.edu.usth.connect.Login.LoginFragment;
+import vn.edu.usth.connect.Models.Student.Student;
+import vn.edu.usth.connect.Models.Student.StudentSIPDTO;
+import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
+import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity;
 
 public class Register_StudyBuddyFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
-
-    // todo: Save data in the .csv format
 
     // Register SIP Account
     // Login to Study Buddy using SIP account
@@ -48,19 +56,24 @@ public class Register_StudyBuddyFragment extends Fragment {
             String password = user_password.getText().toString();
 
             if (!email.isEmpty() && !password.isEmpty()){
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1234567899", getContext().MODE_PRIVATE);
-
-               // SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister1234", getContext().MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("IsRegister", true);
-                editor.apply();
-
-                Intent i = new Intent(getActivity(), Study_Buddy_Activity.class);
-                i.putExtra("sip_username", email);
-                i.putExtra("sip_password", password);
-                startActivity(i);
-                getActivity().finish();
+//                // Clear previous SIP credentials
+//                SharedPreferences sipPreferences = getActivity().getSharedPreferences("SIPCredentials", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor sipEditor = sipPreferences.edit();
+//                sipEditor.clear();
+//                sipEditor.apply();
+//
+//                // Save new SIP credentials in SharedPreferences
+//                sipEditor.putString("sip_username", email);  // Save SIP username
+//                sipEditor.putString("sip_password", password);  // Save SIP password
+//                sipEditor.apply();
+//
+//                // Save registration status
+//                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putBoolean("IsRegister", true);
+//                editor.apply();
+                // Call the method to update the student's SIP profile
+                updateSipProfile(email, password);
             }
         });
 
@@ -157,6 +170,47 @@ public class Register_StudyBuddyFragment extends Fragment {
                 Toast.makeText(requireContext(), "Can't open browser, check connection", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void updateSipProfile(String username, String password) {
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+
+        if (token.isEmpty() || studentId.isEmpty()) {
+            Log.e("RegisterStudyBuddy", "Token or Student ID is missing.");
+            return;
+        }
+
+        String authHeader = "Bearer " + token;
+        // Create Retrofit instance and call the update SIP profile endpoint
+        StudentSIPDTO studentSIPDTO = new StudentSIPDTO(username, password);
+        StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+
+        // Make a PATCH request to update the SIP credentials
+        studentService.updateSipProfile(authHeader, studentId, studentSIPDTO)
+                .enqueue(new Callback<Student>() {
+                    @Override
+                    public void onResponse(Call<Student> call, Response<Student> response) {
+                        if (response.isSuccessful()) {
+                            // Handle successful response
+                            Toast.makeText(getActivity(), "SIP profile registered successfully.", Toast.LENGTH_SHORT).show();
+                            // Proceed to the next activity
+                            Intent intent = new Intent(getActivity(), Study_Buddy_Activity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                        } else {
+                            // Handle failure response
+                            Toast.makeText(getActivity(), "Failed to update SIP profile.", Toast.LENGTH_SHORT).show();
+                            Log.e("RegisterStudyBuddy", "Error: " + response.message());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Student> call, Throwable t) {
+                        // Handle network failure
+                        Toast.makeText(getActivity(), "Network error, please try again.", Toast.LENGTH_SHORT).show();
+                        Log.e("RegisterStudyBuddy", "Error: " + t.getMessage());
+                    }
+                });
     }
 }

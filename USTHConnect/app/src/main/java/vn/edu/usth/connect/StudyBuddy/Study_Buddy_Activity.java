@@ -1,20 +1,17 @@
 package vn.edu.usth.connect.StudyBuddy;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,20 +25,22 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import org.linphone.core.Account;
-import org.linphone.core.Core;
-import org.linphone.core.CoreListenerStub;
-import org.linphone.core.Factory;
-import org.linphone.core.*;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
+import vn.edu.usth.connect.Network.StudyBuddyService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
-import vn.edu.usth.connect.StudyBuddy.Welcome.Register_StudyBuddyFragment;
 import vn.edu.usth.connect.StudyBuddy.Welcome.WelcomeFragment;
+import vn.edu.usth.connect.Utils.LogoutUtils;
 
 public class Study_Buddy_Activity extends AppCompatActivity {
 
@@ -52,22 +51,15 @@ public class Study_Buddy_Activity extends AppCompatActivity {
     private ImageView avatar_profile_image;
     private Handler handler = new Handler();
 
+    private static final String TAG = "Study_Buddy_Activity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // activity_study_buddy.xml
         setContentView(R.layout.activity_study_buddy);
 
-        // SharedPreference for the 1st time
-        SharedPreferences sharedPreferences = getSharedPreferences("ToRegister1234567899", MODE_PRIVATE);
-        boolean isRegister = sharedPreferences.getBoolean("IsRegister", false);
-        findViewById(R.id.sb_layout).setVisibility(View.VISIBLE);
-
-        if (!isRegister) {
-            // Move to WelcomeFragment
-            findViewById(R.id.sb_layout).setVisibility(View.GONE);
-            navigatorToRegister();
-        }
+        checkRegistrationStatus();
 
 //        navigatorToRegister();
 
@@ -157,10 +149,39 @@ public class Study_Buddy_Activity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
-
     }
 
+    // Method to check the Registration status of the StudyBuddy
+    private void checkRegistrationStatus() {
+        String token = SessionManager.getInstance().getToken();
+        if (token == null) {
+            Toast.makeText(this, "User not registered in. Redirecting to login.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
+        StudyBuddyService studyBuddyService = RetrofitClient.getInstance().create(StudyBuddyService.class);
+        Call<Map<String, Boolean>> call = studyBuddyService.isRegistered("Bearer " + token);
+        call.enqueue(new Callback<Map<String, Boolean>>() {
+            @Override
+            public void onResponse(Call<Map<String, Boolean>> call, Response<Map<String, Boolean>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    boolean isRegistered = response.body().getOrDefault("isRegistered", false);
+                    if (!isRegistered) {
+                        navigatorToRegister();
+                    }
+                } else {
+                    Log.e(TAG, "Failed to fetch registration status: " + response.code());
+                    Toast.makeText(Study_Buddy_Activity.this, "Failed to verify registration status.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Boolean>> call, Throwable t) {
+                Log.e(TAG, "Error: " + t.getMessage());
+                Toast.makeText(Study_Buddy_Activity.this, "Error checking registration status.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void navigator_drawer_function() {
         LinearLayout to_home_activity = findViewById(R.id.to_home_page);
@@ -217,13 +238,9 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(android.R.id.content, loginFragment);
-                transaction.commit();
+                LogoutUtils.getInstance().logoutUser(Study_Buddy_Activity.this);
             }
         });
-
     }
 
     private void update_picture() {
@@ -276,4 +293,5 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 }

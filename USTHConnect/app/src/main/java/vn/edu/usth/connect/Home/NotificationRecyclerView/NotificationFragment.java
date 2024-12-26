@@ -28,6 +28,7 @@ import vn.edu.usth.connect.Models.Notification;
 import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.NotificationService;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Utils.NotificationUtils;
@@ -94,47 +95,24 @@ public class NotificationFragment extends Fragment {
     }
 
     private void fetchNotifications() {
-        // Fetch token and studentId from SharedPreferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
-        String studentId = sharedPreferences.getString("StudentId", "");
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+        String studyYear = SessionManager.getInstance().getStudyYear();
+        String major = SessionManager.getInstance().getMajor();
 
-        if (!token.isEmpty() && !studentId.isEmpty()) {
+        if (!token.isEmpty() && !studentId.isEmpty() && !studyYear.isEmpty() && !major.isEmpty()) {
             String authHeader = "Bearer " + token;
 
-            // Fetch Student Profile
-            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
-            studentService.getStudentProfile(authHeader, studentId).enqueue(new Callback<Student>() {
-                @Override
-                public void onResponse(Call<Student> call, Response<Student> response) {
-                    if (response.isSuccessful() && response.body() != null) {
-                        Student currentStudent = response.body();
-                        Log.d("NotificationFragment", "Fetched student profile: " + currentStudent);
-
-                        String studyYear = currentStudent.getStudyYear();
-                        String major = currentStudent.getMajor();
-                        Integer organizerId = calculateOrganizerId(studyYear, major);
-
-                        // Fetch notifications using organizerId
-                        fetchNotificationsForOrganizer(authHeader, organizerId);
-                    } else {
-                        Log.e("NotificationFragment", "Failed to fetch student profile");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Student> call, Throwable t) {
-                    Log.e("NotificationFragment", "Error fetching student profile: " + t.getMessage());
-                }
-            });
+            // Fetch notifications using the studyYear and major
+            fetchNotificationsForOrganizer(authHeader, studyYear, major);
         } else {
-            Log.d("NotificationFragment", "Token or StudentId is empty");
+            Log.d("NotificationFragment", "Token, StudentId, StudyYear, or Major is empty");
         }
     }
 
-    private void fetchNotificationsForOrganizer(String authHeader, Integer organizerId) {
+    private void fetchNotificationsForOrganizer(String authHeader, String studyYear, String major) {
         NotificationService notificationService = RetrofitClient.getInstance().create(NotificationService.class);
-        notificationService.getNotificationsForOrganizerId(authHeader, organizerId).enqueue(new Callback<List<Notification>>() {
+        notificationService.getNotificationsForOrganizerId(authHeader, studyYear, major).enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -184,34 +162,6 @@ public class NotificationFragment extends Fragment {
                 return true;
             }
         }
-
         return false;
-    }
-
-    // Calculate OrganizerID dynamically based on StudyYear and Major
-    private int calculateOrganizerId(String studyYear, String major) {
-        if ("ICT".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2":
-                    return 691; //686
-                case "B3":
-                    return 2;
-            }
-        } else if ("CS".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2":
-                    return 18;
-                case "B3":
-                    return 689;
-            }
-        } else if ("DS".equalsIgnoreCase(major)) {
-            switch (studyYear) {
-                case "B2":
-                    return 688;
-                case "B3":
-                    return 690;
-            }
-        }
-        return 999;
     }
 }

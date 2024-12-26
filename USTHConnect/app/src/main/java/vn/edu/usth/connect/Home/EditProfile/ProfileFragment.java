@@ -31,6 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 
@@ -79,10 +80,9 @@ public class ProfileFragment extends Fragment {
 
     // Function to fetch the student's information from the database
     private void fetchUserProfile(View v) {
-        // Get token from SharedPreferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token","");
-        String studentId = sharedPreferences.getString("StudentId", "");
+        // Get token and studentId from SessionManager
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
 
         Log.d("ProfileFragment", "Token: " + token);
         Log.d("ProfileFragment", "Student ID: " + studentId);

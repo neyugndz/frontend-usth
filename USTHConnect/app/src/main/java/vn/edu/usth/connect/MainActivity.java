@@ -38,9 +38,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import vn.edu.usth.connect.Campus.Campus_Activity;
 import vn.edu.usth.connect.Home.Fragment_home_changing;
 import vn.edu.usth.connect.Home.NotificationRecyclerView.NotificationFragment;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
+import vn.edu.usth.connect.Utils.LogoutUtils;
 import vn.edu.usth.connect.Utils.NotificationUtils;
 import vn.edu.usth.connect.Workers.FetchEventsWorker;
 import vn.edu.usth.connect.Workers.NotificationWorker;
@@ -59,9 +62,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // SharePreferences: Save Login
-        SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("IsLoggedIn", false);
-        String token = sharedPreferences.getString("Token", null);
+        String token = SessionManager.getInstance().getToken();
+        boolean isLoggedIn = SessionManager.getInstance().isLoggedIn();
 
         if (!isLoggedIn || token == null || isTokenExpired(token)) {
             navigateToLoginFragment();
@@ -230,16 +232,7 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Update SharedPreferences to set isLoggedIn to false
-                SharedPreferences sharedPreferences = getSharedPreferences("ToLogin", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("IsLoggedIn", false);
-                editor.apply();
-
-                Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(android.R.id.content, loginFragment);
-                transaction.commit();
+                LogoutUtils.getInstance().logoutUser(MainActivity.this);
             }
         });
 
@@ -328,31 +321,4 @@ public class MainActivity extends AppCompatActivity {
                 notificationRequest
         );
     }
-
-                // Fetch events every 15 minutes
-//    private void scheduleEventFetchWorker() {
-//        // Cancel existing workers with the same tag
-//        WorkManager.getInstance(this).cancelAllWorkByTag("fetchEventsWorker");
-//        // Periodic work for recurring execution
-//        WorkRequest fetchEventsRequest = new PeriodicWorkRequest.Builder(FetchEventsWorker.class, 15, TimeUnit.MINUTES)
-//                .addTag("fetchEventsWorker")
-//                .build();
-//        WorkManager.getInstance(this).enqueue(fetchEventsRequest);
-//        Log.d("MainActivity", "Periodic event fetch worker scheduled.");
-//    }
-//
-//    // Fetch notification every 15 mins
-//    private void notificationFetchWorker() {
-//        WorkManager workManager = WorkManager.getInstance(this);
-//        PeriodicWorkRequest notificationWorkRequest = new PeriodicWorkRequest.Builder(
-//                NotificationWorker.class,
-//                15, // Minimum interval for periodic work
-//                TimeUnit.MINUTES
-//        ).build();
-//        workManager.enqueueUniquePeriodicWork(
-//                "NotificationFetchWork",
-//                ExistingPeriodicWorkPolicy.REPLACE,
-//                notificationWorkRequest
-//        );
-//    }
 }

@@ -13,6 +13,9 @@ public interface NotificationService {
     Call<List<Notification>> getNotifications(@Header("Authorization") String authHeader );
 
     @GET("/api/v1/notifications/organizer")
-    Call<List<Notification>> getNotificationsForOrganizerId(@Header("Authorization") String authHeader, @Query("organizerId") Integer organizerId );
+    Call<List<Notification>> getNotificationsForOrganizerId(
+            @Header("Authorization") String authHeader,
+            @Query("studyYear") String studyYear,
+            @Query("major") String major);
 
 }

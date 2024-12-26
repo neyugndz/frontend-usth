@@ -8,6 +8,7 @@ import retrofit2.http.PATCH;
 import retrofit2.http.Path;
 import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Models.Student.StudentDTO;
+import vn.edu.usth.connect.Models.Student.StudentSIPDTO;
 
 public interface StudentService {
     // Endpoint to fetch the Student profile based on their ID
@@ -23,6 +24,14 @@ public interface StudentService {
             @Header("Authorization") String token,
             @Path("id") String id,
             @Body StudentDTO studentDTO
+    );
+
+    // Endpoint to update the student with SIP information
+    @PATCH("/api/v1/students/{id}/sip")
+    Call<Student> updateSipProfile(
+            @Header("Authorization") String token,
+            @Path("id") String id,
+            @Body StudentSIPDTO studentSIPDTO
     );
 
 }

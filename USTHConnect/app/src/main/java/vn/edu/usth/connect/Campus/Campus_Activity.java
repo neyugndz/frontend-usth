@@ -30,6 +30,8 @@ import java.net.URL;
 
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
+import vn.edu.usth.connect.Schedule.Schedule_Activity;
+import vn.edu.usth.connect.Utils.LogoutUtils;
 
 public class Campus_Activity extends AppCompatActivity {
 
@@ -176,10 +178,7 @@ public class Campus_Activity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment loginFragment = new vn.edu.usth.connect.Login.LoginFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(android.R.id.content, loginFragment);
-                transaction.commit();
+                LogoutUtils.getInstance().logoutUser(Campus_Activity.this);
             }
         });
 

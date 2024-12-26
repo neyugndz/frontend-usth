@@ -65,7 +65,6 @@ public class StudyFragment extends Fragment {
         // Initialize ViewModel
         studyBuddyViewModel = new ViewModelProvider(requireActivity()).get(StudyBuddyViewModel.class);
 
-
         // Load Study Locate from Assets folder
         loadLocatefromFile();
 
@@ -151,6 +150,7 @@ public class StudyFragment extends Fragment {
             selectedLocateCount ++;
             selectedStudyLocate.add(locate);
         }
+        studyBuddyViewModel.getPreferredPlaces().setValue(selectedStudyLocate);  // Store selected locations
         checkSelect();
     }
 

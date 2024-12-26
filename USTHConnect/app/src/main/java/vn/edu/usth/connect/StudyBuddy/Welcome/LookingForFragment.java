@@ -63,7 +63,7 @@ public class LookingForFragment extends Fragment {
         study_supporter.setBackgroundResource(R.drawable.rounded_border);
 
         switch (looking_for) {
-            case "chit_chat":
+            case "chit chatting":
                 chit_chat.setBackgroundResource(R.drawable.rounded_border_selected);
                 break;
             case "share knowledge":
@@ -130,7 +130,7 @@ public class LookingForFragment extends Fragment {
 
         // Select Looking For Button
         chit_chat.setOnClickListener(view ->{
-            LookingForSelect("chit_chat");
+            LookingForSelect("chit chatting");
         });
         share_knowledge.setOnClickListener(view ->{
             LookingForSelect("share knowledge");

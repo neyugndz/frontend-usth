@@ -87,7 +87,7 @@ public class PersonalityFragment extends Fragment {
 
         next_button.setEnabled(false);
         next_button.setOnClickListener(view -> {
-            studyBuddyViewModel.getGender().setValue(selectedPersonality); // Save personality in ViewModel
+            studyBuddyViewModel.getPersonality().setValue(selectedPersonality); // Save personality in ViewModel
             navigatorToNextFragment();
         });
 
