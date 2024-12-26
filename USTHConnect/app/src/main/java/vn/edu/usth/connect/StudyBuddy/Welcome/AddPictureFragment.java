@@ -27,6 +27,7 @@ import retrofit2.Response;
 import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddy;
 import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddyViewModel;
 import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudyBuddyService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.StudyBuddy.Study_Buddy_Activity;
@@ -81,9 +82,8 @@ public class AddPictureFragment extends Fragment {
                                String lookingFor, List<String> interests, List<String> favoriteSubjects,
                                List<String> preferredPlaces, List<String> preferredTimes) {
         // Retrieve the token and studentId from SharedPreferences
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("ToLogin", Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString("Token", "");
-        String studentId = sharedPreferences.getString("StudentId", "");
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
 
         // Check if token or studentId is missing
         if (token.isEmpty() || studentId.isEmpty()) {

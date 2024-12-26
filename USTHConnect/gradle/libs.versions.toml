@@ -1,5 +1,8 @@
 [versions]
 agp = "8.5.1"
+android = "11.9.0"
+flexboxVersion = "3.0.0"
+glide = "4.12.0"
 jacksonDatabind = "2.14.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -9,6 +12,9 @@ lifecycleLivedataKtx = "2.8.7"
 material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
+materialVersion = "1.9.0"
+mediaVersion = "1.2.0"
+pluginAnnotation = "11.8.0"
 retrofit-ver = "2.9.0"
 roomRuntime = "2.6.1"
 workRuntime = "2.9.0"
@@ -36,6 +42,11 @@ openidAppauth = "0.11.1"
 linphone = "5.4.+"
 
 [libraries]
+android = { module = "com.mapbox.maps:android", version.ref = "android" }
+androidx-media-v120 = { module = "androidx.media:media", version.ref = "mediaVersion" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexboxVersion" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jacksonDatabind" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -45,6 +56,8 @@ lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx",
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+plugin-annotation = { module = "com.mapbox.maps:plugin-annotation", version.ref = "pluginAnnotation" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref="retrofit-ver"}
 retrofit2-converter = {module = "com.squareup.retrofit2:converter-gson", version.ref="retrofit-ver"}
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }

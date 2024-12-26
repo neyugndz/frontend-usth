@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         // Schedule both workers to run periodically
         scheduleWorkers();
 
-
         // ViewPager2: Change fragments: DashboardFragment, NotificationFragment, ProfileFragment
         mviewPager = findViewById(R.id.view_pager);
 

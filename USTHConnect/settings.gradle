@@ -19,6 +19,9 @@ dependencyResolutionManagement {
         maven { // For com.github.chrisbanes:PhotoView
             url = uri('https://www.jitpack.io')
         }
+        maven {
+            url = uri("https://api.mapbox.com/downloads/v2/releases/maven")
+        }
 
         def localSdkPath = gradle.properties['LinphoneSdkBuildDir']
         def localSdkMetadata = file("${localSdkPath}/maven_repository/org/linphone/linphone-sdk-android/maven-metadata.xml")

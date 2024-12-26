@@ -26,6 +26,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // Resolve conflict for libc++_shared.so
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+    }
 }
 
 dependencies {
@@ -46,21 +53,22 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     // Image Lib
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
-    implementation 'org.linphone:linphone-sdk-android:5.0+'
-//    implementation libs.linphone.get()
-//    implementation files('C:\\Users\\OS\\.gradle\\caches\\modules-2\\files-2.1\\org.linphone\\linphone-sdk-android\\5.0.71\\96ed23b0b1e997352c9d63521e004f7411b51756\\linphone-sdk-android-5.0.71-sources.jar')
+    implementation libs.glide
+    annotationProcessor libs.compiler
 
     // Flexbox for Study Buddy
-    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation libs.flexbox
 
     // Media
-    implementation 'androidx.media:media:1.2.0'
+    implementation libs.androidx.media.v120
     implementation 'com.google.code.gson:gson:2.8.9'
 
     // Linphone :)?
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation libs.material.v190
     implementation 'org.linphone:linphone-sdk-android:5.0+'
+
+    // Mapbox
+    implementation libs.android
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-accounts:0.8.0'
 }
