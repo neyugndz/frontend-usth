@@ -93,7 +93,10 @@ public class Edit_Profile_Activity extends AppCompatActivity {
             return;
         }
 
-        String updatedPassword = ((EditText) findViewById(R.id.edit_password)).getText().toString();
+        // Retype old password
+        String updatedOldPassword = ((EditText) findViewById(R.id.edit_old_password)).getText().toString();
+        // New password
+        String updatedPassword = ((EditText) findViewById(R.id.edit_new_password)).getText().toString();
         String updatedPhone = ((EditText) findViewById(R.id.edit_pNumber)).getText().toString();
 
         // Update and prepare the Student Body

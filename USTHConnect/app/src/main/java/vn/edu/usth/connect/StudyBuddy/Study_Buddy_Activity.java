@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,8 +37,10 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.edu.usth.connect.Models.Student;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
+import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.Network.StudyBuddyService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
@@ -53,6 +56,8 @@ public class Study_Buddy_Activity extends AppCompatActivity {
     private ImageView avatar_profile_image;
 
     Handler handler;
+
+    private TextView name;
 
     private static final String TAG = "Study_Buddy_Activity";
 
@@ -167,6 +172,9 @@ public class Study_Buddy_Activity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
+
+        // Set Name in Side Menu
+        fetchUserProfile();
     }
 
     // Method to check the Registration status of the StudyBuddy
@@ -285,4 +293,38 @@ public class Study_Buddy_Activity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    // Like Profile Fragment
+    private void fetchUserProfile() {
+        // Get token and studentId from SessionManager
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+
+        if(!token.isEmpty() && !studentId.isEmpty()) {
+            String authHeader = "Bearer " + token;
+
+            // Create an instance of Retrofit and call the API
+            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+            Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
+            call.enqueue(new Callback<Student>() {
+                @Override
+                public void onResponse(Call<Student> call, Response<Student> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Student student = response.body();
+                        Log.d("ProfileFragment", "Student data: " + student);  // Log student data
+                        set_text_menu(student);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Student> call, Throwable t) {
+                }
+            });
+
+        }
+    }
+
+    private void set_text_menu(Student student){
+        name = findViewById(R.id.welcome_message);
+        name.setText("Hi, " + student.getFullName());
+    }
 }

@@ -7,11 +7,13 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,13 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import vn.edu.usth.connect.Models.Student;
+import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
+import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.Schedule.Schedule_Activity;
@@ -44,6 +53,8 @@ public class Campus_Activity extends AppCompatActivity {
     private ImageView avatar_profile_image;
 
     Handler handler;
+
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +150,9 @@ public class Campus_Activity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
+
+        // Set Name in Side Menu
+        fetchUserProfile();
     }
 
     private void navigator_drawer_function(){
@@ -216,4 +230,38 @@ public class Campus_Activity extends AppCompatActivity {
         }
     }
 
+    // Like Profile Fragment
+    private void fetchUserProfile() {
+        // Get token and studentId from SessionManager
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+
+        if(!token.isEmpty() && !studentId.isEmpty()) {
+            String authHeader = "Bearer " + token;
+
+            // Create an instance of Retrofit and call the API
+            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+            Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
+            call.enqueue(new Callback<Student>() {
+                @Override
+                public void onResponse(Call<Student> call, Response<Student> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Student student = response.body();
+                        Log.d("ProfileFragment", "Student data: " + student);  // Log student data
+                        set_text_menu(student);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Student> call, Throwable t) {
+                }
+            });
+
+        }
+    }
+
+    private void set_text_menu(Student student){
+        name = findViewById(R.id.welcome_message);
+        name.setText("Hi, " + student.getFullName());
+    }
 }

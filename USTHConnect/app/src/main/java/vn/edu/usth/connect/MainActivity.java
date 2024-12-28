@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Handler;
 
@@ -40,10 +41,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.edu.usth.connect.Campus.Campus_Activity;
 import vn.edu.usth.connect.Home.Fragment_home_changing;
 import vn.edu.usth.connect.Home.NotificationRecyclerView.NotificationFragment;
+import vn.edu.usth.connect.Models.Student;
+import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
+import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.Resource.CategoryRecyclerView.CategoryActivity;
 import vn.edu.usth.connect.Utils.LogoutUtils;
 import vn.edu.usth.connect.Utils.NotificationUtils;
@@ -57,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
 
     private ImageView avatar_profile_image;
-    private Handler handler = new Handler();
+
+    private TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Load image in the Side-menu
         update_picture();
+
+        // Set Name in Side Menu
+        fetchUserProfile();
     }
 
     // Check if the token is Expired
@@ -181,6 +192,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.MainActivity.class);
+                String sidebar_name = name.toString();
+                i.putExtra("SideBar_name", sidebar_name);
                 startActivity(i);
                 finish();
             }
@@ -190,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
         to_schedule_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Intent i = new Intent(vn.edu.usth.connect.MainActivity.this, vn.edu.usth.connect.Schedule.Schedule_Activity.class);
                 startActivity(i);
                 finish();
@@ -293,5 +304,40 @@ public class MainActivity extends AppCompatActivity {
                 ExistingPeriodicWorkPolicy.REPLACE,  // Replace if already scheduled
                 notificationRequest
         );
+    }
+
+    // Like Profile Fragment
+    private void fetchUserProfile() {
+        // Get token and studentId from SessionManager
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+
+        if(!token.isEmpty() && !studentId.isEmpty()) {
+            String authHeader = "Bearer " + token;
+
+            // Create an instance of Retrofit and call the API
+            StudentService studentService = RetrofitClient.getInstance().create(StudentService.class);
+            Call<Student> call = studentService.getStudentProfile(authHeader, studentId);
+            call.enqueue(new Callback<Student>() {
+                @Override
+                public void onResponse(Call<Student> call, Response<Student> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        Student student = response.body();
+                        Log.d("ProfileFragment", "Student data: " + student);  // Log student data
+                        set_text_menu(student);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Student> call, Throwable t) {
+                }
+            });
+
+        }
+    }
+
+    private void set_text_menu(Student student){
+        name = findViewById(R.id.welcome_message);
+        name.setText("Hi, " + student.getFullName());
     }
 }

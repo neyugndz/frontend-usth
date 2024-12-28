@@ -40,7 +40,6 @@ public class ProfileFragment extends Fragment {
     private ImageView avatar_profile_image;
     private TextView fullName, dob, studentId, major, studyYear, email, phoneNumber;
     private Handler handler = new Handler();
-    private ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -147,7 +146,6 @@ public class ProfileFragment extends Fragment {
         email.setText(shortEmail(student.getEmail()));
     }
 
-
     private String shortEmail(String email) {
         int atIndex = email.indexOf("@");
         if (atIndex > 3) { // Ensure there is enough room for truncation
@@ -158,7 +156,7 @@ public class ProfileFragment extends Fragment {
         return email;
     }
 
-    class UpdateImage extends Thread {
+    class    UpdateImage extends Thread {
         private String url;
         private Bitmap bitmap;
 

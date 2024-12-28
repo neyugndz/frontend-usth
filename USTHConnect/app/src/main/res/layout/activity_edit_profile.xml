@@ -126,6 +126,7 @@
 
                                     </LinearLayout>
 
+                                    <!-- Retype Password -->
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -136,7 +137,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:textSize="18sp"
-                                            android:text="Password:"
+                                            android:text="Old Password:"
                                             android:textColor="@color/black"
                                             android:layout_marginBottom="15dp"
                                             android:paddingLeft="10dp"/>
@@ -147,18 +148,53 @@
                                             app:cardCornerRadius="55dp">
 
                                             <EditText
-                                                android:id="@+id/edit_password"
+                                                android:id="@+id/edit_old_password"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:background="@color/white"
                                                 android:padding="10dp"
-                                                android:hint="Enter Password"
+                                                android:hint="Enter Old Password"
                                                 android:inputType="textVisiblePassword"/>
 
                                         </androidx.cardview.widget.CardView>
 
                                     </LinearLayout>
 
+                                    <!-- Change New Password -->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="18sp"
+                                            android:text="New Password:"
+                                            android:textColor="@color/black"
+                                            android:layout_marginBottom="15dp"
+                                            android:paddingLeft="10dp"/>
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            app:cardCornerRadius="55dp">
+
+                                            <EditText
+                                                android:id="@+id/edit_new_password"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:background="@color/white"
+                                                android:padding="10dp"
+                                                android:hint="Enter New Password"
+                                                android:inputType="textVisiblePassword"/>
+
+                                        </androidx.cardview.widget.CardView>
+
+                                    </LinearLayout>
+
+                                    <!-- Change Phone Number -->
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
