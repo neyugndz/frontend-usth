@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Models.Student;
+package vn.edu.usth.connect.Models.Dto;
 
 public class StudentSIPDTO {
     private String sipUsername;

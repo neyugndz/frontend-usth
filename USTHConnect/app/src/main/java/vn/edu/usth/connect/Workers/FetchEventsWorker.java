@@ -2,7 +2,6 @@ package vn.edu.usth.connect.Workers;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,11 +14,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.EventService;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
-import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.Schedule.TimeTable.Event.Event;
 
 public class FetchEventsWorker extends Worker {

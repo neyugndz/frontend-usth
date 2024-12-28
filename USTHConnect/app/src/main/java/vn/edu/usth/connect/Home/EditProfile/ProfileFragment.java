@@ -29,7 +29,7 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.usth.connect.Models.Student.Student;
+import vn.edu.usth.connect.Models.Student;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudentService;

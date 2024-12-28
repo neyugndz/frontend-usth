@@ -68,12 +68,14 @@
                                 android:layout_height="35dp"
                                 android:background="@drawable/road_map_icon"/>
 
+
                         </LinearLayout>
 
+                        <!-- Static Map Image -->
                         <ImageView
-                            android:layout_width="380dp"
-                            android:layout_height="380dp"
-                            android:background="@drawable/road_map"/>
+                            android:id="@+id/mapImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp" />
 
                     </LinearLayout>
 
@@ -103,9 +105,12 @@
                         </LinearLayout>
 
                         <ImageView
+                            android:id="@+id/campus_map_image"
                             android:layout_width="380dp"
                             android:layout_height="380dp"
-                            android:background="@drawable/campus_map"/>
+                            android:background="@drawable/campus_map"
+                            android:clickable="true"
+                            android:focusable="true"/>
 
                     </LinearLayout>
 

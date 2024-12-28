@@ -1,13 +1,9 @@
 package vn.edu.usth.connect.Login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,13 +22,12 @@ import retrofit2.Response;
 import vn.edu.usth.connect.MainActivity;
 import vn.edu.usth.connect.Models.AuthResponse;
 import vn.edu.usth.connect.Models.LoginRequest;
-import vn.edu.usth.connect.Models.Student.Student;
+import vn.edu.usth.connect.Models.Student;
 import vn.edu.usth.connect.Network.AuthService;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Workers.FetchEventsWorker;
 
 public class LoginFragment extends Fragment {
 

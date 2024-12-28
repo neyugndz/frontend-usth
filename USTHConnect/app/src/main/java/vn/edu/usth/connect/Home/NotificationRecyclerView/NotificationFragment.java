@@ -1,8 +1,5 @@
 package vn.edu.usth.connect.Home.NotificationRecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +19,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import vn.edu.usth.connect.Home.EventNotificationService;
 import vn.edu.usth.connect.Models.Notification;
-import vn.edu.usth.connect.Models.Student.Student;
 import vn.edu.usth.connect.Network.NotificationService;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
-import vn.edu.usth.connect.Network.StudentService;
 import vn.edu.usth.connect.R;
-import vn.edu.usth.connect.Utils.NotificationUtils;
 
 public class NotificationFragment extends Fragment {
 

@@ -44,9 +44,18 @@ public class Building_Fragment extends Fragment {
 
         items = new ArrayList<BuildingItem>();
 
-        items.add(new BuildingItem("A21 - University of Science & Technology", "Building A21, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a21));
-        items.add(new BuildingItem("A13 - Institute of Tropical Technology", "Building A13, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a13));
-        items.add(new BuildingItem("A30 - Institute of Energy & Environmental Science & Technology", "Building A30, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a30));
+        items.add(new BuildingItem("A21 - University of Science and Technology of Hanoi", "Building A21, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a21));
+        items.add(new BuildingItem("VVL - Institute of Physics", "No, 10 Dao Tan, Cong Vi Ward, Ba Dinh District, Ha Noi", R.drawable.a13));
+        items.add(new BuildingItem("A30 - Institute of Environmental Technology", "Building A30, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a30));
+        items.add(new BuildingItem("Institute of Geology", "Lane 84, Chua Lang Ward, Lang Thuong, Dong Da, Hanoi, Vietnam", R.drawable.vvl));
+        items.add(new BuildingItem("A3 - Institute of Information Technology", "Building A3, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a3));
+        items.add(new BuildingItem("A10", "Building A10, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a28));
+        items.add(new BuildingItem("2A", "Building 2A, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a28));
+        items.add(new BuildingItem("2B - Center for High Technology Development", "Building 2B, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.b2));
+        items.add(new BuildingItem("2C", "Building 2C, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a28));
+        items.add(new BuildingItem("2H - Institute of Physics", "Building 2H, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.h2));
+        items.add(new BuildingItem("A22 - Institute of Space Technology", "Building A22, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a22));
+        items.add(new BuildingItem("A28 - Center for Research and Technology Transfer", "Building A28, No. 18 Hoang Quoc Viet, Nghia Do Ward, Cau Giay District, Hanoi", R.drawable.a28));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new BuildingAdapter(requireContext(), items);

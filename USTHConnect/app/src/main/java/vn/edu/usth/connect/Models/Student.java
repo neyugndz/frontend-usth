@@ -1,4 +1,4 @@
-package vn.edu.usth.connect.Models.Student;
+package vn.edu.usth.connect.Models;
 
 import java.util.Date;
 

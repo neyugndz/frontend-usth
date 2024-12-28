@@ -69,6 +69,7 @@ dependencies {
 
     // Mapbox
     implementation libs.android
-//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0'
-//    implementation 'com.mapbox.mapboxsdk:mapbox-android-accounts:0.8.0'
+
+    // PhotoView
+    implementation libs.photoview
 }

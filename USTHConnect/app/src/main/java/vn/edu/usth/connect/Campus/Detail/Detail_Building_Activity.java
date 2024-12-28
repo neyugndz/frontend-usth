@@ -1,15 +1,20 @@
 package vn.edu.usth.connect.Campus.Detail;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +39,14 @@ import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
 import java.util.Arrays;
 import java.util.Optional;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 import vn.edu.usth.connect.Campus.Date_adapter;
+import vn.edu.usth.connect.Models.Dto.CoordinatesDTO;
+import vn.edu.usth.connect.Network.EventService;
+import vn.edu.usth.connect.Network.LocationService;
+import vn.edu.usth.connect.Network.RetrofitClient;
+import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.R;
 
 public class Detail_Building_Activity extends AppCompatActivity {
@@ -42,11 +54,27 @@ public class Detail_Building_Activity extends AppCompatActivity {
     private MapboxMap mapboxMap;
     private PointAnnotationManager pointAnnotationManager;
 
+    private final String TAG = "Detail_Building_Activity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // activity_detail_building.xml
         setContentView(R.layout.activity_detail_building);
+
+        // Fetch the building name passed via Intent
+        String buildingName = getIntent().getStringExtra("Building Name");
+
+        // Find the parent LinearLayout where study room details will be added
+        LinearLayout studyRoomLayout = findViewById(R.id.study_room_layout);
+
+        // Check if the building name matches the required value
+        if ("A21 - University of Science and Technology of Hanoi".equals(buildingName)) {
+            // Dynamically add the study room section
+            addStudyRoomSection(studyRoomLayout);
+        } else {
+            // If building name doesn't match, hide the layout
+            studyRoomLayout.setVisibility(LinearLayout.GONE);
+        }
 
         // Set text for RecyclerView
         setup_text_recyclerview();
@@ -62,6 +90,66 @@ public class Detail_Building_Activity extends AppCompatActivity {
         });
     }
 
+    private void addStudyRoomSection(LinearLayout parentLayout) {
+        // Create the main Study Room container (LinearLayout)
+        LinearLayout studyRoomContainer = new LinearLayout(this);
+        studyRoomContainer.setOrientation(LinearLayout.VERTICAL);
+        studyRoomContainer.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        TextView studyRoomTitle = new TextView(this);
+        studyRoomTitle.setText("Study Room");
+        studyRoomTitle.setTextColor(getResources().getColor(R.color.white));
+        studyRoomTitle.setTextSize(25);
+        studyRoomTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        studyRoomTitle.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(studyRoomTitle);
+
+        TextView auditoriumText = new TextView(this);
+        auditoriumText.setText("Auditorium Floor 8 (330)");
+        auditoriumText.setTextColor(getResources().getColor(R.color.white));
+        auditoriumText.setTextSize(18);
+        auditoriumText.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(auditoriumText);
+
+        TextView room801Text = new TextView(this);
+        room801Text.setText("Room 801 - Floor 8 (100)");
+        room801Text.setTextColor(getResources().getColor(R.color.white));
+        room801Text.setTextSize(18);
+        room801Text.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(room801Text);
+
+        TextView room802Text = new TextView(this);
+        room802Text.setText("Room 802 - Floor 8 (60)");
+        room802Text.setTextColor(getResources().getColor(R.color.white));
+        room802Text.setTextSize(18);
+        room802Text.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(room802Text);
+
+        TextView room602Text = new TextView(this);
+        room602Text.setText("Room 602 - Floor 6 - Computer Room (46)");
+        room602Text.setTextColor(getResources().getColor(R.color.white));
+        room602Text.setTextSize(18);
+        room602Text.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(room602Text);
+
+        TextView room502Text = new TextView(this);
+        room502Text.setText("Room 502 - Floor 5 - Computer Room (46)");
+        room502Text.setTextColor(getResources().getColor(R.color.white));
+        room502Text.setTextSize(18);
+        room502Text.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(room502Text);
+
+        TextView room504Text = new TextView(this);
+        room504Text.setText("Room 504 - Floor 5 - Computer Room (46)");
+        room504Text.setTextColor(getResources().getColor(R.color.white));
+        room504Text.setTextSize(18);
+        room504Text.setPadding(10, 10, 10, 10);
+        studyRoomContainer.addView(room504Text);
+
+        parentLayout.addView(studyRoomContainer);
+    }
+
     // Set text building's name in Header and building's location
     private void setup_text_recyclerview(){
         TextView building_name = findViewById(R.id.detail_building_name);
@@ -73,78 +161,87 @@ public class Detail_Building_Activity extends AppCompatActivity {
         building_name.setText(name);
         building_locate.setText(locate);
 
-        // Retrieve coordinates
-        String latitude = "21.048152";
-        String longitude = "105.8011776";
+        fetchCoordinatesFromDatabase(name);
+    }
 
-        // Set the static map with marker
+    private void fetchCoordinatesFromDatabase(String buildingName) {
+        String token = SessionManager.getInstance().getToken();
+
+        if (token.isEmpty()) {
+            Log.e(TAG, "Token, StudyYear, or Major is missing.");
+            return;
+        }
+
+        String authHeader =  "Bearer " + token;
+
+        LocationService locationService = RetrofitClient.getInstance().create(LocationService.class);
+
+        locationService.getCoordinates(authHeader, buildingName).enqueue(new Callback<CoordinatesDTO>() {
+            @Override
+            public void onResponse(Call<CoordinatesDTO> call, retrofit2.Response<CoordinatesDTO> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Double latitude = response.body().getLatitude();
+                    Double longitude = response.body().getLongitude();
+
+                    setStaticMap(latitude, longitude);
+                } else {
+                    // Handle case when coordinates are not found
+                    setStaticMapFallback();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CoordinatesDTO> call, Throwable t) {
+                // Handle failure (e.g., network error)
+                setStaticMapFallback();
+            }
+        });
+    }
+
+    private void setStaticMap(Double latitude, Double longitude) {
         ImageView mapImageView = findViewById(R.id.mapImage);
+        String mapboxUrl = "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/" +
+                "pin-s+ff0000(" + longitude + "," + latitude + ")/" +  // Red marker
+                longitude + "," + latitude + ",17,0/800x600?access_token=" + getString(R.string.mapbox_access_token);
 
-        // Create the Static Map URL using the  latitude, longitude, and access token
-        String mapboxUrl = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/" +
-                longitude + "," + latitude + ",17,0/800x600?access_token=" + getString(R.string.mapbox_access_token) +
-                "&markers=" + longitude + "," + latitude + "&marker-color=%23FF0000"; // Red marker
-
-        // Load static map into ImageView using Glide
         Glide.with(this)
                 .load(mapboxUrl)
                 .into(mapImageView);
 
-//        mapView = findViewById(R.id.mapImage);
-//        mapView.getMapboxMap().loadStyleUri(Style.MAPBOX_STREETS, style -> {
-//            mapboxMap = mapView.getMapboxMap();
-//
-//            // Set the camera to building's location
-//            mapboxMap.setCamera(new CameraOptions.Builder()
-//                    .center(Point.fromLngLat(Double.parseDouble(longitude), Double.parseDouble(latitude)))
-//                    .pitch(0.0)
-//                    .zoom(15.0)
-//                    .build());
-
-            // Add custom marker after the style is loaded
-//            addCustomMarker(latitude, longitude);
-//        });
+        // Set click listener for zooming
+        mapImageView.setOnClickListener(view -> showZoomableImage(mapboxUrl));
     }
 
-//    private void addCustomMarker(String latitude, String longitude) {
-//        bitmapFromDrawables(R.drawable.red_marker) // Use your drawable resource
-//                .ifPresent(bitmap -> {
-//                    PointAnnotationManager pointAnnotationManager = mapView.getMapboxMap()
-//                            .getAnnotationPlugin()
-//                            .createPointAnnotationManager(mapView);
-//
-//                    // Set options for the point annotation
-//                    PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions()
-//                            .withPoint(Point.fromLngLat(Double.parseDouble(longitude), Double.parseDouble(latitude)))
-//                            .withIconImage(bitmap);
-//
-//                    // Add the point annotation to the map
-//                    pointAnnotationManager.create(pointAnnotationOptions);
-//                });
-//    }
+    private void setStaticMapFallback() {
+        // Fallback if coordinates are not found
+        ImageView mapImageView = findViewById(R.id.mapImage);
+        String fallbackMapUrl = "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/" +
+                "pin-s+ff0000(105.8011776,21.048152)/105.8011776,21.048152,17,0/800x600?access_token=" + getString(R.string.mapbox_access_token);
 
-    // Helper method to convert drawable resource to bitmap
-//    private Optional<Bitmap> bitmapFromDrawables(int resourceId) {
-//        Drawable drawable = AppCompatResources.getDrawable(this, resourceId);
-//        return convertDrawableToBitmap(drawable);
-//    }
-//
-//    private Optional<Bitmap> convertDrawableToBitmap(Drawable drawable) {
-//        if (drawable == null) {
-//            return java.util.Optional.empty();
-//        }
-//        if (drawable instanceof BitmapDrawable) {
-//            return java.util.Optional.of(((BitmapDrawable) drawable).getBitmap());
-//        } else {
-//            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-//            Canvas canvas = new Canvas(bitmap);
-//            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-//            drawable.draw(canvas);
-//            return java.util.Optional.of(bitmap);
-//        }
-//    }
+        Glide.with(this)
+                .load(fallbackMapUrl)
+                .into(mapImageView);
 
+        showZoomableImage(fallbackMapUrl);
+    }
 
+    private void showZoomableImage(String imageUrl) {
+        // Create a dialog
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_zoomable_image);
+
+        // Set the dialog to full screen
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        // Find PhotoView in the dialog and load the image
+        ImageView photoView = dialog.findViewById(R.id.zoomableImageView);
+        Glide.with(this).load(imageUrl).into(photoView);
+
+        // Close the dialog when clicked
+        photoView.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
+    }
 //     BackPress: backto BuildingFragment
     @Override
     public void onBackPressed() {

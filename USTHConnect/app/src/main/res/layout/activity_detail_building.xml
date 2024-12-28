@@ -103,7 +103,8 @@
                             android:textColor="@color/white"
                             android:textSize="25sp"
                             android:textStyle="bold"
-                            android:layout_margin="5dp"/>
+                            android:padding="10dp"/>
+
 
                         <TextView
                             android:layout_width="match_parent"
@@ -111,49 +112,17 @@
                             android:text="Free entry"
                             android:textColor="@color/white"
                             android:textSize="18sp"
-                            android:layout_margin="5dp"/>
+                            android:paddingLeft="10dp"/>
 
                     </LinearLayout>
 
                     <!--- Study Room -->
                     <LinearLayout
+                        android:id="@+id/study_room_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_marginBottom="20dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Study Room"
-                            android:textColor="@color/white"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            android:layout_margin="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Auditorium Floor 8 (330)"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:layout_margin="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Room 801 - Floor 8 (100)"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:layout_margin="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Room 802 - Floor 8 (60)"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:layout_margin="5dp"/>
 
                     </LinearLayout>
 
@@ -169,7 +138,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:padding="15dp">
+                            android:padding="10dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
