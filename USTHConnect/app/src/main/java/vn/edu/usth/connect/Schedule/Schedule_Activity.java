@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -211,41 +213,14 @@ public class Schedule_Activity extends AppCompatActivity {
     private void update_picture(){
         avatar_profile_image = findViewById(R.id.avatar_profile);
 
+        // Get SharePreference
         SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
-        String url = sharedPreferences.getString("Image_URL", null);
-        if (url != null) {
-            new UpdateImage(url).start();
-        }
-    }
+        String imageUriString = sharedPreferences.getString("Image_URI", null);
 
-    class UpdateImage extends Thread {
-        private String url;
-        private Bitmap bitmap;
-
-        public UpdateImage(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-            try {
-                URL imageUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            handler.post(() -> {
-                if (bitmap != null) {
-                    avatar_profile_image.setImageBitmap(bitmap);
-                } else {
-                    Toast.makeText(Schedule_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
-                }
-            });
+        // Load Image and Set Image
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            Glide.with(this).load(imageUri).into(avatar_profile_image);
         }
     }
 

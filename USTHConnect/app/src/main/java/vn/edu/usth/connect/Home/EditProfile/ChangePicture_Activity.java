@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.InputStream;
@@ -27,8 +31,8 @@ public class ChangePicture_Activity extends AppCompatActivity {
     private EditText url_image;
     private ImageView avatar_profile_image;
     private Button save_button, confirm_button;
-    private Handler handler = new Handler();
-    private ProgressDialog progressDialog;
+
+    ActivityResultLauncher<Intent> resultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,42 +48,29 @@ public class ChangePicture_Activity extends AppCompatActivity {
 
         // Button Function: Cancel Button and Back Button
         setup_function();
+
+        //
+        RegisterResult();
     }
 
-    private void load_image(){
+    private void load_image() {
         // LoadImage
-        url_image = findViewById(R.id.image_url);
+        // Image Profile ID
         avatar_profile_image = findViewById(R.id.avatar_profile);
 
-        save_button = findViewById(R.id.save_button);
-        confirm_button = findViewById(R.id.load_image_button);
+        // Button ID
+        save_button = findViewById(R.id.save_button); // save button
+        confirm_button = findViewById(R.id.load_image_button); // load image button
 
         confirm_button.setOnClickListener(view -> {
-            String url = url_image.getText().toString();
-            if (!url.isEmpty()) {
-                new LoadImage(url).start();
-            } else {
-                Toast.makeText(this, "Please enter a URL", Toast.LENGTH_SHORT).show();
-            }
+            choose_image();
         });
 
         Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(view -> {
-            String url = url_image.getText().toString();
-            if (!url.isEmpty()) {
-
-                SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Image_URL", url);
-                editor.apply();
-
-                Intent intent = new Intent(ChangePicture_Activity.this, Edit_Profile_Activity.class);
-                startActivity(intent);
-                finish();
-
-            } else {
-                onBackPressed();
-            }
+            Intent intent = new Intent(ChangePicture_Activity.this, Edit_Profile_Activity.class);
+            startActivity(intent);
+            finish();
         });
 
     }
@@ -91,50 +82,43 @@ public class ChangePicture_Activity extends AppCompatActivity {
         });
 
         Button cancel_button = findViewById(R.id.cancel_button);
-        cancel_button.setOnClickListener(view ->{
+        cancel_button.setOnClickListener(view -> {
             onBackPressed();
         });
 
     }
 
-    class LoadImage extends Thread {
-        private String url;
-        private Bitmap bitmap;
+    // Function choosing image
+    private void choose_image() {
+        // Open a mini window (1/2 screen) to select Image and set image
+        Intent i = new Intent(MediaStore.ACTION_PICK_IMAGES);
 
-        public LoadImage(String url) {
-            this.url = url;
-        }
+        // Open a new window but don't set image
+//        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-        @Override
-        public void run() {
-           handler.post(() -> {
-                progressDialog = new ProgressDialog(ChangePicture_Activity.this);
-                progressDialog.setMessage("Loading image...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-            });
+        resultLauncher.launch(i);
+    }
 
-            try {
-                URL imageUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    // Handle Image as uri
+    private void RegisterResult() {
+        resultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    try {
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                            Uri imageUri = result.getData().getData();
+                            avatar_profile_image.setImageURI(imageUri);
 
-           handler.post(() -> {
-                if (progressDialog.isShowing()) {
-                    progressDialog.dismiss();
+                            // Save URI as String for navigation
+                            SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("Image_URI", imageUri.toString());
+                            editor.apply();
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(ChangePicture_Activity.this, "No Image Selected", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                if (bitmap != null) {
-                    avatar_profile_image.setImageBitmap(bitmap);
-                } else {
-                    Toast.makeText(ChangePicture_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+        );
     }
 }

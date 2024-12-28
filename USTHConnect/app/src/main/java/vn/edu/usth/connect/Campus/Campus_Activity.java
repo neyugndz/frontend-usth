@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -40,13 +42,29 @@ public class Campus_Activity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
 
     private ImageView avatar_profile_image;
-    private Handler handler = new Handler();
+
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // activity_campus.xml
         setContentView(R.layout.activity_campus);
+
+        // Set Visible and Gone
+        findViewById(R.id.loading_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.campus_layout).setVisibility(View.GONE);
+
+        // Delay 10sec
+        // Loading
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.loading_layout).setVisibility(View.GONE);
+                findViewById(R.id.campus_layout).setVisibility(View.VISIBLE);
+            }
+        }, 10000);
 
         // ViewPager2: Change fragments: BuildingFragment and MapFragment
         mviewPager = findViewById(R.id.view_campus_pager);
@@ -187,41 +205,15 @@ public class Campus_Activity extends AppCompatActivity {
     private void update_picture(){
         avatar_profile_image = findViewById(R.id.avatar_profile);
 
+        // Get SharePreference
         SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
-        String url = sharedPreferences.getString("Image_URL", null);
-        if (url != null) {
-            new UpdateImage(url).start();
+        String imageUriString = sharedPreferences.getString("Image_URI", null);
+
+        // Load Image and Set Image
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            Glide.with(this).load(imageUri).into(avatar_profile_image);
         }
     }
 
-    class UpdateImage extends Thread {
-        private String url;
-        private Bitmap bitmap;
-
-        public UpdateImage(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-            try {
-                URL imageUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            handler.post(() -> {
-                if (bitmap != null) {
-                    avatar_profile_image.setImageBitmap(bitmap);
-                } else {
-                    Toast.makeText(Campus_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
 }

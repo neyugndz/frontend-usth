@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +37,27 @@ public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginFragment";
 
+    Handler handler;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Fragment_login.xml
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        // Set Visible and Gone
+        view.findViewById(R.id.loading_layout).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.login_layout).setVisibility(View.GONE);
+
+        // Delay 10sec
+        // Loading
+        handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.findViewById(R.id.loading_layout).setVisibility(View.GONE);
+                view.findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+            }
+        }, 10000);
 
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);

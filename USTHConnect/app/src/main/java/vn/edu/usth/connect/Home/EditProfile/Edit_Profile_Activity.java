@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -38,14 +41,18 @@ public class Edit_Profile_Activity extends AppCompatActivity {
     private Handler handler = new Handler();
     private ProgressDialog progressDialog;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // activity_edit_profile.xml
         setContentView(R.layout.activity_edit_profile);
 
+        // update profile picture from change pictire
         update_picture();
 
+        // setup button function
         setup_function();
     }
 
@@ -62,7 +69,6 @@ public class Edit_Profile_Activity extends AppCompatActivity {
 
         Button updateButton = findViewById(R.id.update_button);
         updateButton.setOnClickListener(view -> updateStudentProfile());
-
 
         Button change_picture = findViewById(R.id.change_picture_button);
         change_picture.setOnClickListener(new View.OnClickListener() {
@@ -123,60 +129,27 @@ public class Edit_Profile_Activity extends AppCompatActivity {
         });
     }
 
-
+    // Update image from ChangePicture
     private void update_picture(){
         avatar_profile_image = findViewById(R.id.avatar_profile);
 
+        // Get sharePreference from ChangePicture
         SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
-        String url = sharedPreferences.getString("Image_URL", null);
-        if (url != null) {
-            new UpdateImage(url).start();
+        String imageUriString = sharedPreferences.getString("Image_URI", null);
+
+        // Set Image
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            Glide.with(this).load(imageUri).into(avatar_profile_image);
         }
 
         Button update_button = findViewById(R.id.update_button);
         update_button.setOnClickListener(view -> {
-            SharedPreferences sharedPreferences2 = getSharedPreferences("ProfileImage", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences2.edit();
-
-            editor.putString("Image_URL", url);
-            editor.apply();
-
             Intent i = new Intent(Edit_Profile_Activity.this, MainActivity.class);
             startActivity(i);
             finish();
         });
 
-    }
-
-    class UpdateImage extends Thread {
-        private String url;
-        private Bitmap bitmap;
-
-        public UpdateImage(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-            try {
-                URL imageUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            handler.post(() -> {
-                if (bitmap != null) {
-                    avatar_profile_image.setImageBitmap(bitmap);
-                } else {
-                    Toast.makeText(Edit_Profile_Activity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
     }
 
     @Override

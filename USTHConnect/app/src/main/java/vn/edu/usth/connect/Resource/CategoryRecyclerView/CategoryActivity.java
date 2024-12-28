@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,6 +19,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -175,60 +178,15 @@ public class CategoryActivity extends AppCompatActivity {
         avatar_profile_image = findViewById(R.id.avatar_profile);
 
         SharedPreferences sharedPreferences = getSharedPreferences("ProfileImage", MODE_PRIVATE);
-        String url = sharedPreferences.getString("Image_URL", null);
-        if (url != null) {
-            new UpdateImage(url).start();
-        }
-    }
+        String imageUriString = sharedPreferences.getString("Image_URI", null);
 
-    class UpdateImage extends Thread {
-        private String url;
-        private Bitmap bitmap;
-
-        public UpdateImage(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-            try {
-                URL imageUrl = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            handler.post(() -> {
-                if (bitmap != null) {
-                    avatar_profile_image.setImageBitmap(bitmap);
-                } else {
-                    Toast.makeText(CategoryActivity.this, "Failed to load image", Toast.LENGTH_SHORT).show();
-                }
-            });
+        if (imageUriString != null) {
+            Uri imageUri = Uri.parse(imageUriString);
+            Glide.with(this).load(imageUri).into(avatar_profile_image);
         }
     }
 
     // Filter for SearchView
-//    private void filterList(String text) {
-//        List<Course> filteredCourses = new ArrayList<>();
-//
-//        for (Course course : courses) {
-//            if (course.getCourseName().toLowerCase().contains(text.toLowerCase())) {
-//                filteredCourses.add(course);
-//            }
-//        }
-//
-//        if (filteredCourses.isEmpty()) {
-//            Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show();
-//        } else {
-//            adapter = new Resource_course_Adapter(this, filteredCourses);
-//            recyclerView.setAdapter(adapter);
-//        }
-//    }
     private void filterList(String text) {
         List<CategoryItem> filteredItems = new ArrayList<>();
 
