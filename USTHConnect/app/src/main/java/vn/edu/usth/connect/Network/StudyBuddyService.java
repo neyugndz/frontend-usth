@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddy;
 
 public interface StudyBuddyService {
@@ -20,4 +21,11 @@ public interface StudyBuddyService {
 
     @GET("/api/v1/students/isRegistered")
     Call<Map<String, Boolean>> isRegistered(@Header("Authorization") String token);
+
+    @GET("/api/v1/studyBuddy/{studentId}")
+    Call<StudyBuddy> getStudyBuddy(
+            @Header("Authorization") String token,
+            @Path("studentId") String studentId
+    );
+
 }

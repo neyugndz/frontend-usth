@@ -20,10 +20,10 @@ public class SessionManager {
     }
 
     // Store token and student ID
-//    public void saveSession(String token, String studentId) {
-//        this.token = token;
-//        this.studentId = studentId;
-//    }
+    public void saveSession(String token, String studentId) {
+        this.token = token;
+        this.studentId = studentId;
+    }
 
     public void saveSession(String token, String studentId, String studyYear, String major) {
         this.token = token;

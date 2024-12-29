@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import vn.edu.usth.connect.StudyBuddy.Profile.Study_Buddy_Profile_Fragment;
+
 public class Fragment_Study_Buddy_changeing extends FragmentStateAdapter {
     public Fragment_Study_Buddy_changeing(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);

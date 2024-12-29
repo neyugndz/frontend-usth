@@ -92,6 +92,9 @@ public class LoginFragment extends Fragment {
                     String token = response.body().getToken();
                     Log.d(TAG, "Login successful, token received: " + token);
 
+                    // Save token and update session before navigating
+                    SessionManager.getInstance().saveSession(token, username);
+
                     fetchStudentDetails(token, username);
 
                     // Redirect to MainActivity
