@@ -193,6 +193,7 @@ public class Study_Buddy_Activity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     boolean isRegistered = response.body().getOrDefault("isRegistered", false);
                     if (!isRegistered) {
+                        findViewById(R.id.study_buddy_layout).setVisibility(View.GONE);
                         navigatorToRegister();
                     }
                 } else {
