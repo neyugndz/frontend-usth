@@ -12,7 +12,8 @@ public class Fragment_Study_Buddy_changeing extends FragmentStateAdapter {
     public Fragment_Study_Buddy_changeing(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
 
-    }@NonNull
+    }
+    @NonNull
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
@@ -27,6 +28,7 @@ public class Fragment_Study_Buddy_changeing extends FragmentStateAdapter {
             default:
                 return new Study_Buddy_Fragment();
         }
+
     }
 
     @Override

@@ -21,10 +21,12 @@ public class Rcm_UserAdapter extends RecyclerView.Adapter<Rcm_UserViewHolder> {
 
     Context context;
     List<Rcm_UserItem> items;
+    private OnConnectListener onConnectListener;
 
-    public Rcm_UserAdapter(Context context, List<Rcm_UserItem> item) {
+    public Rcm_UserAdapter(Context context, List<Rcm_UserItem> item,  OnConnectListener onConnectListener) {
         this.context = context;
         this.items = item;
+        this.onConnectListener = onConnectListener;
     }
 
     @NonNull
@@ -42,13 +44,16 @@ public class Rcm_UserAdapter extends RecyclerView.Adapter<Rcm_UserViewHolder> {
         holder.major.setText(item.getMajor());
         holder.looking_for.setText(item.getLooking_for());
         holder.image.setImageResource(item.getImage());
+        // Handle connect button click
+        holder.connectButton.setOnClickListener(v -> {
+            if (onConnectListener != null) {
+                onConnectListener.onConnect(item);
+            }
+        });
 
         holder.itemView.setOnClickListener(view -> {
             Intent i = new Intent(context, UserDetailActivity.class);
-            i.putExtra("Name", item.getName());
-            i.putExtra("Gender", item.getGender());
-            i.putExtra("Major", item.getMajor());
-            i.putExtra("LookingFor", item.getLooking_for());
+            i.putExtra("StudentId", item.getStudentId());
             context.startActivity(i);
         });
     }
@@ -56,6 +61,10 @@ public class Rcm_UserAdapter extends RecyclerView.Adapter<Rcm_UserViewHolder> {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public interface OnConnectListener {
+        void onConnect(Rcm_UserItem item);
     }
 
 }

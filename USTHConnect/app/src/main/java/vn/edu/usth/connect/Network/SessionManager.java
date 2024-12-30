@@ -1,5 +1,10 @@
 package vn.edu.usth.connect.Network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import vn.edu.usth.connect.StudyBuddy.SB_RecyclerView.Rcm_UserItem;
+
 public class SessionManager {
 
     private static SessionManager instance;
@@ -64,6 +69,27 @@ public class SessionManager {
     // Check if user is logged in (token is not null)
     public boolean isLoggedIn() {
         return token != null && !token.isEmpty();
+    }
+
+    // Store connected buddy information
+    public void storeConnectedBuddy(Rcm_UserItem buddy, Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("connected_buddy_id", buddy.getStudentId());
+        editor.putString("connected_buddy_name", buddy.getName());
+        editor.apply();
+    }
+
+    // Get the connected buddy's ID from SharedPreferences
+    public String getConnectedBuddyId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        return preferences.getString("connected_buddy_id", null); // Return null if no buddy is connected
+    }
+
+    // Get the connected buddy's name from SharedPreferences
+    public String getConnectedBuddyName(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        return preferences.getString("connected_buddy_name", null); // Return null if no buddy is connected
     }
 }
 

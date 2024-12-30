@@ -75,7 +75,7 @@ public class Campus_Activity extends AppCompatActivity {
                 findViewById(R.id.loading_layout).setVisibility(View.GONE);
                 findViewById(R.id.campus_layout).setVisibility(View.VISIBLE);
             }
-        }, 10000);
+        }, 5000);
 
         // ViewPager2: Change fragments: BuildingFragment and MapFragment
         mviewPager = findViewById(R.id.view_campus_pager);

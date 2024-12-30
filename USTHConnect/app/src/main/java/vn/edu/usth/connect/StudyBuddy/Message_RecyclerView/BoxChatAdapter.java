@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
@@ -19,7 +20,7 @@ public class BoxChatAdapter extends RecyclerView.Adapter<BoxChatViewHolder>{
 
     public BoxChatAdapter(Context context, List<BoxChatItem> items){
         this.context = context;
-        this.items = items;
+        this.items = items == null ? new ArrayList<>() : items;
     }
 
     @NonNull
@@ -53,4 +54,8 @@ public class BoxChatAdapter extends RecyclerView.Adapter<BoxChatViewHolder>{
         return items.size();
     }
 
+    public void setItems(List<BoxChatItem> newItems) {
+        this.items = newItems;
+        notifyDataSetChanged();
+    }
 }

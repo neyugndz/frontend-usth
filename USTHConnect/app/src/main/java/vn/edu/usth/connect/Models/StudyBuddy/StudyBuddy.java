@@ -5,6 +5,7 @@ import java.util.List;
 public class StudyBuddy {
     private String studentId;
     private String name;
+    private String major;
     private String gender;
     private String personality;
     private String communicationStyle;
@@ -18,12 +19,13 @@ public class StudyBuddy {
     public StudyBuddy() {
     }
 
-    public StudyBuddy(String studentId, String name, String gender, String personality,
+    public StudyBuddy(String studentId, String name, String gender, String major, String personality,
                       String communicationStyle, String lookingFor, List<String> interests,
                       List<String> favoriteSubjects, List<String> preferredPlaces, List<String> preferredTimes) {
         this.studentId = studentId;
         this.name = name;
         this.gender = gender;
+        this.major = major;
         this.personality = personality;
         this.communicationStyle = communicationStyle;
         this.lookingFor = lookingFor;
@@ -51,6 +53,14 @@ public class StudyBuddy {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     public String getGender() {

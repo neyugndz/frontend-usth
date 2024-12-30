@@ -2,14 +2,24 @@ package vn.edu.usth.connect.StudyBuddy.Message_RecyclerView;
 
 public class BoxChatItem {
 
-    String name;
-    String username; // Username for SIP Account
-    String password; // Password for SIP Account
+    private String name;
+    private String buddyId;
+    private String username; // Username for SIP Account
+    private String password; // Password for SIP Account
 
-    public BoxChatItem(String name, String username, String password) {
+    public BoxChatItem(String name, String buddyId, String username, String password) {
         this.name = name;
+        this.buddyId = buddyId;
         this.username = username;
         this.password = password;
+    }
+
+    public String getBuddyId() {
+        return buddyId;
+    }
+
+    public void setBuddyId(String buddyId) {
+        this.buddyId = buddyId;
     }
 
     public String getName() {

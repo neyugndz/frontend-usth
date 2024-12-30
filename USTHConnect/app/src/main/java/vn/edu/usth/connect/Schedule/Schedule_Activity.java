@@ -232,7 +232,6 @@ public class Schedule_Activity extends AppCompatActivity {
     private void fetchStudentAndEvents(String studyYear, String major) {
         String token = SessionManager.getInstance().getToken();
 
-
         if (token.isEmpty()|| studyYear.isEmpty() || major.isEmpty()) {
             Log.e(TAG, "Token, StudyYear, or Major is missing.");
             return;

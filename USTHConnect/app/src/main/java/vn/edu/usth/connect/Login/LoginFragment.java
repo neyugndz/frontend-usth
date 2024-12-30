@@ -57,7 +57,7 @@ public class LoginFragment extends Fragment {
                 view.findViewById(R.id.loading_layout).setVisibility(View.GONE);
                 view.findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
             }
-        }, 10000);
+        }, 5000);
 
         editTextEmail = view.findViewById(R.id.editTextEmail);
         editTextPassword = view.findViewById(R.id.editTextPassword);
@@ -131,6 +131,7 @@ public class LoginFragment extends Fragment {
                     Student student = response.body();
                     // Save studyYear and major
                     SessionManager.getInstance().saveSession(token, username, student.getStudyYear(), student.getMajor());
+
                 }
             }
 

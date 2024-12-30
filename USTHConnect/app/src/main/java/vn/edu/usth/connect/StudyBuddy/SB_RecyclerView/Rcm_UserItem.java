@@ -2,6 +2,7 @@ package vn.edu.usth.connect.StudyBuddy.SB_RecyclerView;
 
 public class Rcm_UserItem {
 
+    private String studentId;
     private String name;
     private String gender;
     private String major;
@@ -9,12 +10,21 @@ public class Rcm_UserItem {
 
     private int image;
 
-    public Rcm_UserItem(String name, String gender, String major, String looking_for, int image) {
+    public Rcm_UserItem(String studentId, String name, String gender, String major, String looking_for, int image) {
+        this.studentId = studentId;
         this.name = name;
         this.gender = gender;
         this.major = major;
         this.looking_for = looking_for;
         this.image = image;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getName() {

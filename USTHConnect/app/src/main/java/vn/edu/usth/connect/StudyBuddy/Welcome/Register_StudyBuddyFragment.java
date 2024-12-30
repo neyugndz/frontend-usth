@@ -53,24 +53,10 @@ public class Register_StudyBuddyFragment extends Fragment {
             String email = username.getText().toString();
             String password = user_password.getText().toString();
 
+            Log.d("RegisterStudyBuddy", "Username: " + email + ", Password: " + password);
+
+
             if (!email.isEmpty() && !password.isEmpty()){
-//                // Clear previous SIP credentials
-//                SharedPreferences sipPreferences = getActivity().getSharedPreferences("SIPCredentials", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor sipEditor = sipPreferences.edit();
-//                sipEditor.clear();
-//                sipEditor.apply();
-//
-//                // Save new SIP credentials in SharedPreferences
-//                sipEditor.putString("sip_username", email);  // Save SIP username
-//                sipEditor.putString("sip_password", password);  // Save SIP password
-//                sipEditor.apply();
-//
-//                // Save registration status
-//                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("ToRegister", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putBoolean("IsRegister", true);
-//                editor.apply();
-                // Call the method to update the student's SIP profile
                 updateSipProfile(email, password);
             }
         });
@@ -173,6 +159,9 @@ public class Register_StudyBuddyFragment extends Fragment {
     private void updateSipProfile(String username, String password) {
         String token = SessionManager.getInstance().getToken();
         String studentId = SessionManager.getInstance().getStudentId();
+
+        Log.d("RegisterStudyBuddy", "Token: " + token);
+        Log.d("RegisterStudyBuddy", "Student ID: " + studentId);
 
         if (token.isEmpty() || studentId.isEmpty()) {
             Log.e("RegisterStudyBuddy", "Token or Student ID is missing.");

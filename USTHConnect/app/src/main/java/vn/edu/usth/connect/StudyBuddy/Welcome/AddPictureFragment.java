@@ -105,6 +105,7 @@ public class AddPictureFragment extends Fragment {
             // Retrieve all data from the ViewModel
             String name = studyBuddyViewModel.getName().getValue();
             String gender = studyBuddyViewModel.getGender().getValue();
+            String major = SessionManager.getInstance().getMajor();
             String personality = studyBuddyViewModel.getPersonality().getValue();
             String communicationStyle = studyBuddyViewModel.getCommunicationStyle().getValue();
             String lookingFor = studyBuddyViewModel.getLookingFor().getValue();
@@ -114,12 +115,12 @@ public class AddPictureFragment extends Fragment {
             List<String> preferredTimes = studyBuddyViewModel.getPreferredTimes().getValue();
 
             // Save to backend
-            saveToBackend(name, gender, personality, communicationStyle, lookingFor, interests, favoriteSubjects, preferredPlaces, preferredTimes);
+            saveToBackend(name, gender, major,  personality, communicationStyle, lookingFor, interests, favoriteSubjects, preferredPlaces, preferredTimes);
             navigatorToNextFragment();
         });
     }
 
-    private void saveToBackend(String name, String gender, String personality, String communicationStyle,
+    private void saveToBackend(String name, String gender, String major,  String personality, String communicationStyle,
                                String lookingFor, List<String> interests, List<String> favoriteSubjects,
                                List<String> preferredPlaces, List<String> preferredTimes) {
         // Retrieve the token and studentId from SharedPreferences
@@ -135,7 +136,7 @@ public class AddPictureFragment extends Fragment {
         String authHeader = "Bearer " + token;
 
         // Prepare the StudyBuddy object
-        StudyBuddy studyBuddy = new StudyBuddy(studentId, name, gender, personality, communicationStyle,
+        StudyBuddy studyBuddy = new StudyBuddy(studentId, name, gender, major, personality, communicationStyle,
                 lookingFor, interests, favoriteSubjects, preferredPlaces,
                 preferredTimes);
 

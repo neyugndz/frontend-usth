@@ -100,8 +100,19 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
+                <Button
+                    android:id="@+id/btn_connect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Connect"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/blue_usth"
+                    android:textColor="@android:color/white"/>
+
 
             </LinearLayout>
+
 
         </RelativeLayout>
 

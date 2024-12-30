@@ -92,7 +92,11 @@ public class NotificationFragment extends Fragment {
         String studyYear = SessionManager.getInstance().getStudyYear();
         String major = SessionManager.getInstance().getMajor();
 
-        if (!token.isEmpty() && !studentId.isEmpty() && !studyYear.isEmpty() && !major.isEmpty()) {
+        if (token != null && !token.isEmpty() &&
+                studentId != null && !studentId.isEmpty() &&
+                studyYear != null && !studyYear.isEmpty() &&
+                major != null && !major.isEmpty()) {
+
             String authHeader = "Bearer " + token;
 
             // Fetch notifications using the studyYear and major

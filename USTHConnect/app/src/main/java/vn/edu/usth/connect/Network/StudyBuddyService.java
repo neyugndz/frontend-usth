@@ -1,5 +1,6 @@
 package vn.edu.usth.connect.Network;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -28,4 +29,9 @@ public interface StudyBuddyService {
             @Path("studentId") String studentId
     );
 
+    @GET("/api/v1/studyBuddy/{studentId}/recommendations/details")
+    Call<List<StudyBuddy>> getRecommendation(
+            @Header("Authorization") String token,
+            @Path("studentId") String studentId
+    );
 }
