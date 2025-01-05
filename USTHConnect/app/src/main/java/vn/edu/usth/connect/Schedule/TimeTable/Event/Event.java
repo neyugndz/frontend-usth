@@ -49,17 +49,6 @@ public class Event {
         return events;
     }
 
-    // Function to filter the events based on the course name
-//    public static ArrayList<Event> eventsForCourse(String courseName) {
-//        ArrayList<Event> filteredEvent = new ArrayList<>();
-//        for(Event event: eventsList) {
-//            if (event.getEventName().toLowerCase().contains(courseName.toLowerCase())) {
-//                filteredEvent.add(event);
-//            }
-//        }
-//        return filteredEvent;
-//    }
-
     public static ArrayList<Event> eventsForCourse(String courseName) {
         // Check if courseName is null or empty
         if (courseName == null || courseName.isEmpty()) {

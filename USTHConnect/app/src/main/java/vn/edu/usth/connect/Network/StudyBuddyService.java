@@ -9,6 +9,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import vn.edu.usth.connect.Models.StudyBuddy.Connection;
 import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddy;
 
 public interface StudyBuddyService {
@@ -33,5 +35,18 @@ public interface StudyBuddyService {
     Call<List<StudyBuddy>> getRecommendation(
             @Header("Authorization") String token,
             @Path("studentId") String studentId
+    );
+
+    @POST("/api/v1/connections/create")
+    Call<Connection> createConnection(
+            @Header("Authorization") String authHeader,
+            @Query("studyBuddy1Id") String studyBuddy1Id,
+            @Query("studyBuddy2Id") String studyBuddy2Id
+    );
+
+    @GET("/api/v1/connections/{studyBuddyId}")
+    Call<List<Connection>> getConnections(
+            @Header("Authorization") String authHeader,
+            @Path("studyBuddyId") String studyBuddyId
     );
 }

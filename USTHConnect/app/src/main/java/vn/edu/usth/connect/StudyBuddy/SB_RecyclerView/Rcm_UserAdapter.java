@@ -29,11 +29,18 @@ public class Rcm_UserAdapter extends RecyclerView.Adapter<Rcm_UserViewHolder> {
         this.onConnectListener = onConnectListener;
     }
 
+    // Method to update the items list
+    public void setItems(List<Rcm_UserItem> newItems) {
+        this.items = newItems;
+        notifyDataSetChanged();  // Notify RecyclerView about the change
+    }
+
     @NonNull
     @Override
     public Rcm_UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new Rcm_UserViewHolder(LayoutInflater.from(context).inflate(R.layout.rcm_user_frame, parent, false));
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull Rcm_UserViewHolder holder, int position) {

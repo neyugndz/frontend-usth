@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.edu.usth.connect.Models.StudyBuddy.Connection;
+import vn.edu.usth.connect.Models.StudyBuddy.StudyBuddy;
 import vn.edu.usth.connect.Network.RetrofitClient;
 import vn.edu.usth.connect.Network.SessionManager;
 import vn.edu.usth.connect.Network.StudyBuddyService;
@@ -40,26 +43,25 @@ public class Message_Fragment extends Fragment {
         // fragment_chat.xml
         View v = inflater.inflate(R.layout.fragment_chat_, container, false);
 
-        // Get username and password
-        // Idea: Get Username and Password after RegisterStudyBuddyFragment to login
-//        username = requireActivity().getIntent().getStringExtra("sip_username");
-//        password = requireActivity().getIntent().getStringExtra("sip_password");
-
-        // Retrieve the connected buddy's ID using SessionManager
-        String buddyId = SessionManager.getInstance().getConnectedBuddyId(requireContext());
-        String buddyName = SessionManager.getInstance().getConnectedBuddyName(requireContext());
-
-        getSipCredentials(buddyId, buddyName);
-
         // Setup RecyclerView
         setup_recyclerview_function(v);
+
+        fetchConnections();
 
         return v;
     }
 
-    private void getSipCredentials(String buddyId, String buddyName) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Fetch connections when the fragment becomes visible again
+        fetchConnections();
+    }
+
+    private void getSipCredentials(String buddyId, String buddyName, Long connectionId) {
         String token = SessionManager.getInstance().getToken();
         String authHeader = "Bearer " + token;
+        String studentId = SessionManager.getInstance().getStudentId();
 
         StudyBuddyService service = RetrofitClient.getInstance().create(StudyBuddyService.class);
         service.getSipCredentials(authHeader).enqueue(new Callback<Map<String, String>>() {
@@ -73,7 +75,22 @@ public class Message_Fragment extends Fragment {
                     password = credentials.get("sip_password");
 
                     // After fetching SIP credentials, update the chat items
-                    updateChatItems(buddyId, buddyName);
+                    BoxChatItem newItem = new BoxChatItem(buddyName, buddyId, username, password, connectionId, studentId);
+
+                    // Add the contact to the list if not already added
+                    boolean alreadyExists = false;
+                    for (BoxChatItem item : items) {
+                        if (item.getBuddyId().equals(buddyId)) {
+                            alreadyExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!alreadyExists) {
+                        items.add(newItem);
+                        adapter.setItems(items);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -82,25 +99,6 @@ public class Message_Fragment extends Fragment {
                     Toast.makeText(requireContext(), "Failed to fetch SIP credentials", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void updateChatItems(String buddyId, String buddyName) {
-        // Now that we have the SIP credentials, create the BoxChatItem list
-        if (items == null) {
-            items = new ArrayList<>();
-        }
-        items.add(new BoxChatItem(buddyId, buddyName, username, password)); // Add the connected buddy as the first item
-
-        // Add more test or real chat items if necessary
-//        items.add(new BoxChatItem("ducduyvx", "Duc Duy", username, password)); // Test: ducduyvx - 1234567890
-//        items.add(new BoxChatItem("vietanhngx", "Viet Anh", username, password)); // Test: vietanhngx - 1234567890
-//        items.add(new BoxChatItem("quangminhdo", "Quang Minh", username, password)); // Test: quangminhdo - 1234567890
-
-        // Notify the adapter to update the list
-        if (adapter != null) {
-            adapter.setItems(items);
-            adapter.notifyDataSetChanged();
-        }
     }
 
     // SetUp RecyclerView and SearchView
@@ -120,6 +118,7 @@ public class Message_Fragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new BoxChatAdapter(requireContext(), items);
+
         recyclerView.setAdapter(adapter);
 
         // SerachView
@@ -139,6 +138,54 @@ public class Message_Fragment extends Fragment {
             }
         });
 
+    }
+
+    private void fetchConnections() {
+        String token = SessionManager.getInstance().getToken();
+        String studentId = SessionManager.getInstance().getStudentId();
+        String authHeader = "Bearer " + token;
+
+        StudyBuddyService service = RetrofitClient.getInstance().create(StudyBuddyService.class);
+
+        // Fetch connections
+        service.getConnections(authHeader, studentId).enqueue(new Callback<List<Connection>>() {
+            @Override
+            public void onResponse(Call<List<Connection>> call, Response<List<Connection>> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    List<Connection> connections = response.body();
+
+                    Log.d("FetchConnections", "Response received: " + connections.size() + " connections found.");
+
+                    items = new ArrayList<>();
+                    for (Connection connection : connections) {
+                        StudyBuddy buddy1 = connection.getStudyBuddy1();
+                        StudyBuddy buddy2 = connection.getStudyBuddy2();
+
+                        // Determine which buddy is the other user
+                        String buddyId = buddy1.getStudentId().equals(studentId) ? buddy2.getStudentId() : buddy1.getStudentId();
+                        String buddyName = buddy1.getStudentId().equals(studentId) ? buddy2.getName() : buddy1.getName();
+
+                        Long connectionId = connection.getId();
+                        // Call to get SIP credentials
+                        getSipCredentials(buddyId, buddyName, connectionId);
+                    }
+
+                    adapter.setItems(items);
+                    adapter.notifyDataSetChanged();
+
+                    Log.d("FetchConnections", "Adapter updated with " + items.size() + " items.");
+                } else {
+                    Log.e("FetchConnections", "Failed to load connections, Response: " + response.message());
+                    Toast.makeText(requireContext(), "Failed to load connections", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Connection>> call, Throwable t) {
+                Log.e("FetchConnections", "Error fetching connections: " + t.getMessage(), t);
+                Toast.makeText(requireContext(), "Error fetching connections", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Filter for SearchView

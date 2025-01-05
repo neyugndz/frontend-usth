@@ -53,7 +53,7 @@
                             android:background="@drawable/search_box"
                             android:backgroundTint="@android:color/white"
                             android:layout_margin="10dp"
-                            android:queryHint="Search Course"
+                            android:queryHint="Search Buddy"
                             app:searchIcon="@drawable/search"/>
 
                     </LinearLayout>

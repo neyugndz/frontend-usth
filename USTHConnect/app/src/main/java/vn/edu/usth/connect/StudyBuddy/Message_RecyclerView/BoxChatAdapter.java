@@ -40,6 +40,9 @@ public class BoxChatAdapter extends RecyclerView.Adapter<BoxChatViewHolder>{
             i.putExtra("BoxChat_Name", item.getName()); // BoxChat name: Move from MessageFragment to ChatActivity
             i.putExtra("sip_username", item.getUsername()); // Username Sip Account: Move from MessageFragment to ChatActivity
             i.putExtra("sip_password", item.getPassword()); // Password Sip Account: Move from MessageFragment to ChatActivity
+            i.putExtra("connectionId", item.getConnectionId()); // Connection ID
+            i.putExtra("senderId", item.getSenderId()); // Sender ID
+            i.putExtra("receiverId", item.getBuddyId()); // Receiver ID
             context.startActivity(i);
         });
     }

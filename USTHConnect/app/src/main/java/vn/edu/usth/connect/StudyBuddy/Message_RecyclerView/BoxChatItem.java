@@ -3,15 +3,19 @@ package vn.edu.usth.connect.StudyBuddy.Message_RecyclerView;
 public class BoxChatItem {
 
     private String name;
-    private String buddyId;
+    private String buddyId; // receiver ID
     private String username; // Username for SIP Account
     private String password; // Password for SIP Account
+    private Long connectionId;
+    private String senderId;
 
-    public BoxChatItem(String name, String buddyId, String username, String password) {
+    public BoxChatItem(String name, String buddyId, String username, String password, Long connectionId, String senderId) {
         this.name = name;
         this.buddyId = buddyId;
         this.username = username;
         this.password = password;
+        this.connectionId = connectionId;
+        this.senderId = senderId;
     }
 
     public String getBuddyId() {
@@ -46,4 +50,11 @@ public class BoxChatItem {
         this.password = password;
     }
 
+    public Long getConnectionId() {
+        return connectionId;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
 }
