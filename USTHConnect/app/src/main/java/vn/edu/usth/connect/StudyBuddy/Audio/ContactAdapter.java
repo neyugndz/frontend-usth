@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.usth.connect.R;
+import vn.edu.usth.connect.StudyBuddy.Message_RecyclerView.BoxChatItem;
 
 public class ContactAdapter  extends RecyclerView.Adapter<ContactViewHolder> {
 
@@ -19,7 +21,7 @@ public class ContactAdapter  extends RecyclerView.Adapter<ContactViewHolder> {
 
     public ContactAdapter(Context context, List<ContactItem> items){
         this.context = context;
-        this.items = items;
+        this.items = items == null ? new ArrayList<>() : items;
     }
 
     @NonNull
@@ -39,6 +41,9 @@ public class ContactAdapter  extends RecyclerView.Adapter<ContactViewHolder> {
             i.putExtra("Contact_Name", item.getName()); // Contact name: Move from AudioFragment to OutgoingCall
             i.putExtra("sip_username", item.getUsername()); // Username Sip Account: Move from MessageFragment to OutgoingCall
             i.putExtra("sip_password", item.getPassword()); // Password Sip Account: Move from MessageFragment to OutgoingCall
+            i.putExtra("connectionId", item.getConnectionId()); // Connection ID
+            i.putExtra("senderId", item.getSenderId()); // Sender ID
+            i.putExtra("receiverId", item.getBuddyId()); // Receiver ID
             context.startActivity(i);
         });
     }
@@ -51,5 +56,10 @@ public class ContactAdapter  extends RecyclerView.Adapter<ContactViewHolder> {
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void setItems(List<ContactItem> newItems) {
+        this.items = newItems;
+        notifyDataSetChanged();
     }
 }

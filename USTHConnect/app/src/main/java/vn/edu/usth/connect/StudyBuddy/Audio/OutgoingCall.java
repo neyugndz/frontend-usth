@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.CallService;
 import vn.edu.usth.connect.StudyBuddy.Audio.PushNoti.MyApplication;
 
 public class OutgoingCall extends AppCompatActivity {
-
+    private static final String TAG = "OutgoingCall";
     private Core core;
 
     private String username; // Username of Sip Account
@@ -61,6 +62,8 @@ public class OutgoingCall extends AppCompatActivity {
         MyApplication app = (MyApplication) getApplicationContext();
         core = app.getLinphoneCore();
 
+        Log.d(TAG, "Core initialized: " + (core != null));
+
         // Login Outgoing
         login(username, password);
 
@@ -81,6 +84,7 @@ public class OutgoingCall extends AppCompatActivity {
         hang_up_button = findViewById(R.id.outgoing_hang_up);
         hang_up_button.setEnabled(false);;
         hang_up_button.setOnClickListener(view -> {
+            Log.d(TAG, "Hang up button clicked");
             hangUp();
         });
 
@@ -88,6 +92,7 @@ public class OutgoingCall extends AppCompatActivity {
         pause_button = findViewById(R.id.outgoing_pause);
         pause_button.setEnabled(false);
         pause_button.setOnClickListener(view -> {
+            Log.d(TAG, "Pause button clicked");
             pauseOrResume();
         });
 
@@ -95,6 +100,7 @@ public class OutgoingCall extends AppCompatActivity {
         toggle_video_button = findViewById(R.id.outgoing_toggle_video);
         toggle_video_button.setEnabled(false);
         toggle_video_button.setOnClickListener(view -> {
+            Log.d(TAG, "Toggle video button clicked");
             toggleVideo();
         });
 
@@ -102,6 +108,7 @@ public class OutgoingCall extends AppCompatActivity {
         toggle_camera_button = findViewById(R.id.outgoing_toggle_camera);
         toggle_camera_button.setEnabled(false);
         toggle_camera_button.setOnClickListener(view -> {
+            Log.d(TAG, "Toggle camera button clicked");
             toggleCamera();
         });
     }
@@ -110,6 +117,7 @@ public class OutgoingCall extends AppCompatActivity {
     private final CoreListenerStub outgoingCallCoreListener = new CoreListenerStub() {
         @Override
         public void onAccountRegistrationStateChanged(Core core, Account account, RegistrationState state, String message) {
+            Log.d(TAG, "Account registration state: " + state + ", message: " + message);
             if (state == RegistrationState.Ok) {
                 outgoingCall();
                 hang_up_button.setEnabled(true);
@@ -261,6 +269,7 @@ public class OutgoingCall extends AppCompatActivity {
 
     // Login Button
     private void login(String username, String password) {
+        Log.d(TAG, "Logging in with username: " + username);
         AuthInfo authInfo = Factory.instance().createAuthInfo(username, null, password, null, null, domain, null);
 
         Address identity = Factory.instance().createAddress("sip:" + username + "@" + domain);
@@ -289,6 +298,7 @@ public class OutgoingCall extends AppCompatActivity {
         core.setDefaultAccount(outgoing_account);
         core.addListener(outgoingCallCoreListener);
         core.start();
+        Log.d(TAG, "Login complete");
 
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, 0);
