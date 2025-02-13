@@ -217,21 +217,32 @@ public class ChatActivity extends AppCompatActivity {
     private void fetchMessages() {
         String authHeader = "Bearer " + SessionManager.getInstance().getToken();
         MessageService messageService = RetrofitClient.getInstance().create(MessageService.class);
+
         messageService.getMessages(authHeader, connectionId).enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Message> messages = response.body();
-                    for (Message message : messages) {
-                        addMessagesToHistory(message);
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        List<Message> messages = response.body();
+                        for (Message message : messages) {
+                            addMessagesToHistory(message);
+                        }
+                    } else {
+                        Log.e("ChatActivity", "Response body is null (No messages found)");
                     }
+                } else if (response.code() == 204) {
+                    Log.e("ChatActivity", "No content available (HTTP 204)");
                 } else {
                     Log.e("ChatActivity", "Failed to fetch messages. Code: " + response.code());
-                    try {
-                        String errorBody = response.errorBody().string();
-                        Log.e("ChatActivity", "Error body: " + errorBody);
-                    } catch (IOException e) {
-                        Log.e("ChatActivity", "Error reading error body", e);
+
+                    // Handle error response safely
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            Log.e("ChatActivity", "Error body: " + errorBody);
+                        } catch (IOException e) {
+                            Log.e("ChatActivity", "Error reading error body", e);
+                        }
                     }
                 }
             }
@@ -242,6 +253,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
     private void addMessageToHistory(ChatMessage chatMessage) {
